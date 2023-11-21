@@ -1,16 +1,36 @@
-import React, { memo } from 'react'
+import React, { memo } from "react";
 
-const InputForm = ({ label, value, setValue, keyPayload, invalidFields, setInvalidFields, type }) => {
+const InputForm = ({
+  label,
+  value,
+  setValue,
+  keyPayload,
+  invalidFields,
+  setInvalidFields,
+  type,
+}) => {
   return (
     <div>
-    <label htmlFor={keyPayload} for="myInput" className=' text-base ' >{label}</label>
-    <input
-        type={type || 'text'}
-        id="myInput"
-        className='outline-none bg-transparent p-2  w-full border-b-4 border-[#1266dd] focus:outline-none'
+      <label htmlFor={keyPayload} className=" text-base ">
+        {label}
+      </label>
+      <input
+        type={type || "text"}
+        className="outline-none bg-transparent p-2  w-full border-b-4 border-[#1266dd]"
+        value={value}
+        onChange={(e) =>
+          setValue((prev) => ({ ...prev, [keyPayload]: e.target.value }))
+        }
+        onFocus={() => setInvalidFields([])}
       />
-</div>
-  )
-}
+      {invalidFields.length > 0 &&
+        invalidFields.some((i) => i.name === keyPayload) && (
+          <small className="text-red-500">
+            {invalidFields.find((i) => i.name === keyPayload)?.message}
+          </small>
+        )}
+    </div>
+  );
+};
 
-export default  memo(InputForm)
+export default memo(InputForm);

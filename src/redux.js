@@ -1,10 +1,11 @@
 import rootReducer from "./store/reducers/rootReducer";
 import { persistStore } from "redux-persist";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import thunk from 'redux-thunk'
 
 const reduxStore  = () => {
 
-    const store = createStore(rootReducer) // hôm sau sẽ thêm middleware ở đây
+    const store = createStore(rootReducer, applyMiddleware(thunk)) // hôm sau sẽ thêm middleware ở đây
     const persistor = persistStore(store)
     return { store, persistor }
 }
