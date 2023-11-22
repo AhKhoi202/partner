@@ -54,12 +54,11 @@ const Header = () => {
           )}
           {isLoggedIn && (
             <div className=" flex items-center gap-1 relative">
-              <User/>
+              <User />
               <Button
                 text={"Quan ly tai khoan"}
                 textColor="text-white"
                 bgColor="bg-blue-500"
-                
                 px="px-4"
                 onClick={() => setIsShowMenu((prev) => !prev)}
               />
@@ -79,13 +78,12 @@ const Header = () => {
                   })}
                   <span
                     className="cursor-pointer hover:text-orange-500 text-blue-500 py-2 flex items-center gap-2"
-                    onClick={() => 
-                    {
-                      setIsShowMenu(false)
-                      dispatch(actions.logout())
+                    onClick={() => {
+                      setIsShowMenu(false);
+                      dispatch(actions.logout());
                     }}
                   >
-                    <AiOutlineLogin/>
+                    <AiOutlineLogin />
                     Dang xuat
                   </span>
                 </div>
