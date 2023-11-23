@@ -3,12 +3,13 @@ import { InputForm, Button } from "../../components";
 import * as action from '../../store/actions'
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
+import Swal from "sweetalert2";
 
 
 const Register = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isLoggedIn } = useSelector(state => state.auth)
+  const { isLoggedIn, msg, update } = useSelector(state => state.auth)
 
   const [invalidFields, setInvalidFields] = useState([]);
   const [payload, setPlayload] = useState({
@@ -25,6 +26,10 @@ const Register = () => {
   useEffect(() => {
     isLoggedIn && navigate('/')
   })
+
+  useEffect(() => {
+    msg && Swal.fire("Oops!", msg, "error");
+  }, [msg, update]);
 
   const handleSubmit = async () => {
     //   console.log(payload)

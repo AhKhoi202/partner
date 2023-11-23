@@ -28,7 +28,7 @@ const Sidebar = () => {
         </div>
         <span>
           Mã thành viên:{" "}
-          <small className="font-medium">{currentData?.id}</small>
+          <small className="font-medium">{currentData?.id?.match(/\d/g).join('')?.slice(0, 6)}</small>
         </span>
       </div>
       <div>

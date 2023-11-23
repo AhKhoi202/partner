@@ -1,6 +1,6 @@
 import icons from './icons'
 
-const { ImPencil2, MdOutlineLibraryBooks, BiUserPin } = icons
+const { MdOutlineLibraryBooks, BiUserPin } = icons
 
 const menuManage = [
     

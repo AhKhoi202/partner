@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { InputForm, Button } from "../../components";
-import * as action from '../../store/actions'
-import {useNavigate} from 'react-router-dom'
+import * as action from "../../store/actions";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [invalidFields, setInvalidFields] = useState([]);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { isLoggedIn , msg, update} = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
   const [payload, setPlayload] = useState({
     phone: "",
     password: "",
   });
 
   useEffect(() => {
-    isLoggedIn && navigate('/')
-  })
+    isLoggedIn && navigate("/");
+  });
 
-  useEffect(() => { 
-     msg && Swal.fire('Oops!', msg, 'error')
-  }, [msg, update])
-
+  useEffect(() => {
+    msg && Swal.fire("Oops!", msg, "error");
+  }, [msg, update]);
 
   const handleSubmit = async () => {
     let invalids = validate(payload);
-    dispatch(action.login(payload))
-
+    dispatch(action.login(payload));
     console.log(invalids);
+
   };
 
   const validate = (payload) => {
