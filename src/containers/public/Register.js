@@ -3,6 +3,7 @@ import { InputForm, Button, RadioButton } from "../../components";
 import * as action from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import validate from "../../ultils/validataFields";
 import Swal from "sweetalert2";
 
 const Register = () => {
@@ -17,7 +18,6 @@ const Register = () => {
     email: "",
     career: "",
     address: "",
-    gender: "",
   });
 
   useEffect(() => {
@@ -29,78 +29,20 @@ const Register = () => {
   }, [msg, update]);
 
   const handleSubmit = async () => {
-      console.log(payload)
-    let invalids = validate(payload);
-    if (invalids === 0) dispatch(action.register(payload));
-
-    // console.log(invalids);
-  };
-
-  const validate = (payload) => {
-    let invalids = 0;
-    let fields = Object.entries(payload);
-    fields.forEach((item) => {
-      if (item[1] === "") {
-        setInvalidFields((prev) => [
-          ...prev,
-          {
-            name: item[0],
-            message: "Bạn không được bỏ trống trường này.",
-          },
-        ]);
-        invalids++;
-      }
-    });
-    fields.forEach((item) => {
-      switch (item[0]) {
-        case "password":
-          if (item[1].length < 6) {
-            setInvalidFields((prev) => [
-              ...prev,
-              {
-                name: item[0],
-                message: "Mật khẩu phải có tối thiểu 6 kí tự.",
-              },
-            ]);
-            invalids++;
-          }
-          break;
-        case "phone":
-          if (!+item[1]) {
-            setInvalidFields((prev) => [
-              ...prev,
-              {
-                name: item[0],
-                message: "Số điện thoại không hợp lệ.",
-              },
-            ]);
-            invalids++;
-          }
-          break;
-        case "email":
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(item[1])) {
-            setInvalidFields((prev) => [
-              ...prev,
-              {
-                name: item[0],
-                message: "Địa chỉ email không hợp lệ",
-              },
-            ]);
-          }
-          break;
-
-        default:
-          break;
-      }
-    });
-    return invalids;
+    console.log(payload);
+    const validcounter = validate(payload, setInvalidFields);
+    if (validcounter === 0) {
+      dispatch(action.register(payload));
+    }
+    console.log(validcounter);
   };
 
   return (
     <div className=" text-black w-[750px] flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
       <div className="w-full p-[50px] pb-[100px] items-center justify-center ">
-        <h3 className="font-semibold text-2xl mb-3 text-center">Đăng ký làm partner</h3>
+        <h3 className="font-semibold text-2xl mb-3 text-center">
+          Đăng ký làm partner
+        </h3>
         <div className="w-full flex flex-col gap-5">
           <InputForm
             setInvalidFields={setInvalidFields}
@@ -156,7 +98,6 @@ const Register = () => {
             keyPayload={"gender"}
             type={"gender"}
           /> */}
-          
 
           <InputForm
             setInvalidFields={setInvalidFields}
