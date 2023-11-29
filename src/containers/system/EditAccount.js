@@ -1,10 +1,39 @@
 import React, { useState } from "react";
-import { InputReadOnly, InputForm1 } from "../../components";
-import { useSelector } from "react-redux";
+import { InputReadOnly, InputForm1, Button } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { apiUpdateUser } from "../../services";
+import validate from "../../ultils/validataFields";
+import Swal from "sweetalert2";
+import { getCurrent } from "../../store/actions";
 
 const EditAccount = () => {
-    const { invalidFields, setInvalidFields} = useState([]);
-    const { currentData} = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const [invalidFields, setInvalidFields] = useState([]);
+  const { currentData } = useSelector((state) => state.user);
+  const [payload, setPayload] = useState({
+    name: currentData?.name || "",
+    email: currentData?.email || "",
+    address: currentData?.address || "",
+    career: currentData?.career || "",
+    gender: currentData?.gender || "",
+  });
+  const handleSubmit = async () => {
+    const validcounter = validate(payload, setInvalidFields);
+    if (validcounter === 0) {
+      const response = await apiUpdateUser(payload);
+      if (response?.data.err === 0) {
+        Swal.fire("Done", "Chỉnh sửa thông tin thành công", "success").then(
+          () => {
+            dispatch(getCurrent());
+          }
+        );
+      } else {
+        Swal.fire("Oops!", "Chỉnh sửa thông tin không thành công", "error");
+      }
+    }
+    // console.log(validcounter);
+    // console.log(payload);
+  };
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-3xl w-full text-start font-medium py-4 border-b border-gray-200">
@@ -12,16 +41,69 @@ const EditAccount = () => {
       </h1>
       <div className="w-3/5 flex items-center justify-center flex-auto">
         <div className="py-6 flex flex-col gap-4 w-full">
-          <InputReadOnly value={currentData?.id} label="Ma thanh vien" />
-          <InputReadOnly value={currentData?.phone} label="So dien thoai" />
-          <InputForm1 setInvalidFields={setInvalidFields} invalidFields={invalidFields} label='Tên hiện thị' />
-          <InputForm1 setInvalidFields={setInvalidFields} invalidFields={invalidFields} label='Tên hiện thị' />
-          <InputForm1 setInvalidFields={setInvalidFields} invalidFields={invalidFields} label='Tên hiện thị' />
+          <InputReadOnly
+            value={currentData?.id?.match(/\d/g).join("")?.slice(0, 6) || ""}
+            label="Ma thành viên"
+          />
+          <InputReadOnly
+            editPhone
+            value={currentData?.phone}
+            label="Số điện thoại"
+          />
+          <InputForm1
+            name="name"
+            setValue={setPayload}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            value={payload.name}
+            label="Họ và tên"
+          />
+          <InputForm1
+            name="email"
+            setValue={setPayload}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            value={payload.email}
+            label="Email"
+          />
+          <InputForm1
+            name="address"
+            setValue={setPayload}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            value={payload.address}
+            label="Địa chỉ"
+          />
+          <InputForm1
+            name="career"
+            setValue={setPayload}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            value={payload.career}
+            label="Ngành nghề"
+          />
+          <InputForm1
+            name="gender"
+            setValue={setPayload}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            value={payload.gender}
+            label="Giới tính"
+          />
           <div className="flex">
-            <label className="'w-48 flex-none" htmlFor="password">
+            <label className="w-48 flex-none" htmlFor="password">
               Mật khẩu
             </label>
+            <small className="flex-auto text-blue-500 cursor-pointer">
+              Đổi mặt khẩu
+            </small>
           </div>
+          <Button
+            text="Cập nhât"
+            bgColor="bg-blue-600"
+            textColor="text-white"
+            onClick={handleSubmit}
+          />
         </div>
       </div>
     </div>

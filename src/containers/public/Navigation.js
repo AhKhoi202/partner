@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { path } from "../../ultils/constant";
 
 const notActive =
@@ -8,6 +9,8 @@ const active =
   "hover:bg-secondary2 px-4 h-full flex items-center bg-secondary2";
 
 const Navigation = ({isAdmin}) => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   return (
     <div className={`w-full flex ${isAdmin ? 'justify-start' : 'justify-center'} items-center h-[40px] bg-secondary1 text-white`}>
       <div className="w-1100 h-full flex items-center text-sm font-medium">
@@ -18,7 +21,9 @@ const Navigation = ({isAdmin}) => {
           >
             Trang chủ
           </NavLink>
-          <NavLink
+          {isLoggedIn && (
+          <>
+            <NavLink
             to={path.KHACH_HANG_TIEM_NANG}
             className={({ isActive }) => (isActive ? active : notActive)}
           >
@@ -30,6 +35,8 @@ const Navigation = ({isAdmin}) => {
           >
             Tiến độ công việc
           </NavLink>
+          </>
+          )}
         </div>
       </div>
     </div>

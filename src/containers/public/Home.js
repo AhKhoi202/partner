@@ -1,9 +1,12 @@
 import React from 'react'
 import Header from './Header.js'
-import { Outlet } from 'react-router-dom'
 import Navigation from './Navigation'
-const Home = () => {
+import { Navigate, Outlet } from 'react-router-dom'
+import { useSelector } from "react-redux";
+import { path } from "../../ultils/constant";
 
+
+const Home = () => {
   return (
     <div className='w-full flex gap-6 flex-col items-center h-full '>
       <Header/>

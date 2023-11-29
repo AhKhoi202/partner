@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { InputForm, Button } from "../../components";
-import * as action from '../../store/actions'
-import {useDispatch, useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { InputForm, Button, RadioButton } from "../../components";
+import * as action from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const Register = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { isLoggedIn, msg, update } = useSelector(state => state.auth)
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
   const [invalidFields, setInvalidFields] = useState([]);
   const [payload, setPlayload] = useState({
     phone: "",
@@ -20,23 +18,22 @@ const Register = () => {
     career: "",
     address: "",
     gender: "",
-
   });
 
   useEffect(() => {
-    isLoggedIn && navigate('/')
-  })
+    isLoggedIn && navigate("/");
+  });
 
   useEffect(() => {
     msg && Swal.fire("Oops!", msg, "error");
   }, [msg, update]);
 
   const handleSubmit = async () => {
-    //   console.log(payload)
+      console.log(payload)
     let invalids = validate(payload);
-    dispatch(action.register(payload))
+    if (invalids === 0) dispatch(action.register(payload));
 
-    // console.log(invalids); 
+    // console.log(invalids);
   };
 
   const validate = (payload) => {
@@ -103,9 +100,7 @@ const Register = () => {
   return (
     <div className=" text-black w-[750px] flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
       <div className="w-full p-[50px] pb-[100px] items-center justify-center ">
-        <h3 className="font-semibold text-2xl mb-3 text-center">
-          Đăng ký làm partner
-        </h3>
+        <h3 className="font-semibold text-2xl mb-3 text-center">Đăng ký làm partner</h3>
         <div className="w-full flex flex-col gap-5">
           <InputForm
             setInvalidFields={setInvalidFields}
@@ -115,7 +110,7 @@ const Register = () => {
             setValue={setPlayload}
             keyPayload={"name"}
             type={"name"}
-            />
+          />
           <InputForm
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
@@ -152,7 +147,7 @@ const Register = () => {
             keyPayload={"address"}
             type={"address"}
           />
-          <InputForm
+          {/* <InputForm
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Giói tính"}
@@ -160,7 +155,9 @@ const Register = () => {
             setValue={setPlayload}
             keyPayload={"gender"}
             type={"gender"}
-            />
+          /> */}
+          
+
           <InputForm
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
