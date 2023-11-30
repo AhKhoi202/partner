@@ -25,3 +25,26 @@ export const getCurrent = () => async (dispatch) => {
         })
     }
 }
+export const getCustomers = () => async (dispatch) => {
+    try {
+        const response = await apis.apiGetCustomers()
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_CUSTOMERS,
+                customers: response.data.response
+            })
+        } else {
+            dispatch({
+                type: actionTypes.GET_CUSTOMERS,
+                msg: response.data.msg,
+            })
+        }
+
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_CUSTOMERS,
+            customers: null,
+            msg: error,
+        })
+    }
+}

@@ -1,7 +1,8 @@
 import actionTypes from "../actions/actionTypes";
 
 const initState = {
-  userData: {},
+  currentData: {},
+  
 };
 
 const userReducers = (state = initState, action) => {
@@ -11,6 +12,7 @@ const userReducers = (state = initState, action) => {
         ...state,
         currentData: action.currentData || {},
       };
+   
     case actionTypes.LOGOUT:
       return {
         ...state,

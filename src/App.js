@@ -10,7 +10,7 @@ import { path } from "./ultils/constant";
 import * as actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { System, EditAccount } from "./containers/system";
+import { System, EditAccount, ListCustomers } from "./containers/system";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ function App() {
         <Route path={path.SYSTEM} element={<System />}>
 
           <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />  
+          <Route path={path.LIST_CUSTOMERS} element={<ListCustomers/>} />  
         </Route>
       </Routes>
     </div>

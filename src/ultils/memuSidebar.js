@@ -12,6 +12,12 @@ const memuSidebar = [
     },
     {
         id: 2,
+        text: 'Danh sách khách hàng',
+        path: '/he-thong/ds-khach-hang',
+        icon: <BiUserPin />
+    },
+    {
+        id: 3,
         text: 'Liên hệ',
         path: '/he-thong/lien-he',
         icon: <BiUserPin />

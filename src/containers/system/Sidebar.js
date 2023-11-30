@@ -11,7 +11,7 @@ const Sidebar = () => {
     "hover:bg-gray-200 flex  rounded-md items-center gap-2 py-2 cursor-pointer";
 
   const { currentData } = useSelector((state) => state.user);
-  console.log(currentData);
+  // console.log(currentData);
   return (
     <div className="w-[256px] flex-none p-4 flex flex-col gap-6">
       <div>
