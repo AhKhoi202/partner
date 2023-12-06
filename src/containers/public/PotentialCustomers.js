@@ -20,7 +20,7 @@ const PotentialCustomers = () => {
       userid: currentData.id,
     };
     const response = await apiCreateCustomers(finalPayLoad);
-    if (response?.data.err == 0) {
+    if (response?.data.err === 0) {
       Swal.fire(
         "Thành công",
         "Giới thiệu khách hàng thành công",

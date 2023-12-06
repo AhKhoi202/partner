@@ -28,7 +28,6 @@ export const apiUpdateUser = (payload) =>
     }
   });
 
-
 // them khachs hang tiem nang
 export const apiCreateCustomers = (payload) =>
   new Promise(async (resolve, reject) => {
@@ -44,6 +43,38 @@ export const apiCreateCustomers = (payload) =>
     }
   });
 
+  // xoa thong tin khach hang
+  export const apiDeleteCustomers = (customerId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "delete",
+        url: "/api/v1/user/delete-customer",
+        data: {
+          id: customerId,
+        }
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  // chinh sua thong tin khach hang
+  export const apiEditCustomers = (payload) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "put",
+        url: "/api/v1/user/edit-customer",
+        data: payload,
+
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 
   // hien thi thong tin khach hang
   export const apiGetCustomers = () =>

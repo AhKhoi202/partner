@@ -31,8 +31,6 @@ const EditAccount = () => {
         Swal.fire("Oops!", "Chỉnh sửa thông tin không thành công", "error");
       }
     }
-    // console.log(validcounter);
-    // console.log(payload);
   };
   return (
     <div className="flex flex-col items-center">

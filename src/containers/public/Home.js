@@ -1,9 +1,7 @@
 import React from 'react'
 import Header from './Header.js'
 import Navigation from './Navigation'
-import { Navigate, Outlet } from 'react-router-dom'
-import { useSelector } from "react-redux";
-import { path } from "../../ultils/constant";
+import { Outlet } from 'react-router-dom'
 
 
 const Home = () => {
