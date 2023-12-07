@@ -14,6 +14,8 @@ import { System, EditAccount, ListCustomers } from "./containers/system";
 
 function App() {
   const dispatch = useDispatch();
+  const { currentData } = useSelector((state) => state.user);
+
   const { isLoggedIn } = useSelector((state) => state.auth);
   useEffect(() => {
     setTimeout(() => {
@@ -36,7 +38,11 @@ function App() {
         <Route path={path.SYSTEM} element={<System />}>
 
           <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />  
-          <Route path={path.LIST_CUSTOMERS} element={<ListCustomers/>} />  
+          {/* { currentData.roleId === 'r1' &&( */}
+          <Route path={path.LIST_CUSTOMERS} element={
+          <ListCustomers/>
+        } />  
+        {/* )} */}
         </Route>
       </Routes>
     </div>
