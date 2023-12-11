@@ -24,13 +24,13 @@ const Header = () => {
   }, [navigate]);
 
   return (
-    <div className="w-1100">
-      <div className="w-full flex items-center justify-between">
-        <Link to={"/"}>
+    <div className="w-full">
+      <div className="w-full flex flex-wrap items-center justify-between">
+        <Link to="/">
           <img
             src={logo}
             alt="logo"
-            className="w-[240px] h-[70px] object-contain"
+            className="md:w-[240px] h-[70px] object-contain"
           />
         </Link>
         <div className="flex items-center gap-1">
@@ -85,7 +85,6 @@ const Header = () => {
                   >
                     <AiOutlineLogin />
                     Dang xuat
-                    
                   </span>
                 </div>
               )}

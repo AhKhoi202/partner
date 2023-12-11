@@ -4,6 +4,7 @@ import * as action from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [invalidFields, setInvalidFields] = useState([]);
@@ -27,7 +28,6 @@ const Login = () => {
     let invalids = validate(payload);
     dispatch(action.login(payload));
     console.log(invalids);
-
   };
 
   const validate = (payload) => {
@@ -80,8 +80,8 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gradient-to-bl text-white from-[#1266dd] to-black w-[750px] flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
-      <div className="w-2/4 p-[50px] pb-[100px] items-center justify-center ">
+    <div className="bg-gradient-to-bl text-white from-[#1266dd] to-black w-full md:w-[750px] flex flex-wrap border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
+      <div className="w-full md:w-2/4 p-8 md:p-[50px] pb-[100px] items-center justify-center ">
         <h3 className="font-semibold text-2xl mb-3 text-center">Đăng nhập</h3>
         <div className="w-full flex flex-col gap-5">
           <InputForm
@@ -110,16 +110,20 @@ const Login = () => {
             onClick={handleSubmit}
           />
         </div>
-        <div className="mt-7 flex items-center justify-between">
-          <small className="text-[white] hover:text-[red] cursor-pointer">
-            Bạn quên mật khẩu
-          </small>
-          <small className="text-[white] hover:text-[red] cursor-pointer">
-            Tạo tài khoản mới
-          </small>
+        <div className="mt-7 flex flex-wrap items-center justify-between">
+          <Link to="/forgot-password">
+            <small className="text-[white] hover:text-[red] cursor-pointer">
+              Bạn quên mật khẩu?
+            </small>
+          </Link>
+          <Link to="/register">
+            <small className="text-[white] hover:text-[red] cursor-pointer">
+              Tạo tài khoản mới
+            </small>
+          </Link>
         </div>
       </div>
-      <div className="w-2/4 p-[100px] pr-[50px] items-center h-full text-right ">
+      <div className="w-full md:w-2/4 p-[100px] pr-[50px] items-center h-full text-right ">
         <h3 className="font-semibold text-2xl mb-3">WELCOME TO BLUEBOLT</h3>
       </div>
     </div>
