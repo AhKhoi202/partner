@@ -6,10 +6,10 @@ import { apiDeleteCustomers, apiEditCustomers } from "../../services";
 
 const ListCustomers = () => {
   const { customers } = useSelector((state) => state.customer);
+  console.log(customers);
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
-  const [form] = Form.useForm()
-
+  const [form] = Form.useForm();
 
   useEffect(() => {
     dispatch(getCustomers());
@@ -24,22 +24,21 @@ const ListCustomers = () => {
     }
     console.log(response);
   };
-  
+
   const edit = (record) => {
     form.setFieldsValue({
-      id:record.id,
+      id: record.id,
       ...record,
     });
     setEditingKey(record.id);
   };
-  
+
   const save = async (id) => {
-    
     const row = await form.validateFields();
-    console.log(row)
+    console.log(row);
     const response = await apiEditCustomers(row);
     if (response?.data.err === 0) {
-      edit(false)
+      edit(false);
       dispatch(getCustomers());
     }
   };
@@ -61,14 +60,14 @@ const ListCustomers = () => {
         />
         {editing ? (
           <Form.Item
-          id={record.id}
-          name={dataIndex}
-          rules={[
-            {
-              required: true,
-              message: `vui long nhap ${title}`
-            }
-          ]}
+            id={record.id}
+            name={dataIndex}
+            rules={[
+              {
+                required: true,
+                message: `vui long nhap ${title}`,
+              },
+            ]}
           >
             {input}
           </Form.Item>
@@ -111,44 +110,41 @@ const ListCustomers = () => {
       render: (_, record) => {
         const editable = isEditing(record);
         return customers.length >= 1 ? (
-        <Space>
-          {editable ? (
-            <span>
-              <Space>
-              <Button onClick={() => save(record.id)}>Lưu</Button>
-              <Popconfirm
-                className="m-2"
-                title="Bạn chắn chắn không lưu thông tin"
-                okButtonProps={{ type: "default" }}
-                onConfirm={() => edit(record.id)}
-              >
-                <Button danger>Hủy</Button>
-              </Popconfirm>
-              </Space>
-            </span>
-          ) : (
-            <span>
-              <Space>
-              
-
-              <Button onClick={() => edit(record)}>Sửa</Button>
-              <Popconfirm
-                className="m-2"
-                title="Xóa khách hàng"
-                description="Bạn chắn chắn xóa"
-                okButtonProps={{ type: "default" }}
-                onConfirm={() => handleDelete(record)}
-              >
-                <Button type="primary" danger>
-                  Xóa
-                </Button>
-              </Popconfirm>
-              </Space>
-
-            </span>
-          )}
-        </Space>
-        ): null
+          <Space>
+            {editable ? (
+              <span>
+                <Space>
+                  <Button onClick={() => save(record.id)}>Lưu</Button>
+                  <Popconfirm
+                    className="m-2"
+                    title="Bạn chắn chắn không lưu thông tin"
+                    okButtonProps={{ type: "default" }}
+                    onConfirm={() => edit(record.id)}
+                  >
+                    <Button danger>Hủy</Button>
+                  </Popconfirm>
+                </Space>
+              </span>
+            ) : (
+              <span>
+                <Space>
+                  <Button onClick={() => edit(record)}>Sửa</Button>
+                  <Popconfirm
+                    className="m-2"
+                    title="Xóa khách hàng"
+                    description="Bạn chắn chắn xóa"
+                    okButtonProps={{ type: "default" }}
+                    onConfirm={() => handleDelete(record)}
+                  >
+                    <Button type="primary" danger>
+                      Xóa
+                    </Button>
+                  </Popconfirm>
+                </Space>
+              </span>
+            )}
+          </Space>
+        ) : null;
       },
     },
   ];
@@ -175,17 +171,17 @@ const ListCustomers = () => {
   return (
     <div className="w-full h-full">
       <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditTableCell,
-          },
-        }}
-        className="py-4 px-4 rounded-xl h-full"
-        columns={mergedColumns}
-        dataSource={customers}
-        bordered
-      />
+        <Table
+          components={{
+            body: {
+              cell: EditTableCell,
+            },
+          }}
+          className="py-4 px-4 rounded-xl h-full"
+          columns={mergedColumns}
+          dataSource={customers}
+          bordered
+        />
       </Form>
     </div>
   );

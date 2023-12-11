@@ -1,119 +1,103 @@
 import axios from "../axiosConfig";
 
-export const apiGetCurrent = () =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: "/api/v1/user/get-current",
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiGetCurrent = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/user/get-current",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-// chinh sua thong tin nguoi dung
-export const apiUpdateUser = (payload) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "put",
-        url: "/api/v1/user/",
-        data: payload,
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiUpdateUser = async (payload) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: "/api/v1/user/",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-// them khachs hang tiem nang
-export const apiCreateCustomers = (payload) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "post",
-        url: "/api/v1/user/new-customers",
-        data: payload,
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiCreateCustomers = async (payload) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: "/api/v1/user/new-customers",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-  // xoa thong tin khach hang
-  export const apiDeleteCustomers = (customerId) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "delete",
-        url: "/api/v1/user/delete-customer",
-        data: {
-          id: customerId,
-        }
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiDeleteCustomers = async (customerId) => {
+  try {
+    const response = await axios({
+      method: "delete",
+      url: "/api/v1/user/delete-customer",
+      data: {
+        id: customerId,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-  // chinh sua thong tin khach hang
-  export const apiEditCustomers = (payload) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "put",
-        url: "/api/v1/user/edit-customer",
-        data: payload,
+export const apiEditCustomers = async (payload) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: "/api/v1/user/edit-customer",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiGetCustomers = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/user/get-customers",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-  // hien thi thong tin khach hang
-  export const apiGetCustomers = () =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: "/api/v1/user/get-customers",
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiGetAllCustomers = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/user/get-Allcustomers",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-  // hien thi thong tin tat ca khach hang cho admin
-  export const apiGetAllCustomers = () =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: "/api/v1/user/get-Allcustomers",
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-  // hien thi thong tin tat ca nguoi dung cho admin
-  export const apiGetUsers = () =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: "/api/v1/user/get-users",
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiGetUsers = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/user/get-users",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

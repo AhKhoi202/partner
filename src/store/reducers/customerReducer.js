@@ -11,11 +11,11 @@ const customerReducer = (state = initState, action) => {
       return {
         ...state,
         customers: action.customers || [],
-        msg: action.msg || ''
-      }
+        msg: action.msg || "",
+      };
     default:
-        return state;
+      return state;
   }
-}
+};
 
-export default customerReducer
+export default customerReducer;
