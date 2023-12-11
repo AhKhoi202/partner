@@ -8,7 +8,9 @@ const actionTypes = {
     
     // USER
     GET_CURRENT: 'GET_CURRENT',
+    GET_USERS: 'GET_USERS',
     GET_CUSTOMERS: 'GET_CUSTOMERS',
+    GET_ALLCUSTOMERS: 'GET_ALLCUSTOMERS',
 }
 
 export default actionTypes

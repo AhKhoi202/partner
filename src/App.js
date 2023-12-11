@@ -10,7 +10,13 @@ import { path } from "./ultils/constant";
 import * as actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { System, EditAccount, ListCustomers } from "./containers/system";
+import {
+  System,
+  EditAccount,
+  ListCustomers,
+  AllCustomers,
+  ListPartner,
+} from "./containers/system";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,13 +42,12 @@ function App() {
         </Route>
 
         <Route path={path.SYSTEM} element={<System />}>
-
-          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />  
+          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
           {/* { currentData.roleId === 'r1' &&( */}
-          <Route path={path.LIST_CUSTOMERS} element={
-          <ListCustomers/>
-        } />  
-        {/* )} */}
+          <Route path={path.LIST_CUSTOMERS} element={<ListCustomers />} />
+          <Route path={path.LIST_ALLCUSTOMERS} element={<AllCustomers />} />
+          <Route path={path.LIST_PARTNER} element={<ListPartner />} />
+          {/* )} */}
         </Route>
       </Routes>
     </div>

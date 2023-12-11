@@ -7,6 +7,8 @@ export const path = {
     SYSTEM: '/he-thong/*',
     EDIT_ACCOUNT: 'sua-thong-tin-ca-nhan',
     LIST_CUSTOMERS: 'ds-khach-hang',
+    LIST_PARTNER: 'ds-partner',
+    LIST_ALLCUSTOMERS: 'ds-tat-ca-khach-hang',
 
     
 }

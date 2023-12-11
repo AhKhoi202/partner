@@ -89,3 +89,31 @@ export const apiCreateCustomers = (payload) =>
       reject(error);
     }
   });
+
+  // hien thi thong tin tat ca khach hang cho admin
+  export const apiGetAllCustomers = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/user/get-Allcustomers",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  // hien thi thong tin tat ca nguoi dung cho admin
+  export const apiGetUsers = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/user/get-users",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

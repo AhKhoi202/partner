@@ -40,6 +40,7 @@ const ListCustomers = () => {
     const response = await apiEditCustomers(row);
     if (response?.data.err === 0) {
       edit(false)
+      dispatch(getCustomers());
     }
   };
 

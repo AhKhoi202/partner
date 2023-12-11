@@ -2,6 +2,7 @@ import React from "react";
 import anonAvatar from "../../assets/anon-avatar.png";
 import { useSelector } from "react-redux";
 import menuSidebar from "../../ultils/memuSidebar";
+import menuSidebarAdmin from "../../ultils/menuSidebarAdmin";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -28,12 +29,15 @@ const Sidebar = () => {
         </div>
         <span>
           Mã thành viên:{" "}
-          <small className="font-medium">{currentData?.id?.match(/\d/g).join('')?.slice(0, 6)}</small>
+          <small className="font-medium">
+            {currentData?.id?.match(/\d/g).join("")?.slice(0, 6)}
+          </small>
         </span>
       </div>
       <div>
-        {menuSidebar.map((item) => {
-          return (
+         
+
+        {menuSidebar.map((item) => 
             <NavLink
               className={({ isActive }) =>
                 isActive ? activeStyle : notActiceStyle
@@ -44,8 +48,23 @@ const Sidebar = () => {
               {item?.icon}
               {item.text}
             </NavLink>
-          );
-        })}
+          )} 
+        
+        { currentData.roleId === 'r1' && menuSidebarAdmin.map((item) => ( 
+         
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? activeStyle : notActiceStyle
+              }
+              key={item.id}
+              to={item?.path}
+            >
+              {item?.icon}
+              {item.text}
+            </NavLink>
+          
+          )
+         )}
       </div>
     </div>
   );
