@@ -15,7 +15,7 @@ const EditAccount = () => {
     email: currentData?.email || "",
     address: currentData?.address || "",
     career: currentData?.career || "",
-    gender: currentData?.gender || "",
+    // gender: currentData?.gender || "",
   });
   const handleSubmit = async () => {
     const validcounter = validate(payload, setInvalidFields);
@@ -80,14 +80,14 @@ const EditAccount = () => {
             value={payload.career}
             label="Ngành nghề"
           />
-          <InputForm1
+          {/* <InputForm1
             name="gender"
             setValue={setPayload}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             value={payload.gender}
             label="Giới tính"
-          />
+          /> */}
           <div className="flex">
             <label className="w-48 flex-none" htmlFor="password">
               Mật khẩu

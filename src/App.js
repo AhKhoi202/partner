@@ -34,10 +34,8 @@ function App() {
         <Route path={path.HOME} element={<Home />}>
           <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.REGISTER} element={<Register />} />
-          <Route path={path.TIEN_DO_CONG_VIEC} element={<Process />} />
-          <Route
-            path={path.KHACH_HANG_TIEM_NANG}
-            element={<PotentialCustomers />}
+          {/* <Route path={path.TIEN_DO_CONG_VIEC} element={<Process />} /> */}
+          <Route path={path.KHACH_HANG_TIEM_NANG} element={<PotentialCustomers />}
           />
         </Route>
 

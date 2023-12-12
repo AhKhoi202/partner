@@ -29,12 +29,12 @@ const Navigation = ({isAdmin}) => {
           >
             Khách hàng tiềm năng
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to={path.TIEN_DO_CONG_VIEC}
             className={({ isActive }) => (isActive ? active : notActive)}
           >
             Tiến độ công việc
-          </NavLink>
+          </NavLink> */}
           </>
           )}
         </div>

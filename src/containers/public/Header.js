@@ -7,6 +7,7 @@ import { path } from "../../ultils/constant";
 import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import menuManage from "../../ultils/menuManage";
+import memuSidebar from "../../ultils/memuSidebar"
 
 const { AiOutlinePlusCircle, AiOutlineLogin } = icons;
 
@@ -64,7 +65,7 @@ const Header = () => {
               />
               {isShowMenu && (
                 <div className="absolute min-w-[200px] top-full bg-white right-0 shadow-md rounded-md p-4 flex flex-col">
-                  {menuManage.map((item) => {
+                  {memuSidebar.map((item) => {
                     return (
                       <Link
                         className="hover:text-orange-500 flex items-center gap-2 text-blue-600 border-b border-gray-200 py-2"
