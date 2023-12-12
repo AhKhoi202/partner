@@ -6,7 +6,6 @@ import { apiDeleteCustomers, apiEditCustomers } from "../../services";
 
 const ListCustomers = () => {
   const { customers } = useSelector((state) => state.customer);
-  console.log(customers);
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
   const [form] = Form.useForm();
@@ -80,31 +79,31 @@ const ListCustomers = () => {
 
   const column = [
     {
-      title: "Teen",
+      title: "Tên khách hàng",
       dataIndex: "name",
       align: "center",
       edittable: true,
     },
     {
-      title: "sdt",
+      title: "Sđt",
       dataIndex: "phone",
       align: "center",
       edittable: true,
     },
     {
-      title: "email",
+      title: "Email",
       dataIndex: "email",
       align: "center",
       edittable: true,
     },
     {
-      title: "Mo ta cong viec",
+      title: "Mô tả yêu cầu",
       dataIndex: "note",
       align: "center",
       edittable: true,
     },
     {
-      title: "Hanh dong",
+      title: "Hành động",
       dataIndex: "action",
       align: "center",
       render: (_, record) => {

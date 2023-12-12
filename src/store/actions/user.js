@@ -24,28 +24,7 @@ export const getCurrent = () => async (dispatch) => {
     });
   }
 };
-export const getUsers = () => async (dispatch) => {
-  try {
-    const response = await apis.apiGetUsers();
-    if (response?.data.err === 0) {
-      dispatch({
-        type: actionTypes.GET_USERS,
-        customers: response.data.response,
-      });
-    } else {
-      dispatch({
-        type: actionTypes.GET_USERS,
-        msg: response.data.msg,
-      });
-    }
-  } catch (error) {
-    dispatch({
-      type: actionTypes.GET_USERS,
-      customers: null,
-      msg: error,
-    });
-  }
-};
+
 export const getCustomers = () => async (dispatch) => {
   try {
     const response = await apis.apiGetCustomers();
@@ -86,6 +65,29 @@ export const getAllCustomers = () => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_ALLCUSTOMERS,
       customers: null,
+      msg: error,
+    });
+  }
+};
+
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const response = await apis.apiGetAllUsers();
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_ALLUSERS,
+        users: response.data.response,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_ALLUSERS,
+        msg: response.data.msg,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ALLUSERS,
+      users: null,
       msg: error,
     });
   }

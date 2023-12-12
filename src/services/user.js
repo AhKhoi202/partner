@@ -90,11 +90,24 @@ export const apiGetAllCustomers = async () => {
   }
 };
 
-export const apiGetUsers = async () => {
+export const apiGetAllUsers = async () => {
   try {
     const response = await axios({
       method: "get",
-      url: "/api/v1/user/get-users",
+      url: "/api/v1/user/get-Allusers",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiEditUsers = async (payload) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: "/api/v1/user/edit-user",
+      data: payload,
     });
     return response;
   } catch (error) {

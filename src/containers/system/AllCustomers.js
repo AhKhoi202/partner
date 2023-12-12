@@ -6,7 +6,6 @@ import { apiDeleteCustomers, apiEditCustomers } from "../../services";
 
 const AllCustomers = () => {
   const { customers } = useSelector((state) => state.allCustomer);
-
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
   const [form] = Form.useForm();
@@ -15,6 +14,7 @@ const AllCustomers = () => {
     dispatch(getAllCustomers());
   }, []);
 
+  
   const handleDelete = async (customers) => {
     const response = await apiDeleteCustomers(customers.id);
     if (response?.data.err === 0) {
@@ -26,6 +26,11 @@ const AllCustomers = () => {
   };
 
   const edit = (record) => {
+    if (record.dataIndex === "user") {
+      // Hiển thị cảnh báo
+      alert("Không thể chỉnh sửa cột 'Tên partner'");
+      return;
+    }
     form.setFieldsValue({
       id: record.id,
       ...record,
@@ -77,7 +82,6 @@ const AllCustomers = () => {
       </td>
     );
   };
-
   const column = [
     {
       title: "Tên",
@@ -104,7 +108,7 @@ const AllCustomers = () => {
       edittable: true,
     },
     {
-      title: "Partner",
+      title: "Tên partner",
       dataIndex: "user",
       key: "user",
       align: "center",
@@ -157,6 +161,7 @@ const AllCustomers = () => {
     },
   ];
 
+
   const isEditing = (record) => {
     return record.id === editingKey;
   };
@@ -169,7 +174,7 @@ const AllCustomers = () => {
       ...col,
       onCell: (record) => ({
         record,
-        dataIndex: col.dataIndex.name,
+        dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
