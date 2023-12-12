@@ -14,7 +14,7 @@ const Sidebar = () => {
   const { currentData } = useSelector((state) => state.user);
   // console.log(currentData);
   return (
-    <div className="w-[256px] flex-none p-4 flex flex-col gap-6">
+    <div className="w-1/6 flex-none p-4 flex flex-col gap-6">
       <div>
         <div>
           <img
