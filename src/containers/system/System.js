@@ -12,7 +12,7 @@ const System = () => {
       <Header />
       <div className="flex w-full flex-auto">
         <Sidebar />
-        <div className="flex-auto bg-white shadow-md h-full ">
+        <div className="flex-auto w-5/6 bg-white shadow-md h-full ">
             
           <Outlet />
         </div>

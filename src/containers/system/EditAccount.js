@@ -34,7 +34,7 @@ const EditAccount = () => {
   };
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl w-full text-start font-medium py-4 border-b border-gray-200">
+      <h1 className="text-3xl pl-4 w-full text-start font-medium py-4 border-b border-gray-200">
         Sửa thông tin cá nhân
       </h1>
       <div className="w-3/5 flex items-center justify-center flex-auto">

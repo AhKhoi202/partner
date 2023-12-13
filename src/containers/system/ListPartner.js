@@ -12,7 +12,7 @@ const ListPartner = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = async (users) => {
     // const response = await apiDeleteCustomers(customers.id);

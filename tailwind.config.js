@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        '1100':'1100px'
+        // '1100':'1100px'
       },
       backgroundColor:{
         primary: '#F5F5F5',
@@ -14,7 +14,7 @@ module.exports = {
         secondary2: '#FFA500'
       },
       maxWidth:{
-        '750':'750px'
+        // '750':'750px'
       },
       boxShadow: {
         'xl': '0 0 25px rgba(0, 0, 0, 0.3)',

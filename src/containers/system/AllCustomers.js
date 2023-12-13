@@ -12,7 +12,7 @@ const AllCustomers = () => {
 
   useEffect(() => {
     dispatch(getAllCustomers());
-  }, []);
+  }, [dispatch]);
 
   
   const handleDelete = async (customers) => {

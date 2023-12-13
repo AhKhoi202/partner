@@ -3,7 +3,6 @@ import {
   Home,
   Login,
   Register,
-  Process,
   PotentialCustomers,
 } from "./containers/public";
 import { path } from "./ultils/constant";
@@ -20,14 +19,12 @@ import {
 
 function App() {
   const dispatch = useDispatch();
-  const { currentData } = useSelector((state) => state.user);
-
   const { isLoggedIn } = useSelector((state) => state.auth);
   useEffect(() => {
     setTimeout(() => {
       isLoggedIn && dispatch(actions.getCurrent());
     }, 1000);
-  }, [isLoggedIn]);
+  }, [dispatch, isLoggedIn]);
   return (
     <div className="bg-primary">
       <Routes>
