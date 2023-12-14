@@ -10,8 +10,10 @@ const PotentialCustomers = () => {
   const [payload, setPlayload] = useState({
     phone: "",
     name: "",
+    companyName: "",
     email: "",
     note: "",
+    estimatedCosts: "",
   });
 
   const handleSubmit = async () => {
@@ -31,6 +33,7 @@ const PotentialCustomers = () => {
           name: "",
           email: "",
           note: "",
+          estimatedCosts: "",
         });
       });
     } else {
@@ -52,7 +55,16 @@ const PotentialCustomers = () => {
             value={payload.name}
             setValue={setPlayload}
             keyPayload={"name"}
-            type={"name"}
+            type={"text"}
+          />
+          <InputForm
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            label={"Tên công ty"}
+            value={payload.companyName}
+            setValue={setPlayload}
+            keyPayload={"companyName"}
+            type={"text"}
           />
           <InputForm
             setInvalidFields={setInvalidFields}
@@ -61,7 +73,7 @@ const PotentialCustomers = () => {
             value={payload.email}
             setValue={setPlayload}
             keyPayload={"email"}
-            type={"email"}
+            type={"text"}
           />
           <InputForm
             setInvalidFields={setInvalidFields}
@@ -75,11 +87,20 @@ const PotentialCustomers = () => {
           <InputForm
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
-            label={"Ghi chú"}
+            label={"Mô tả công việc"}
             value={payload.note}
             setValue={setPlayload}
             keyPayload={"note"}
-            type={"note"}
+            type={"text"}
+          />
+          <InputForm
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            label={"Chi phí dự tính"}
+            value={payload.estimatedCosts}
+            setValue={setPlayload}
+            keyPayload={"estimatedCosts"}
+            type={""}
           />
           <Button
             text={"Gửi"}

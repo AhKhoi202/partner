@@ -90,6 +90,12 @@ const AllCustomers = () => {
       edittable: true,
     },
     {
+      title: "Tên công ty",
+      dataIndex: "companyName",
+      align: "center",
+      edittable: true,
+    },
+    {
       title: "SĐT",
       dataIndex: "phone",
       align: "center",
@@ -104,6 +110,12 @@ const AllCustomers = () => {
     {
       title: "Mô tả công việc",
       dataIndex: "note",
+      align: "center",
+      edittable: true,
+    },
+    {
+      title: "Chi phí dự tính",
+      dataIndex: "estimatedCosts",
       align: "center",
       edittable: true,
     },

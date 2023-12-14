@@ -6,7 +6,7 @@ export const path = {
     KHACH_HANG_TIEM_NANG: 'potentialcustomers',
 
     
-    SYSTEM: '/he-thong/*',
+    SYSTEM: '/he-thong/',
     EDIT_ACCOUNT: 'sua-thong-tin-ca-nhan',
     LIST_CUSTOMERS: 'ds-khach-hang',
     LIST_PARTNER: 'ds-partner',

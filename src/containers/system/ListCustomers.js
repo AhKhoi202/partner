@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCustomers } from "../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
 import { apiDeleteCustomers, apiEditCustomers } from "../../services";
+import './css/custom-antd.css'
 
 const ListCustomers = () => {
   const { customers } = useSelector((state) => state.customer);
@@ -79,28 +80,54 @@ const ListCustomers = () => {
 
   const column = [
     {
+      key: "name",
       title: "Tên khách hàng",
       dataIndex: "name",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.name.localeCompare(b.name),
+
+      // sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order
     },
     {
+      key: "companyName",
+      title: "Tên công ty",
+      dataIndex: "companyName",
+      align: "center",
+      edittable: true,
+      sorter: (a, b) => a.companyName.localeCompare(b.companyName),
+    },
+    {
+      key: "phone",
       title: "Sđt",
       dataIndex: "phone",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.phone.localeCompare(b.phone),
     },
     {
+      key: "email",
       title: "Email",
       dataIndex: "email",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
+      key: "note",
       title: "Mô tả yêu cầu",
       dataIndex: "note",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.note.localeCompare(b.note),
+    },
+    {
+      key: "estimatedCosts",
+      title: "Chi phí dự tính",
+      dataIndex: "estimatedCosts",
+      align: "center",
+      edittable: true,
+      sorter: (a, b) => a.estimatedCosts.localeCompare(b.estimatedCosts),
     },
     {
       title: "Hành động",
@@ -176,7 +203,7 @@ const ListCustomers = () => {
               cell: EditTableCell,
             },
           }}
-          className="py-4 px-4 rounded-xl h-full"
+          className="py-4 px-4 rounded-xl h-full sort-icon text-to-hide"
           columns={mergedColumns}
           dataSource={customers}
           bordered

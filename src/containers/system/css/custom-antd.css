@@ -1,0 +1,8 @@
+.text-to-hide {
+  visibility: visible;
+  transition: visibility 0.3s;
+}
+
+.sort-icon:hover + .text-to-hide {
+  visibility: hidden;
+}

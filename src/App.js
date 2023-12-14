@@ -38,11 +38,9 @@ function App() {
 
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
-          {/* { currentData.roleId === 'r1' &&( */}
           <Route path={path.LIST_CUSTOMERS} element={<ListCustomers />} />
           <Route path={path.LIST_ALLCUSTOMERS} element={<AllCustomers />} />
           <Route path={path.LIST_PARTNER} element={<ListPartner />} />
-          {/* )} */}
         </Route>
       </Routes>
     </div>
