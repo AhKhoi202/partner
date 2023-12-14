@@ -2,7 +2,6 @@ const isPhoneZero = (phoneNumber) => {
   return phoneNumber.charAt(0) === "0";
 };
 
-
 const validate = (payload, setInvalidFields) => {
   let invalids = 0;
   let fields = Object.entries(payload);
@@ -39,6 +38,18 @@ const validate = (payload, setInvalidFields) => {
             {
               name: item[0],
               message: "Mật khẩu phải có tối thiểu 6 kí tự.",
+            },
+          ]);
+          invalids++;
+        }
+        break;
+      case "estimatedCosts":
+        if (!+item[1]) {
+          setInvalidFields((prev) => [
+            ...prev,
+            {
+              name: item[0],
+              message: "Chi phí bạn nhập không hợp lệ.",
             },
           ]);
           invalids++;

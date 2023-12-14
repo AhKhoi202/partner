@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { InputForm, Button } from "../../components";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import validate from "../../ultils/validataFields";
 import { apiCreateCustomers } from "../../services";
 
 const PotentialCustomers = () => {
@@ -21,23 +22,26 @@ const PotentialCustomers = () => {
       ...payload,
       userid: currentData.id,
     };
-    const response = await apiCreateCustomers(finalPayLoad);
-    if (response?.data.err === 0) {
-      Swal.fire(
-        "Thành công",
-        "Giới thiệu khách hàng thành công",
-        "success"
-      ).then(() => {
-        setPlayload({
-          phone: "",
-          name: "",
-          email: "",
-          note: "",
-          estimatedCosts: "",
+    const validcounter = validate(payload, setInvalidFields);
+    if (validcounter === 0) {
+      const response = await apiCreateCustomers(finalPayLoad);
+      if (response?.data.err === 0) {
+        Swal.fire(
+          "Thành công",
+          "Giới thiệu khách hàng thành công",
+          "success"
+        ).then(() => {
+          setPlayload({
+            phone: "",
+            name: "",
+            email: "",
+            note: "",
+            estimatedCosts: "",
+          });
         });
-      });
-    } else {
-      Swal.fire("Oops!", "Giới thiệu khách hàng không thành công", "error");
+      } else {
+        Swal.fire("Oops!", "Giới thiệu khách hàng không thành công", "error");
+      }
     }
   };
 

@@ -29,7 +29,7 @@ const Register = () => {
   }, [msg, update]);
 
   const handleSubmit = async () => {
-    console.log(payload);
+    // console.log(payload);
     const validcounter = validate(payload, setInvalidFields);
     if (validcounter === 0) {
       dispatch(action.register(payload));
