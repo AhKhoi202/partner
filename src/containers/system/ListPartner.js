@@ -111,6 +111,7 @@ const ListPartner = () => {
       dataIndex: "role.name",
       align: "center",
       edittable: true,
+      // sorter: (a, b) => a.role.name.localeCompare(b.role.name),
     },
     {
       title: "Hanh dong",

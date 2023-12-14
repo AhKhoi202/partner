@@ -123,7 +123,7 @@ const AllCustomers = () => {
       dataIndex: "estimatedCosts",
       align: "center",
       edittable: true,
-      // sorter: (a, b) => a.estimatedCosts.localeCompare(b.estimatedCosts),
+      sorter: (a, b) => a.estimatedCosts - b.estimatedCosts,
     },
     {
       title: "Tên partner",
@@ -132,7 +132,7 @@ const AllCustomers = () => {
       align: "center",
       edittable: true,
       render: (user) => user.name,
-      sorter: (a, b) => a.user.name.localeCompare(b.user),
+      sorter: (a, b) => a.user.name.localeCompare(b.user.name),
     },
     {
       title: "Hành động",
