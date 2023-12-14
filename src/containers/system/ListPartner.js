@@ -83,24 +83,28 @@ const ListPartner = () => {
       dataIndex: "name",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Sđt",
       dataIndex: "phone",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.phone.localeCompare(b.phone),
     },
     {
       title: "Email",
       dataIndex: "email",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: "Địa chỉ",
       dataIndex: "address",
       align: "center",
       edittable: true,
+      sorter: (a, b) => a.address.localeCompare(b.address),
     },
     {
       title: "Chức năng",

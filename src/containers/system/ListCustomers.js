@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCustomers } from "../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
 import { apiDeleteCustomers, apiEditCustomers } from "../../services";
-import './css/custom-antd.css'
 
 const ListCustomers = () => {
   const { customers } = useSelector((state) => state.customer);
@@ -203,7 +202,7 @@ const ListCustomers = () => {
               cell: EditTableCell,
             },
           }}
-          className="py-4 px-4 rounded-xl h-full sort-icon text-to-hide"
+          className="py-4 px-4 rounded-xl h-full"
           columns={mergedColumns}
           dataSource={customers}
           bordered
