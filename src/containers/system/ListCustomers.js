@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomers } from "../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
+import Swal from "sweetalert2";
 import { apiDeleteCustomers, apiEditCustomers } from "../../services";
 
 const ListCustomers = () => {
@@ -17,11 +18,14 @@ const ListCustomers = () => {
   const handleDelete = async (customers) => {
     const response = await apiDeleteCustomers(customers.id);
     if (response?.data.err === 0) {
-      dispatch(getCustomers());
+      edit(false);
+      Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {
+        dispatch(getCustomers());
+      });
     } else {
       alert(response.err);
+      Swal.fire("Oops!", "Xóa thông tin không thành công", "error");
     }
-    console.log(response);
   };
 
   const edit = (record) => {
@@ -38,7 +42,13 @@ const ListCustomers = () => {
     const response = await apiEditCustomers(row);
     if (response?.data.err === 0) {
       edit(false);
-      dispatch(getCustomers());
+      Swal.fire("Done", "Chỉnh sửa thông tin thành công", "success").then(
+        () => {
+           dispatch(getCustomers());
+        }
+      );
+    } else {
+      Swal.fire("Oops!", "Chỉnh sửa thông tin không thành công", "error");
     }
   };
 

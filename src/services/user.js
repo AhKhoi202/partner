@@ -52,6 +52,20 @@ export const apiDeleteCustomers = async (customerId) => {
     throw error;
   }
 };
+export const apiDeleteUsers = async (userId) => {
+  try {
+    const response = await axios({
+      method: "delete",
+      url: "/api/v1/user/delete-user",
+      data: {
+        id: userId,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const apiEditCustomers = async (payload) => {
   try {

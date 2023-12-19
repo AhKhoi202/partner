@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
-import { apiEditUsers } from "../../services";
+import Swal from "sweetalert2";
+import { apiDeleteUsers, apiEditUsers } from "../../services";
 
 const ListPartner = () => {
   const { users } = useSelector((state) => state.allUsers);
@@ -15,13 +16,16 @@ const ListPartner = () => {
   }, [dispatch]);
 
   const handleDelete = async (users) => {
-    // const response = await apiDeleteCustomers(customers.id);
-    // if (response?.data.err === 0) {
-    //   dispatch(getCustomers());
-    // } else {
-    //   alert(response.err);
-    // }
-    // console.log(response);
+    const response = await apiDeleteUsers(users.id);
+    if (response?.data.err === 0) {
+      edit(false);
+      Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {
+        dispatch(getAllUsers());
+      });
+    } else {
+      alert(response.err);
+      Swal.fire("Oops!", "Xóa thông tin không thành công", "error");
+    }
   };
 
   const edit = (record) => {
@@ -38,7 +42,13 @@ const ListPartner = () => {
     const response = await apiEditUsers(row);
     if (response?.data.err === 0) {
       edit(false);
-      dispatch(getAllUsers());
+      Swal.fire("Done", "Chỉnh sửa thông tin thành công", "success").then(
+        () => {
+          dispatch(getAllUsers());
+        }
+      );
+    } else {
+      Swal.fire("Oops!", "Chỉnh sửa thông tin không thành công", "error");
     }
   };
 
