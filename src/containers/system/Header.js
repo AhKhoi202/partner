@@ -11,14 +11,11 @@ const Header = () => {
 
     return (
       <header className="w-full">
-        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-blue-400">
+        <nav class="bg-white border-gray-200 px-4 lg:px-6  dark:bg-blue-400">
           <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <NavLink className={"flex"} to={path.HOME}>
-              <img src={logo192} class="h-12" alt="Flowbite Logo" />
-              <p className="m-auto text-4xl font-bold">
-                <span className="text-blue-900">BLUE</span>
-                <span className="text-orange-500">BOLT</span>
-              </p>
+              <img src={logo192} class="h-20" alt="Flowbite Logo" />
+              
             </NavLink>
 
             <Button

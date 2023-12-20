@@ -139,7 +139,7 @@ const AllCustomers = () => {
       dataIndex: "user",
       key: "user",
       align: "center",
-      edittable: true,
+      edittable: false,
       render: (user) => user.name,
       sorter: (a, b) => a.user.name.localeCompare(b.user.name),
     },

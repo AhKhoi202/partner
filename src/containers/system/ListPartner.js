@@ -9,6 +9,7 @@ const ListPartner = () => {
   const { users } = useSelector((state) => state.allUsers);
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
+  const { currentData } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -16,15 +17,20 @@ const ListPartner = () => {
   }, [dispatch]);
 
   const handleDelete = async (users) => {
-    const response = await apiDeleteUsers(users.id);
-    if (response?.data.err === 0) {
-      edit(false);
-      Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {
-        dispatch(getAllUsers());
-      });
+    if (currentData?.id === users.id) {
+      Swal.fire("Oops!", "Không thể xóa chính mình", "error");
     } else {
-      alert(response.err);
-      Swal.fire("Oops!", "Xóa thông tin không thành công", "error");
+      const response = await apiDeleteUsers(users.id);
+      if (response?.data.err === 0) {
+        edit(false);
+        Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {
+          dispatch(getAllUsers());
+        });
+      } else {
+        alert(response?.data.msg);
+        Swal.fire("Oops!", "Xóa thông tin không thành công", "error");
+        console.log(response.msg);
+      }
     }
   };
 
