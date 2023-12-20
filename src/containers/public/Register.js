@@ -45,6 +45,7 @@ const Register = () => {
         </h3>
         <div className="w-full flex flex-col gap-5">
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Tên của bạn"}
@@ -54,6 +55,7 @@ const Register = () => {
             type="name"
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Email"}
@@ -63,6 +65,7 @@ const Register = () => {
             type={"email"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Số điện thoại"}
@@ -72,6 +75,7 @@ const Register = () => {
             type={"phone"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Ngành nghề"}
@@ -81,6 +85,7 @@ const Register = () => {
             type={"career"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Địa chỉ"}
@@ -100,6 +105,7 @@ const Register = () => {
           /> */}
 
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label="Mật khẩu"

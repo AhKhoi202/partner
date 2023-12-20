@@ -46,13 +46,14 @@ const PotentialCustomers = () => {
   };
 
   return (
-    <div className=" text-black w-full flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
+    <div className=" text-black w-full flex  border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
       <div className="w-full p-[50px] pb-[100px] items-center justify-center ">
         <h3 className="font-semibold text-2xl mb-3 text-center">
           Thông tin khách hàng
         </h3>
         <div className="w-full flex flex-col gap-5">
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Tên khách hàng"}
@@ -62,6 +63,7 @@ const PotentialCustomers = () => {
             type={"text"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Tên công ty"}
@@ -71,6 +73,7 @@ const PotentialCustomers = () => {
             type={"text"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Email"}
@@ -80,6 +83,7 @@ const PotentialCustomers = () => {
             type={"text"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Số điện thoại"}
@@ -89,6 +93,7 @@ const PotentialCustomers = () => {
             type={"phone"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Mô tả công việc"}
@@ -98,6 +103,7 @@ const PotentialCustomers = () => {
             type={"text"}
           />
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Chi phí dự tính"}

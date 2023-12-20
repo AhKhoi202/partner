@@ -5,10 +5,10 @@ import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="w-full flex gap-6 flex-col items-center h-full ">
+    <div className="w-full flex pb-6 flex-col items-center h-full ">
       <Header />
       <Navigation />
-      <div className="w-full md:w-[600px] flex flex-col items-center justify-start">
+      <div className="w-full md:w-[600px] mt-6 flex flex-col items-center justify-start">
         <Outlet />
       </div>
     </div>

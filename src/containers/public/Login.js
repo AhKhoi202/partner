@@ -85,6 +85,7 @@ const Login = () => {
         <h3 className="font-semibold text-2xl mb-3 text-center">Đăng nhập</h3>
         <div className="w-full flex flex-col gap-5">
           <InputForm
+            onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
             label={"Số điện thoại"}
@@ -101,6 +102,7 @@ const Login = () => {
             setValue={setPlayload}
             keyPayload={"password"}
             type={"password"}
+            onEnterPress={handleSubmit}
           />
           <Button
             text={"Đăng nhập"}

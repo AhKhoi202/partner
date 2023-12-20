@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex flex-wrap items-center justify-between">
+      <div className="w-11/12 m-auto flex flex-wrap items-center justify-between">
         <Link to="/">
           <img
             src={logo}

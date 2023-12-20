@@ -8,7 +8,13 @@ const InputForm = ({
   invalidFields,
   setInvalidFields,
   type,
+  onEnterPress,
 }) => {
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && onEnterPress) {
+      onEnterPress();
+    }
+  };
   return (
     <div>
       <label htmlFor={keyPayload} className=" text-base ">
@@ -21,6 +27,7 @@ const InputForm = ({
         onChange={(e) =>
           setValue((prev) => ({ ...prev, [keyPayload]: e.target.value }))
         }
+        onKeyDown={handleKeyPress}
         onFocus={() => setInvalidFields([])}
       />
       {invalidFields.length > 0 &&
