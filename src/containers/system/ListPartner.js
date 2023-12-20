@@ -193,24 +193,26 @@ const ListPartner = () => {
       }),
     };
   });
-
-  return (
-    <div className="w-full h-full">
-      <Form form={form} component={false}>
-        <Table
-          components={{
-            body: {
-              cell: EditTableCell,
-            },
-          }}
-          className="py-4 px-4 rounded-xl h-full"
-          columns={mergedColumns}
-          dataSource={users}
-          bordered
-        />
-      </Form>
-    </div>
-  );
+  if (currentData.roleId !== "r1"){
+    return <div>Không có quyền truy cập</div>
+  }
+    return (
+      <div className="w-full h-full">
+        <Form form={form} component={false}>
+          <Table
+            components={{
+              body: {
+                cell: EditTableCell,
+              },
+            }}
+            className="py-4 px-4 rounded-xl h-full"
+            columns={mergedColumns}
+            dataSource={users}
+            bordered
+          />
+        </Form>
+      </div>
+    );
 };
 
 export default ListPartner;

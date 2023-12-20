@@ -9,6 +9,7 @@ const AllCustomers = () => {
   const { customers } = useSelector((state) => state.allCustomer);
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
+  const { currentData } = useSelector((state) => state.user);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -207,7 +208,9 @@ const AllCustomers = () => {
       }),
     };
   });
-
+  if (currentData.roleId !== "r1") {
+    return <div>Không có quyền truy cập</div>;
+  }
   return (
     <div className="w-full h-full">
       <Form form={form} component={false}>
