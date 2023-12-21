@@ -10,6 +10,7 @@ const ListCustomers = () => {
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
   const [form] = Form.useForm();
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     dispatch(getCustomers());
@@ -202,9 +203,22 @@ const ListCustomers = () => {
       }),
     };
   });
-
+const filteredCustomers = searchText
+  ? customers.filter((customer) =>
+      Object.values(customer).some((value) =>
+        value.toString().toLowerCase().includes(searchText.toLowerCase())
+      )
+    )
+  : customers;
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-col p-4">
+      <Space className="justify-end pb-4">
+        <Input
+          placeholder="Tìm kiếm khách hàng"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </Space>
       <Form form={form} component={false}>
         <Table
           components={{
@@ -214,7 +228,7 @@ const ListCustomers = () => {
           }}
           className="py-4 px-4 rounded-xl h-full"
           columns={mergedColumns}
-          dataSource={customers}
+          dataSource={filteredCustomers}
           bordered
         />
       </Form>

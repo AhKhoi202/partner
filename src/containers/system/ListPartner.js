@@ -10,6 +10,7 @@ const ListPartner = () => {
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
   const { currentData } = useSelector((state) => state.user);
+  const [searchText, setSearchText] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,6 +52,7 @@ const ListPartner = () => {
       Swal.fire("Done", "Chỉnh sửa thông tin thành công", "success").then(
         () => {
           dispatch(getAllUsers());
+          window.location.reload();
         }
       );
     } else {
@@ -193,26 +195,45 @@ const ListPartner = () => {
       }),
     };
   });
-  if (currentData.roleId !== "r1"){
-    return <div>Không có quyền truy cập</div>
+  if (currentData.roleId !== "r1") {
+    return <div>Không có quyền truy cập</div>;
   }
-    return (
-      <div className="w-full h-full">
-        <Form form={form} component={false}>
-          <Table
-            components={{
-              body: {
-                cell: EditTableCell,
-              },
-            }}
-            className="py-4 px-4 rounded-xl h-full"
-            columns={mergedColumns}
-            dataSource={users}
-            bordered
-          />
-        </Form>
-      </div>
-    );
+  const handleSearch = (value) => {
+    setSearchText(value.toLowerCase());
+  };
+  const filteredUsers = searchText
+    ? users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(searchText) ||
+          user.email.toLowerCase().includes(searchText) ||
+          user.phone.toLowerCase().includes(searchText) ||
+          user.address.toLowerCase().includes(searchText)
+      )
+    : users;
+  return (
+    <div className="w-full h-full flex flex-col p-4">
+      <Space className="justify-end pb-4">
+        <Input.Search
+          placeholder="Enter để tìm kiếm..."
+          onSearch={handleSearch}
+          enterButton
+        />
+      </Space>
+      <Form form={form} component={false}>
+        <Table
+          components={{
+            body: {
+              cell: EditTableCell,
+            },
+          }}
+          className="py-4 px-4 rounded-xl h-full"
+          columns={mergedColumns}
+          dataSource={filteredUsers}
+          bordered
+        />
+      </Form>
+    </div>
+  );
 };
 
 export default ListPartner;

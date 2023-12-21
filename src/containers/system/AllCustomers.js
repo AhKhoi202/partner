@@ -11,6 +11,7 @@ const AllCustomers = () => {
   const [editingKey, setEditingKey] = useState("");
   const { currentData } = useSelector((state) => state.user);
   const [form] = Form.useForm();
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     dispatch(getAllCustomers());
@@ -211,8 +212,23 @@ const AllCustomers = () => {
   if (currentData.roleId !== "r1") {
     return <div>Không có quyền truy cập</div>;
   }
+
+  const filteredCustomers = searchText
+    ? customers.filter((customer) =>
+        Object.values(customer).some((value) =>
+          value.toString().toLowerCase().includes(searchText.toLowerCase())
+        )
+      )
+    : customers;
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-col p-4">
+      <Space className="justify-end pb-4">
+        <Input
+          placeholder="Tìm kiếm khách hàng"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </Space>
       <Form form={form} component={false}>
         <Table
           components={{
@@ -220,9 +236,9 @@ const AllCustomers = () => {
               cell: EditTableCell,
             },
           }}
-          className="py-4 px-4 rounded-xl h-full"
+          className="rounded-xl h-full"
           columns={mergedColumns}
-          dataSource={customers}
+          dataSource={filteredCustomers}
           bordered
         />
       </Form>
