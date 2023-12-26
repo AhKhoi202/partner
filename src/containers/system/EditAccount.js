@@ -41,7 +41,7 @@ const EditAccount = () => {
         <div className="py-6 flex flex-col gap-4 w-full">
           <InputReadOnly
             value={currentData?.id?.match(/\d/g).join("")?.slice(0, 6) || ""}
-            label="Ma thành viên"
+            label="Mã thành viên"
           />
           <InputReadOnly
             editPhone
@@ -80,24 +80,17 @@ const EditAccount = () => {
             value={payload.career}
             label="Ngành nghề"
           />
-          {/* <InputForm1
-            name="gender"
-            setValue={setPayload}
-            setInvalidFields={setInvalidFields}
-            invalidFields={invalidFields}
-            value={payload.gender}
-            label="Giới tính"
-          /> */}
-          <div className="flex">
-            <label className="w-48 flex-none" htmlFor="password">
+          {/* <div className="flex">
+            <h1 className="w-48 flex-none font-semibold" htmlFor="password">
               Mật khẩu
-            </label>
+            </h1>
             <small className="flex-auto text-blue-500 cursor-pointer">
-              Đổi mặt khẩu
+              Đổi mật khẩu
             </small>
-          </div>
+          </div> */}
+
           <Button
-            text="Cập nhât"
+            text="Cập nhật"
             bgColor="bg-blue-600"
             textColor="text-white"
             onClick={handleSubmit}

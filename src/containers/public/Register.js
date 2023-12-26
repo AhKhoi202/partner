@@ -18,6 +18,7 @@ const Register = () => {
     email: "",
     career: "",
     address: "",
+    passwordConfirmation: "",
   });
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const Register = () => {
   const handleSubmit = async () => {
     // console.log(payload);
     const validcounter = validate(payload, setInvalidFields);
-    if (validcounter === 0) {
+    if (validcounter === 0 ) {
       dispatch(action.register(payload));
     }
     console.log(validcounter);
@@ -112,6 +113,16 @@ const Register = () => {
             value={payload.password}
             setValue={setPlayload}
             keyPayload={"password"}
+            type={"password"}
+          />
+          <InputForm
+            onEnterPress={handleSubmit}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            label="Xác nhận mật khẩu"
+            value={payload.passwordConfirmation}
+            setValue={setPlayload}
+            keyPayload={"passwordConfirmation"}
             type={"password"}
           />
           <Button

@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="w-full  ">
-      <nav class="bg-[#b3e3fe] border-gray-200 px-4 lg:px-6 rounded-b-2xl ">
+      <nav class="bg-[#b3e3fe] border-gray-200 px-4 lg:px-6 rounded-br-2xl ">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <NavLink className={"flex"} to={path.HOME}>
             <img src={logo192} class="h-20" alt="Flowbite Logo" />

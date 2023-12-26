@@ -15,7 +15,11 @@ const InputReadOnly = ({ label, value, editPhone }) => {
           value={value || ""}
         />
         {editPhone && (
-          <small className="text-blue-500 py-4"> Đổi số điện thoại</small>
+          <small 
+          className="text-blue-500 py-4"
+          >
+             {/* Đổi số điện thoại */}
+          </small>
         )}
       </div>
     </div>

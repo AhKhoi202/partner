@@ -43,6 +43,18 @@ const validate = (payload, setInvalidFields) => {
           invalids++;
         }
         break;
+      case "passwordConfirmation":
+        if (item[1] !== payload.password) {
+          setInvalidFields((prev) => [
+            ...prev,
+            {
+              name: item[0],
+              message: "Xác nhận mật khẩu không trùng khớp.",
+            },
+          ]);
+          invalids++;
+        }
+        break;
       case "estimatedCosts":
         if (!+item[1]) {
           setInvalidFields((prev) => [
