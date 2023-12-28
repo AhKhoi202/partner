@@ -10,7 +10,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white shadow">
+    <header className="w-full  ">
       <nav class="bg-[#b3e3fe] border-gray-200 px-4 lg:px-6 rounded-br-2xl ">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <NavLink className={"flex"} to={path.HOME}>

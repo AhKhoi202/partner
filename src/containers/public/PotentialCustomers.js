@@ -46,7 +46,7 @@ const PotentialCustomers = () => {
   };
 
   return (
-    <div className="text-black w-full md:w-[600px]  mt-4 flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
+    <div className="text-black w-full md:w-[600px]  mt-40 flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
       <div className="w-full p-[50px] pb-[100px] items-center justify-center ">
         <h3 className="font-semibold text-2xl mb-3 text-center">
           Thông tin khách hàng
