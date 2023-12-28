@@ -4,15 +4,19 @@ import { useSelector } from "react-redux";
 import { path } from "../../ultils/constant";
 
 const notActive =
-  "hover:bg-secondary2 px-4 h-full flex items-center bg-secondary1";
+  "hover:text-gray-500 px-4 h-full flex items-center ";
 const active =
-  "hover:bg-secondary2 px-4 h-full flex items-center bg-secondary2";
+  "hover:text-gray-500 px-4 h-full text-gray-800  flex items-center";
 
 const Navigation = ({isAdmin}) => {
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   return (
-    <div className={`w-full flex ${isAdmin ? 'justify-start' : 'justify-center'} items-center h-[40px] bg-secondary1 text-white`}>
+    <div
+      className={`w-full flex ${
+        isAdmin ? "justify-start" : "justify-center"
+      } items-center h-[40px] bg-[#f5f5f5] m-auto  text-gray-400`}
+    >
       <div className="w-5/6 h-full flex items-center text-sm font-medium">
         <div className=" flex justify-center items-center h-full">
           <NavLink
@@ -22,20 +26,20 @@ const Navigation = ({isAdmin}) => {
             Trang chủ
           </NavLink>
           {isLoggedIn && (
-          <>
-            <NavLink
-            to={path.KHACH_HANG_TIEM_NANG}
-            className={({ isActive }) => (isActive ? active : notActive)}
-          >
-            Khách hàng tiềm năng
-          </NavLink>
-          {/* <NavLink
+            <>
+              <NavLink
+                to={path.KHACH_HANG_TIEM_NANG}
+                className={({ isActive }) => (isActive ? active : notActive)}
+              >
+                Khách hàng tiềm năng
+              </NavLink>
+              {/* <NavLink
             to={path.TIEN_DO_CONG_VIEC}
             className={({ isActive }) => (isActive ? active : notActive)}
           >
             Tiến độ công việc
           </NavLink> */}
-          </>
+            </>
           )}
         </div>
       </div>

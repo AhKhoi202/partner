@@ -7,6 +7,7 @@ const Button = ({
   IcAfter,
   onClick,
   fullWidth,
+  hover,
   px,
 }) => {
   return (
@@ -14,7 +15,8 @@ const Button = ({
       type="button"
       className={`py-2 px-4 ${textColor} ${bgColor} ${
         fullWidth && "w-full"
-      } border-2 border-[#1266dd] hover:border-gray-500 hover:text-xl outline-none rounded-full flex items-center justify-center gap-1`}
+      } ${hover}
+      border-2 border-[#1266dd]  outline-none rounded-full flex items-center justify-center gap-1`}
       onClick={onClick}
     >
       {text}

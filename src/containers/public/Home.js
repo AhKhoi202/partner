@@ -1,16 +1,16 @@
 import React from "react";
 import Header from "./Header.js";
-import Navigation from "./Navigation";
+import Footer from './Footer.js'
 import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="w-full flex pb-6 flex-col items-center h-full ">
-      <Header />
-      <Navigation />
-      <div className="w-full md:w-[600px] mt-6 flex flex-col items-center justify-start">
+    <div className="w-full flex flex-col items-center h-full bg-[#F8F9FA]">
+      <Header className="" />
+      <div className="w-full flex justify-center  ">
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };

@@ -212,6 +212,9 @@ const ListPartner = () => {
     : users;
   return (
     <div className="w-full h-full flex flex-col p-4">
+      <h1 className="text-3xl pl-4 w-full text-start font-medium ">
+        Danh sách các partner
+      </h1>
       <Space className="justify-end pb-4">
         <Input.Search
           placeholder="Enter để tìm kiếm..."

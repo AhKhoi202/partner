@@ -4,6 +4,7 @@ import {
   Login,
   Register,
   PotentialCustomers,
+  Homepage,
 } from "./containers/public";
 import { path } from "./ultils/constant";
 import * as actions from "./store/actions";
@@ -26,9 +27,10 @@ function App() {
     }, 1000);
   }, [dispatch, isLoggedIn]);
   return (
-    <div className="bg-primary">
+    <div className="bg-white">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
+          <Route path="*" element={<Homepage/>} />
           <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.REGISTER} element={<Register />} />
           {/* <Route path={path.TIEN_DO_CONG_VIEC} element={<Process />} /> */}

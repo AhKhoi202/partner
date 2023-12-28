@@ -21,10 +21,10 @@ const Sidebar = () => {
     <div
       className={`${
         open ? "w-1/6 p-5" : "w-20 p-2"
-      }  h-screen   pt-8 relative duration-300 bg-blue-300`}
+      }  h-full   pt-8 relative duration-300 bg-blue-300`}
     >
       <FaAngleLeft
-        className={`text-4xl absolute cursor-pointer -right-3 top-9 w-7   ${!open && "rotate-180"}`}
+        className={`text-3xl absolute cursor-pointer -right-3 top-9 w-7   ${!open && "rotate-180"}`}
         onClick={() => setOpen(!open)}
       />
       <div className="font-medium">

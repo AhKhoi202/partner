@@ -7,6 +7,7 @@ import { path } from "../../ultils/constant";
 import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import memuSidebar from "../../ultils/memuSidebar"
+import Navigation from "./Navigation";
 
 const { AiOutlinePlusCircle, AiOutlineLogin } = icons;
 
@@ -24,22 +25,28 @@ const Header = () => {
   }, [navigate]);
 
   return (
-    <div className="w-full">
-      <div className="w-11/12 m-auto flex flex-wrap items-center justify-between">
-        <Link to="/">
-          <img
-            src={logo}
-            alt="logo"
-            className="md:w-[240px] h-[70px] object-contain"
-          />
-        </Link>
+    <header className="fixed w- z-50 fled top-0 w-full bg-[#f5f5f5] shadow-md">
+      <nav className="flex flex-wrap w-5/6 m-auto items-center border-b-2 border-gray-200 justify-between p-4">
+        <div className="flex items-center">
+          <a href="/" className="text-xl font-semibold">
+            <img src={logo} className="h-10" alt="BLUEBOLT SOFTWARE" />
+          </a>
+          <div className="ml-4">
+            <span className="text-sm text-[#154e8d]">
+              Đối Tác Công Nghệ Tin Cậy Của Mọi Doanh Nghiệp
+            </span>
+          </div>
+        </div>
         <div className="flex items-center gap-1">
           {!isLoggedIn && (
             <div className=" flex items-center gap-1">
               <Button
                 text={"Đăng nhập"}
-                textColor="text-white"
-                bgColor="bg-[#3961fb]"
+                textColor="text-[#3961fb]"
+                bgColor="bg-white"
+                hover={
+                  "hover:border-gray-500 hover:bg-[#3961fb] hover:text-white"
+                }
                 onClick={goLogin}
                 IcAfter={AiOutlineLogin}
               />
@@ -47,6 +54,9 @@ const Header = () => {
                 text={"Đăng ký"}
                 textColor="text-white"
                 bgColor="bg-[#3961fb]"
+                hover={
+                  "hover:border-gray-500 hover:bg-white hover:text-[#3961fb]"
+                }
                 onClick={goRegister}
                 IcAfter={AiOutlinePlusCircle}
               />
@@ -91,8 +101,9 @@ const Header = () => {
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </nav>
+      <Navigation />
+    </header>
   );
 };
 

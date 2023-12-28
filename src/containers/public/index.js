@@ -5,5 +5,7 @@ export { default as Header } from './Header'
 export { default as Navigation } from './Navigation'
 export { default as PotentialCustomers } from './PotentialCustomers'
 export { default as Process } from './Process'
+export { default as Homepage } from './Homepage' 
+export { default as Footer } from "./Footer"; 
 
 

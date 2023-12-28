@@ -212,6 +212,9 @@ const filteredCustomers = searchText
   : customers;
   return (
     <div className="w-full h-full flex flex-col p-4">
+      <h1 className="text-xl pl-4 w-full text-start font-medium">
+        Danh sách khách hàng đã giới thiệu
+      </h1>
       <Space className="justify-end pb-4">
         <Input
           placeholder="Tìm kiếm khách hàng"
