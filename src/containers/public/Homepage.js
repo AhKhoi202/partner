@@ -110,10 +110,10 @@ const Homepage = () => {
           </h1>
         </div>
       </section>
-      <section className="pt-0 pb-12 bg-none">
+      <section className="pb-12 bg-none">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
-            <div className="w-full lg:w-1/3 text-center py-0 px-3">
+            <div className="w-full lg:w-1/3 text-center pb-2 px-3">
               <FontAwesomeIcon
                 icon={faCodepen}
                 className=" p-8 mb-3 text-4xl text-white bg-[#154e8d] rounded-lg"
@@ -126,7 +126,7 @@ const Homepage = () => {
                 IOT, Ai .. theo yêu cầu
               </p>
             </div>
-            <div className="w-full lg:w-1/3 text-center py-0 px-3">
+            <div className="w-full lg:w-1/3 text-center py-2 px-3">
               <FontAwesomeIcon
                 icon={faBuilding}
                 className=" p-8 mb-3 aspect-square text-4xl text-white bg-[#154e8d] rounded-lg"
@@ -139,7 +139,7 @@ const Homepage = () => {
                 như CRM, ERP, WMS, DMS, HRM..
               </p>
             </div>
-            <div className="w-full lg:w-1/3 text-center py-0 px-3">
+            <div className="w-full lg:w-1/3 text-center py-2 px-3">
               <FontAwesomeIcon
                 icon={faUsers}
                 className=" p-8 mb-3 text-4xl text-white bg-[#154e8d] rounded-lg"
@@ -192,7 +192,6 @@ const Homepage = () => {
                 title={step.title}
                 content={step.content}
                 icon={step.icon}
-                // isLast={index === processSteps.length - 1}
               />
             ))}
           </div>
@@ -248,8 +247,8 @@ const Homepage = () => {
         </div>
       </section>
       <section className="py-0 bg-white">
-        <div className="container px-28 mx-auto">
-          <div className="grid grid-cols-6 justify-center">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-6 grid-cols-1 justify-center">
             {imagesData.map((image, index) => (
               <div key={index} className="   m-auto">
                 <img
