@@ -30,7 +30,7 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="w-full">
+    <div className="mt-auto w-full">
       <section className="py-5 mx-20">
         <div className=" mx-auto">
           <h1 className="text-[#154e8d] text-xl my-4">
@@ -53,9 +53,7 @@ const Footer = () => {
       <div className="bg-[#154e8d] w-full p-4">
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="text-center sm:text-left text-sm text-[#f6f6f6]">
-            <span className="ml-20">
-              Bản quyền thuộc © BLUEBOLT SOFTWARE
-            </span>
+            <span className="ml-20">Bản quyền thuộc © BLUEBOLT SOFTWARE</span>
           </div>
         </div>
       </div>
