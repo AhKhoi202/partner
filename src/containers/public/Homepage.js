@@ -235,7 +235,7 @@ const Homepage = () => {
       </section>
       <section className="py-6 bg-[#f5f5f5]">
         <div className="container mx-auto px-24">
-          <div className="grid grid-cols-5">
+          <div className="grid md:grid-cols-5 grid-cols-1">
             {statsData.map((step, index) => (
               <StatisticItem
                 key={index}
