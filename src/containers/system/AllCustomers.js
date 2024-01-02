@@ -221,7 +221,7 @@ const AllCustomers = () => {
       )
     : customers;
   return (
-    <div className="w-full h-full flex flex-col xl:p-4 p-1">
+    <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl pl-4 w-full text-start font-medium">
         Danh sách tất cả các khách hàng
       </h1>
@@ -239,10 +239,11 @@ const AllCustomers = () => {
               cell: EditTableCell,
             },
           }}
-          className="rounded-xl h-full"
+          className="rounded-xl h-full  border-red-700"
           columns={mergedColumns}
           dataSource={filteredCustomers}
           bordered
+          scroll={{x:true}}
         />
       </Form>
     </div>

@@ -211,7 +211,7 @@ const filteredCustomers = searchText
     )
   : customers;
   return (
-    <div className="w-full h-full flex flex-col xl:p-4 p-1">
+    <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-xl pl-4 w-full text-start font-medium">
         Danh sách khách hàng đã giới thiệu
       </h1>
@@ -233,6 +233,7 @@ const filteredCustomers = searchText
           columns={mergedColumns}
           dataSource={filteredCustomers}
           bordered
+          scroll={{ x: true }}
         />
       </Form>
     </div>

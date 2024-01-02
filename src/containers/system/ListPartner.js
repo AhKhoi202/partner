@@ -211,7 +211,7 @@ const ListPartner = () => {
       )
     : users;
   return (
-    <div className="w-full h-full flex flex-col xl:p-4 p-1">
+    <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl pl-4 w-full text-start font-medium ">
         Danh sách các partner
       </h1>
@@ -233,6 +233,7 @@ const ListPartner = () => {
           columns={mergedColumns}
           dataSource={filteredUsers}
           bordered
+          scroll={{ x: true }}
         />
       </Form>
     </div>
