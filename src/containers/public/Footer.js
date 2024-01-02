@@ -31,13 +31,13 @@ const Footer = () => {
   ];
   return (
     <div className="mt-auto w-full">
-      <section className="py-5 mx-20">
+      <section className="py-5 ">
         <div className=" mx-auto">
-          <h1 className="text-[#154e8d] text-xl my-4">
+          <h1 className="text-[#154e8d] text-xl md:ml-20 ml-2 my-4">
             {" "}
             Kết nối với chúng tôi{" "}
           </h1>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:mx-20 mx-2 md:grid-cols-4 gap-4">
             {contactSections.map((section, index) => (
               <ContactInfo
                 key={index}
