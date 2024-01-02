@@ -3,7 +3,7 @@ import React from "react";
 const InputReadOnly = ({ label, value, editPhone }) => {
   return (
     <div className="flex flex-row ">
-      <label className="w-48 flex-none" htmlFor="exactly-address">
+      <label className="sm:w-48 w-20  flex-none" htmlFor="exactly-address">
         {label}
       </label>
       <div className="flex-auto">
@@ -15,10 +15,8 @@ const InputReadOnly = ({ label, value, editPhone }) => {
           value={value || ""}
         />
         {editPhone && (
-          <small 
-          className="text-blue-500 py-4"
-          >
-             {/* Đổi số điện thoại */}
+          <small className="text-blue-500 py-4">
+            {/* Đổi số điện thoại */}
           </small>
         )}
       </div>

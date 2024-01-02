@@ -31,7 +31,7 @@ const Carousel = ({
                   className="rounded-full w-16 mr-2"
                 />
                 <span className="text-gray-600">{author}</span>
-                <span>&nbsp;• {position}</span>
+                {/* <span>&nbsp;•  {position}</span> */}
               </footer>
             </div>
           </blockquote>

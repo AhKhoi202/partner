@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import icons from "../../ultils/icons";
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const { FaAngleLeft } = icons;
 
   const activeStyle =
@@ -16,15 +16,16 @@ const Sidebar = () => {
     "hover:bg-cyan-400 flex rounded-md items-center gap-2 py-2 cursor-pointer";
 
   const { currentData } = useSelector((state) => state.user);
-  // console.log(currentData);
   return (
     <div
       className={`${
-        open ? "w-1/6 p-5" : "w-20 p-2"
-      }  h-full   pt-8 relative duration-300 bg-blue-300`}
+        open ? "w-1/6" : "w-20"
+      }  h-full min-w-20 pt-8 p-2 relative duration-300 bg-blue-300`}
     >
       <FaAngleLeft
-        className={`text-3xl absolute cursor-pointer -right-3 top-9 w-7   ${!open && "rotate-180"}`}
+        className={`text-3xl absolute cursor-pointer -right-3 top-9 w-7   ${
+          !open && "rotate-180"
+        } hidden sm:inline`}
         onClick={() => setOpen(!open)}
       />
       <div className="font-medium">
@@ -36,11 +37,11 @@ const Sidebar = () => {
         <div className="pt-2 flex flex-col justify-center">
           <span className="font-semibold">{currentData?.name}</span>
           <span>
-            <span className={`${!open && "hidden"}`}>Sđt:</span>
+            <span className={`${!open && "hidden"} `}>Sđt:</span>
             <small> {currentData?.phone}</small>
           </span>
           <span>
-            <span className={`${!open && "hidden"}`}>Mã thành viên: </span>
+            <span className={`${!open && "hidden"} `}>Mã thành viên: </span>
             <small className="font-medium">
               {currentData?.id?.match(/\d/g).join("")?.slice(0, 6)}
             </small>
@@ -56,10 +57,10 @@ const Sidebar = () => {
             key={item.id}
             to={item?.path}
           >
-            <span className={`${open ? "text-2xl" : "text-4xl"}`}>
+            <span className={`${open ? "text-2xl" : "text-4xl"} `}>
               {item?.icon}
             </span>
-            <span className={`${!open && "hidden"}`}>{item.text}</span>
+            <span className={`${!open && "hidden"} `}>{item.text}</span>
           </NavLink>
         ))}
         {currentData.roleId === "r1" &&
@@ -74,7 +75,7 @@ const Sidebar = () => {
               <span className={`${open ? "text-2xl" : "text-4xl"}`}>
                 {item?.icon}
               </span>
-              <span className={`${!open && "hidden"}`}>{item.text}</span>
+              <span className={`${!open && "hidden"} `}>{item.text}</span>
             </NavLink>
           ))}
       </div>

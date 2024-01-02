@@ -103,7 +103,7 @@ const Homepage = () => {
           </p>
         </div>
       </section>
-      <section className="pt-8 pb-8 bg-none">
+      <section className="pt-8 bg-none">
         <div className="container mx-auto px-4">
           <h1 className="text-center text-2xl text-[#F2842B]">
             Dịch Vụ Của BLUEBOLT SOFTWARE
@@ -113,7 +113,7 @@ const Homepage = () => {
       <section className="pb-12 bg-none">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
-            <div className="w-full lg:w-1/3 text-center pb-2 px-3">
+            <div className="w-full lg:w-1/3 text-center py-2 px-3">
               <FontAwesomeIcon
                 icon={faCodepen}
                 className=" p-8 mb-3 text-4xl text-white bg-[#154e8d] rounded-lg"
@@ -197,8 +197,8 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col md:flex-row items-center bg-white bg-cover ">
-        <div className="container mx-auto">
+      <section className="flex flex-col py-3 md:flex-row items-center bg-white bg-cover ">
+        <div className="container  mx-auto">
           <div className="flex flex-wrap items-center">
             <div className="w-full md:w-1/2 ">
               <div className="relative mx-auto">
@@ -248,13 +248,13 @@ const Homepage = () => {
       </section>
       <section className="py-0 bg-white">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-6 grid-cols-1 justify-center">
+          <div className="grid sm:grid-cols-6 grid-cols-1 justify-center">
             {imagesData.map((image, index) => (
               <div key={index} className="   m-auto">
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-44 h-28 object-contain"
+                  className="w-full sm:w-44 h-28 object-contain"
                   loading="lazy"
                 />
               </div>
@@ -268,8 +268,7 @@ const Homepage = () => {
             backgroundImage={home4}
             quote="Tại BLUEBOLT SOFTWARE, chúng tôi luôn hướng đến sự thành công của Khách Hàng, Đối Tác và Nhân Viên. Mọi hành động của chúng tôi được dẫn dắt bởi 3 sự cam kết đó là S.M.A.R.T - Quality - Commit"
             detail="(Specific- Measurable- Achievable- Relevant- Time-bound)"
-            author="Đạt Lê "
-            position={"CEO BBSW"}
+            author="Đạt Lê • CEO BBSW"
             authorImage={profilenew}
           />
         </div>
