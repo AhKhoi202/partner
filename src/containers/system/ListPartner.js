@@ -211,7 +211,7 @@ const ListPartner = () => {
       )
     : users;
   return (
-    <div className="w-full h-full flex flex-col p-4">
+    <div className="w-full h-full flex flex-col xl:p-4 p-1">
       <h1 className="text-3xl pl-4 w-full text-start font-medium ">
         Danh sách các partner
       </h1>
@@ -229,7 +229,7 @@ const ListPartner = () => {
               cell: EditTableCell,
             },
           }}
-          className="py-4 px-4 rounded-xl h-full"
+          className="py-4 xl:px-4 px-0 rounded-xl h-full"
           columns={mergedColumns}
           dataSource={filteredUsers}
           bordered

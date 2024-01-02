@@ -16,7 +16,7 @@ const Carousel = ({
       <div className="absolute top-0 right-0 bottom-0 left-0 bg-gray-500 bg-opacity-50"></div>
 
       <div>
-        <div className="relative container w-1/2 mx-24 ">
+        <div className="relative container md:w-1/2 w-5/6 md:ml-24 ml-5 ">
           <blockquote className="w-full flex">
             <div className="p-5 bg-[#154e8d] h-full rounded-l-lg">
               <i className="w-5 text-white fa fa-quote-left "></i>
