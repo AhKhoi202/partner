@@ -141,3 +141,18 @@ export const apiForgorPassword = async (email) => {
     throw error;
   }
 };
+
+export const apiResetPassword = async (token, password) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: "/api/v1/user/reset-password/" + token, 
+      data: {
+        password: password, 
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

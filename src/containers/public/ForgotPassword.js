@@ -22,7 +22,7 @@ const ForgotPassword = () => {
       try {
         const response = await apiForgorPassword(payload.email);
         console.log(response);
-        if (response.data.success) {
+        if (response.data.err === 0) {
           Swal.fire("Done", "Vui lòng kiểm tra email", "success").then(
             () => {}
           );
