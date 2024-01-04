@@ -13,6 +13,7 @@ const AllCustomers = () => {
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
 
+
   useEffect(() => {
     dispatch(getAllCustomers());
   }, [dispatch]);
@@ -209,6 +210,7 @@ const AllCustomers = () => {
       }),
     };
   });
+  
   if (currentData.roleId !== "r1") {
     return <div>Không có quyền truy cập</div>;
   }
@@ -223,9 +225,9 @@ const AllCustomers = () => {
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl pl-4 w-full text-start font-medium">
-        Danh sách tất cả các khách hàng
+        Danh sách tất cả các khách hàng kkkkkkkkkkkkkkkk
       </h1>
-      <Space className="justify-end pb-4">
+      <Space className=" justify-end pb-4">
         <Input
           placeholder="Tìm kiếm khách hàng"
           value={searchText}
@@ -239,11 +241,18 @@ const AllCustomers = () => {
               cell: EditTableCell,
             },
           }}
-          className="rounded-xl h-full  border-red-700"
+          rowClassName={(record, index) =>
+            index % 2 === 0
+              ? { backgroundColor: "#ff0000" }
+              : { backgroundColor: "#e0e0e0" }
+          }
+          className="rounded-xl max-w-full h-full"
           columns={mergedColumns}
           dataSource={filteredCustomers}
           bordered
-          scroll={{x:true}}
+          scroll={{ x: true }}
+          tableStyle={{ backgroundColor: "#0000FF" }}
+          headerStyle={{ backgroundColor: "#FF0000", color: "#FFFFFF" }}
         />
       </Form>
     </div>

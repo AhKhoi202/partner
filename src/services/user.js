@@ -128,3 +128,16 @@ export const apiEditUsers = async (payload) => {
     throw error;
   }
 };
+
+export const apiForgorPassword = async (email) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/user/forgot-password",
+      params: { email },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

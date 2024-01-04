@@ -3,6 +3,7 @@ import { InputReadOnly, InputForm1, Button } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { apiUpdateUser } from "../../services";
 import validate from "../../ultils/validataFields";
+import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getCurrent } from "../../store/actions";
 
@@ -80,14 +81,17 @@ const EditAccount = () => {
             value={payload.career}
             label="Ngành nghề"
           />
-          {/* <div className="flex">
-            <h1 className="w-48 flex-none font-semibold" htmlFor="password">
+          <div className="flex">
+            <h1 className="sm:w-48 w-20 flex-none " htmlFor="password">
               Mật khẩu
             </h1>
-            <small className="flex-auto text-blue-500 cursor-pointer">
+            <NavLink
+              className="flex-auto text-blue-500 cursor-pointer"
+              to={"/he-thong/doi-mat-khau"}
+            >
               Đổi mật khẩu
-            </small>
-          </div> */}
+            </NavLink>
+          </div>
 
           <Button
             text="Cập nhật"

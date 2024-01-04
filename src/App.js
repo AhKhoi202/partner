@@ -5,6 +5,8 @@ import {
   Register,
   PotentialCustomers,
   Homepage,
+  ResetPassword,
+  ForgotPassword,
 } from "./containers/public";
 import { path } from "./ultils/constant";
 import * as actions from "./store/actions";
@@ -30,11 +32,15 @@ function App() {
     <div className="bg-white">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
-          <Route path="*" element={<Homepage/>} />
+          <Route path="*" element={<Homepage />} />
           <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.REGISTER} element={<Register />} />
+          <Route path={path.FORGOTPASSWORD} element={<ForgotPassword />} />
+          <Route path={path.RESETPASSWORD} element={<ResetPassword />} />
           {/* <Route path={path.TIEN_DO_CONG_VIEC} element={<Process />} /> */}
-          <Route path={path.KHACH_HANG_TIEM_NANG} element={<PotentialCustomers />}
+          <Route
+            path={path.KHACH_HANG_TIEM_NANG}
+            element={<PotentialCustomers />}
           />
         </Route>
 

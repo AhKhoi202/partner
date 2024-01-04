@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { path } from "../../ultils/constant";
 import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
-import memuSidebar from "../../ultils/memuSidebar"
+import memuSidebar from "../../ultils/memuSidebar";
 import Navigation from "./Navigation";
 
 const { AiOutlinePlusCircle, AiOutlineLogin } = icons;
@@ -63,10 +63,10 @@ const Header = () => {
             </div>
           )}
           {isLoggedIn && (
-            <div className=" flex items-center gap-1 relative">
+            <div className="flex justify-between items-center gap-1 relative">
               <User />
               <Button
-                text={"Quan ly tai khoan"}
+                text="Quản lý tài khoản"
                 textColor="text-white"
                 bgColor="bg-blue-500"
                 px="px-4"
@@ -94,7 +94,7 @@ const Header = () => {
                     }}
                   >
                     <AiOutlineLogin />
-                    Dang xuat
+                    Đăng xuất
                   </span>
                 </div>
               )}
