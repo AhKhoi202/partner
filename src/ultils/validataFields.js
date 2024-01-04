@@ -93,6 +93,7 @@ const validate = (payload, setInvalidFields) => {
               message: "Địa chỉ email không hợp lệ",
             },
           ]);
+          invalids++;
         }
         break;
 

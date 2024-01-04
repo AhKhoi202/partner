@@ -225,7 +225,7 @@ const AllCustomers = () => {
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl pl-4 w-full text-start font-medium">
-        Danh sách tất cả các khách hàng kkkkkkkkkkkkkkkk
+        Danh sách tất cả các khách hàng
       </h1>
       <Space className=" justify-end pb-4">
         <Input

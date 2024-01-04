@@ -1,8 +1,9 @@
 import React from "react";
-import { useState,  } from "react";
+import { useState } from "react";
 import { InputForm, Button } from "../../components";
-import { useNavigate  } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import validate from "../../ultils/validataFields";
 import { apiForgorPassword } from "../../services";
 
 const ForgotPassword = () => {
@@ -11,20 +12,28 @@ const ForgotPassword = () => {
     navigate(-1);
   };
   const [invalidFields, setInvalidFields] = useState([]);
-  
+
   const [payload, setPlayload] = useState({
     email: "",
   });
-  const handleSubmit = async() => {
-    const response =  await apiForgorPassword(payload.email);
-    console.log(response);
-    if (response.data.success) {
-      Swal.fire("Done", "Vui lòng kiểm tra email", "success").then(
-        () => {
+  const handleSubmit = async () => {
+    const validcounter = validate(payload, setInvalidFields);
+    if (validcounter === 0) {
+      try {
+        const response = await apiForgorPassword(payload.email);
+        console.log(response);
+        if (response.data.success) {
+          Swal.fire("Done", "Vui lòng kiểm tra email", "success").then(
+            () => {}
+          );
+        } else if (response.data.err === 1) {
+          Swal.fire("Oops!", response.data.msg, "error");
+        } else {
+          Swal.fire("Oops!", "Có lỗi xảy ra, vui lòng thử lại sau", "error");
         }
-      );
-    } else {
-      Swal.fire("Oops!", "Email không hợp lệ", "error");
+      } catch (error) {
+        Swal.fire("Error", "Lỗi kết nối tới server: " + error.message, "error");
+      }
     }
   };
   return (
