@@ -16,6 +16,10 @@ const PotentialCustomers = () => {
     note: "",
     estimatedCosts: "",
   });
+  if (!currentData || !currentData.id) {
+    window.location.href = "/login";
+    return null;
+  }
 
   const handleSubmit = async () => {
     let finalPayLoad = {

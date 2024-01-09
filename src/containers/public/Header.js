@@ -25,7 +25,7 @@ const Header = () => {
   }, [navigate]);
 
   return (
-    <header className="fixed w- z-50 fled top-0 w-screen bg-[#f5f5f5] shadow-md">
+    <header className="fixed z-50 fled top-0 w-screen bg-[#f5f5f5] shadow-md">
       <nav className="flex flex-wrap md:w-5/6 w-full m-auto items-center border-b-2 border-gray-200 justify-between p-4">
         <div className="flex items-center">
           <a href="/" className="text-xl font-semibold">
@@ -37,9 +37,9 @@ const Header = () => {
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="ml-auto">
           {!isLoggedIn && (
-            <div className=" flex items-center gap-1">
+            <div className=" flex items-end gap-3">
               <Button
                 text={"Đăng nhập"}
                 textColor="text-[#3961fb]"
@@ -63,7 +63,7 @@ const Header = () => {
             </div>
           )}
           {isLoggedIn && (
-            <div className="flex justify-between items-center gap-1 relative">
+            <div className="flex justify-between items-center gap-3 relative">
               <User />
               <Button
                 text="Quản lý tài khoản"
