@@ -132,7 +132,7 @@ const ListPartner = () => {
       // sorter: (a, b) => a.role.name.localeCompare(b.role.name),
     },
     {
-      title: "Hanh dong",
+      title: "Hành động",
       dataIndex: "action",
       align: "center",
       render: (_, record) => {
@@ -219,7 +219,7 @@ const ListPartner = () => {
         <Input.Search
           placeholder="Enter để tìm kiếm..."
           onSearch={handleSearch}
-          enterButton
+          // enterButton
         />
       </Space>
       <Form form={form} component={false}>

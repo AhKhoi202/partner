@@ -9,12 +9,10 @@ import icons from "../../ultils/icons";
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const { FaAngleLeft } = icons;
-
   const activeStyle =
     "hover:bg-cyan-400 flex rounded-md items-center gap-2 py-2 font-bold bg-cyan-400 ";
   const notActiceStyle =
     "hover:bg-cyan-400 flex rounded-md items-center gap-2 py-2 cursor-pointer";
-
   const { currentData } = useSelector((state) => state.user);
   return (
     <div
