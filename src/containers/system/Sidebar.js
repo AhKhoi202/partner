@@ -17,8 +17,8 @@ const Sidebar = () => {
   return (
     <div
       className={`${
-        open ? "w-1/6" : "w-20"
-      }  h-full min-w-20 pt-8 p-2 relative duration-300 bg-blue-300`}
+        open ? "w-1/6" : "sm:w-20 w-14"
+      }  h-full min-w-14 pt-8 sm:p-2 p-1 relative duration-300 bg-blue-300`}
     >
       <FaAngleLeft
         className={`text-3xl absolute cursor-pointer -right-3 top-9 w-7   ${
