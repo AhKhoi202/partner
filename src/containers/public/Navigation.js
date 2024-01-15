@@ -33,12 +33,13 @@ const Navigation = ({ isAdmin }) => {
               >
                 Khách hàng tiềm năng
               </NavLink>
-              {/* <NavLink
-            to={path.TIEN_DO_CONG_VIEC}
-            className={({ isActive }) => (isActive ? active : notActive)}
-          >
-            Tiến độ công việc
-          </NavLink> */}
+              <NavLink
+                to={path.DS_KHACH_HANG}
+                className={({ isActive }) => (isActive ? active : notActive)}
+              >
+                Danh sách khách hàng
+              </NavLink>
+              
             </>
           )}
         </div>

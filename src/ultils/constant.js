@@ -3,7 +3,9 @@ export const path = {
   LOGIN: "login",
   REGISTER: "register",
   TIEN_DO_CONG_VIEC: "workprogress",
-  KHACH_HANG_TIEM_NANG: "potentialcustomers",
+  KHACH_HANG_TIEM_NANG: "potential-customers",
+  DS_KHACH_HANG: "list-customer",
+  TAO_DU_AN:"create-project",
   FORGOTPASSWORD: "forgot-password",
   RESETPASSWORD: "reset-password/*",
 

@@ -19,6 +19,7 @@ import {
   AllCustomers,
   ListPartner,
 } from "./containers/system";
+import { ListCustomer, CreateProject  } from './containers/public/navbar'
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +38,8 @@ function App() {
           <Route path={path.REGISTER} element={<Register />} />
           <Route path={path.FORGOTPASSWORD} element={<ForgotPassword />} />
           <Route path={path.RESETPASSWORD} element={<ResetPassword />} />
-          {/* <Route path={path.TIEN_DO_CONG_VIEC} element={<Process />} /> */}
+          <Route path={path.DS_KHACH_HANG} element={<ListCustomer />} />
+          <Route path={path.TAO_DU_AN} element={<CreateProject />} />
           <Route
             path={path.KHACH_HANG_TIEM_NANG}
             element={<PotentialCustomers />}

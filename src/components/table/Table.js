@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-const Table = ({ data, headerMapping = [], invisibleColumns = [] }) => {
+const Table = ({
+  onClick,
+  data,
+  headerMapping,
+  buttonText = [],
+  invisibleColumns = [],
+}) => {
   const [headers, setHeaders] = useState([]);
 
   useEffect(() => {
@@ -11,10 +17,13 @@ const Table = ({ data, headerMapping = [], invisibleColumns = [] }) => {
 
   return (
     <>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative mx-auto overflow-x-auto shadow-md sm:rounded-lg max-h-[600px] overflow-y-auto ">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
+              <th scope="col" className="px-6 py-3">
+                #
+              </th>
               {headers.map((header, index) => (
                 <th scope="col" className="px-6 py-3" key={index}>
                   {headerMapping.find((mapping) => mapping.key === header)
@@ -27,6 +36,9 @@ const Table = ({ data, headerMapping = [], invisibleColumns = [] }) => {
             {data.map((item, index) => (
               <tr key={index} className="odd:bg-white even:bg-gray-50">
                 {/* Map over headers to get values for each cell */}
+                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  {index + 1}
+                </td>
                 {headers.map((header) => (
                   <td
                     scope="row"
@@ -37,8 +49,11 @@ const Table = ({ data, headerMapping = [], invisibleColumns = [] }) => {
                   </td>
                 ))}
                 <td className="px-6 py-4">
-                  <button className="font-medium text-blue-600 hover:underline">
-                    Edit
+                  <button
+                    className="font-medium text-blue-600 hover:underline"
+                    onClick={() => onClick(item)}
+                  >
+                    {buttonText}
                   </button>
                 </td>
               </tr>

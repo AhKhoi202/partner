@@ -5,11 +5,9 @@ import { Outlet } from "react-router-dom";
 
 const Home = () => {
   const [isHeaderVisible, setHeaderVisible] = useState(true);
-
   const handleScroll = () => {
     setHeaderVisible(window.scrollY < window.innerHeight);
   };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -18,7 +16,9 @@ const Home = () => {
   }, []);
   return (
     <div className="w-full flex flex-col items-center min-h-screen bg-[#F8F9FA]">
-      {isHeaderVisible && <Header className="" />}
+      {isHeaderVisible && 
+      <Header className="" />
+      }
       <div className="w-full flex justify-center  ">
         <Outlet />
       </div>
