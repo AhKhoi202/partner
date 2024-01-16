@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { InputForm, Button } from "../../components";
+import { InputForm, Button } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import validate from "../../ultils/validataFields";
-import { apiForgorPassword } from "../../services";
+import validate from "../../../ultils/validataFields";
+import { apiForgorPassword } from "../../../services";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

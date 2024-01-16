@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header.js";
-import Footer from './Footer.js'
+import Header from "./pages/Header.js";
+import Footer from "./pages/Footer.js";
 import { Outlet } from "react-router-dom";
 
 const Home = () => {
@@ -16,9 +16,7 @@ const Home = () => {
   }, []);
   return (
     <div className="w-full flex flex-col items-center min-h-screen bg-[#F8F9FA]">
-      {isHeaderVisible && 
-      <Header className="" />
-      }
+      {isHeaderVisible && <Header className="" />}
       <div className="w-full flex justify-center  ">
         <Outlet />
       </div>

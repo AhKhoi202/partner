@@ -1,13 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
-  Login,
-  Register,
+  
   PotentialCustomers,
-  Homepage,
   ResetPassword,
   ForgotPassword,
 } from "./containers/public";
+import { Login, Register, Homepage } from "./containers/public/pages";
 import { path } from "./ultils/constant";
 import * as actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";

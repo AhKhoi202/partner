@@ -3,7 +3,9 @@ import { InputForm, Button, InputReadOnly } from "../../../components";
 import { useSelector } from "react-redux";
 import validate from "../../../ultils/validataFields";
 import { apiCreateProject, apiGetCustomerById } from "../../../services";
-import { useLocation } from "react-router-dom";
+import { useLocation  } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const CreateProject = () => {
   const [customer, setCustomer] = useState(null);
@@ -28,7 +30,8 @@ const CreateProject = () => {
 
   const [payload, setPlayload] = useState({
     name: "",
-    estimatedCosts: "",
+    expectedRevenue: "",
+    description: ""
   });
 
   useEffect(() => {
@@ -39,19 +42,27 @@ const CreateProject = () => {
   }, [currentData]);
   let finalPayLoad = {
     ...payload,
-    userid: currentData.id,
+    userId: currentData.id,
+    customerId: customerId,
   };
-
   const handleSubmit = async () => {
     const validcounter = validate(payload, setInvalidFields);
     if (validcounter === 0) {
       const response = await apiCreateProject(finalPayLoad, customerId);
-      console.log(response);
-      console.log(finalPayLoad);
+      if (response?.data.err === 0) {
+        Swal.fire(
+          "Thành công",
+          "Thêm dự án thành công",
+          "success"
+        ).then(() => {
+           window.location.href = "/list-customer";
+        });
+      } else {
+        Swal.fire("Oops!", "Thêm dự án không thành công", "error");
+      }
     }
   };
 
-  console.log(customer);
   return (
     <div className="text-black w-full md:w-[600px]  mt-40 flex border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
       <div className="w-full p-[50px] pb-[100px] items-center justify-center ">
@@ -60,9 +71,23 @@ const CreateProject = () => {
         </h3>
         <div className="w-full flex flex-col gap-5">
           <InputReadOnly value={customer?.name} label="Tên khách hàng" />
-          <InputReadOnly value={customer?.companyName} label="Tên công ty" />
           <InputReadOnly value={customer?.phone} label="Số điện thoại" />
           <InputReadOnly value={customer?.email} label="Email" />
+          <InputReadOnly
+            value={customer?.companyName}
+            label="Tên công ty"
+            flex={" flex-col"}
+          />
+          <InputForm
+            onEnterPress={handleSubmit}
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            label={"Tên dự án"}
+            value={payload.note}
+            setValue={setPlayload}
+            keyPayload={"name"}
+            type={"text"}
+          />
           <InputForm
             onEnterPress={handleSubmit}
             setInvalidFields={setInvalidFields}
@@ -70,7 +95,7 @@ const CreateProject = () => {
             label={"Mô tả công việc"}
             value={payload.note}
             setValue={setPlayload}
-            keyPayload={"note"}
+            keyPayload={"description"}
             type={"text"}
           />
           <InputForm
@@ -80,7 +105,7 @@ const CreateProject = () => {
             label={"Chi phí dự tính"}
             value={payload.estimatedCosts}
             setValue={setPlayload}
-            keyPayload={"estimatedCosts"}
+            keyPayload={"expectedRevenue"}
             type={""}
           />
           <Button

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../../components/table/Table";
 import { getCustomers } from "../../../store/actions/user";
@@ -38,14 +38,18 @@ const Listcustomer = () => {
       <h1 className="text-3xl p-4 w-full text-start font-medium">
         Dach sách các khách hàng mà bạn đã giới thiệu
       </h1>
-      <Table
-        className={"m-auto"}
-        data={customers}
-        headerMapping={headerMapping}
-        invisibleColumns={invisibleColumns}
-        buttonText={"Tạo dự án"}
-        onClick={(item) => handleCreateProject(item)}
-      />
+      {customers.length > 0 ? (
+        <Table
+          className={"m-auto"}
+          data={customers}
+          headerMapping={headerMapping}
+          invisibleColumns={invisibleColumns}
+          buttonText={"Tạo dự án"}
+          onClick={(item) => handleCreateProject(item)}
+        />
+      ) : (
+        <h1 className="text-center mt-4">Bạn chưa giới thiệu khách hàng</h1>
+      )}
     </div>
   );
 };

@@ -4,7 +4,7 @@ export const apiCreateProject = async (payload, customerId) => {
   try {
     const response = await axios({
       method: "post",
-      url: `/api/v1/project/new-project/${customerId}`,
+      url: `/api/v1/project/new-project`,
       data: payload,
     });
     return response;

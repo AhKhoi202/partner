@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import validate from "../../ultils/validataFields";
-import { InputForm, Button } from "../../components";
-import { apiResetPassword } from "../../services";
+import validate from "../../../ultils/validataFields";
+import { InputForm, Button } from "../../../components";
+import { apiResetPassword } from "../../../services";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function ResetPassword() {

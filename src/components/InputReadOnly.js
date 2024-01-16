@@ -1,8 +1,8 @@
 import React from "react";
 
-const InputReadOnly = ({ label, value, editPhone }) => {
+const InputReadOnly = ({ label, value, editPhone, flex }) => {
   return (
-    <div className="flex flex-row ">
+    <div className= {`flex ${flex}`}>
       <label className="sm:w-48 w-20  flex-none" htmlFor="exactly-address">
         {label}
       </label>

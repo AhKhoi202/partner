@@ -1,20 +1,20 @@
 import React from "react";
-import background1 from "../../assets/background1.png";
-import background2 from "../../assets/background2.jpg";
-import home3 from "../../assets/home3.png";
-import SVGhome3 from "../../assets/home3.svg";
-import profilenew from "../../assets/profilenew.jpg";
-import home4 from "../../assets/home4.jpg";
-import win from "../../assets/winCommerce.jpeg";
-import thaco from "../../assets/thacoAuto.jpeg";
-import ngsc from "../../assets/NGSC_logo.png";
-import fast from "../../assets/fastboy.png";
-import panasonic from "../../assets/panasonic.png";
-import ogp from "../../assets/ogp.png";
+import background1 from "../../../assets/background1.png";
+import background2 from "../../../assets/background2.jpg";
+import home3 from "../../../assets/home3.png";
+import SVGhome3 from "../../../assets/home3.svg";
+import profilenew from "../../../assets/profilenew.jpg";
+import home4 from "../../../assets/home4.jpg";
+import win from "../../../assets/winCommerce.jpeg";
+import thaco from "../../../assets/thacoAuto.jpeg";
+import ngsc from "../../../assets/NGSC_logo.png";
+import fast from "../../../assets/fastboy.png";
+import panasonic from "../../../assets/panasonic.png";
+import ogp from "../../../assets/ogp.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuilding, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faCodepen } from "@fortawesome/free-brands-svg-icons";
-import Carousel from "../../components/Carousel";
+import Carousel from "../../../components/Carousel";
 
 const Homepage = () => {
   const processSteps = [

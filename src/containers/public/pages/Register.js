@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { InputForm, Button } from "../../components";
-import * as action from "../../store/actions";
+import { InputForm, Button } from "../../../components";
+import * as action from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import validate from "../../ultils/validataFields";
+import validate from "../../../ultils/validataFields";
 import Swal from "sweetalert2";
 
 const Register = () => {
