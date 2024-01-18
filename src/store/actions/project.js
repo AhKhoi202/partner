@@ -32,7 +32,7 @@ export const getAllProjects = () => async (dispatch) => {
     if (response?.data.err === 0) {
       dispatch({
         type: actionTypes.GET_ALLPROJECTS,
-        customers: response.data.response,
+        projects: response.data.response,
       });
     } else {
       dispatch({
@@ -43,7 +43,7 @@ export const getAllProjects = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_ALLPROJECTS,
-      customers: null,
+      projects: null,
       msg: error,
     });
   }

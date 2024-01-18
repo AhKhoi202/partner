@@ -5,7 +5,7 @@ const initState = {
   msg: "",
 };
 
-const allUserReducer = (state = initState, action) => {
+const adminUserReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.GET_ALLUSERS:
       return {
@@ -18,4 +18,4 @@ const allUserReducer = (state = initState, action) => {
   }
 };
 
-export default allUserReducer;
+export default adminUserReducer;

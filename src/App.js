@@ -13,6 +13,7 @@ import {
   AllCustomers,
   ListPartner,
   ListProjects,
+  ProjectDetail,
 } from "./containers/system/admin";
 import {
   ListCustomer,
@@ -58,6 +59,7 @@ function App() {
           <Route path={path.LIST_ALLCUSTOMERS} element={<AllCustomers />} />
           <Route path={path.LIST_PARTNER} element={<ListPartner />} />
           <Route path={path.LIST_PROJECTS} element={<ListProjects />} />
+          <Route path={path.PROJECTS_DETAIL} element={<ProjectDetail />} />
         </Route>
       </Routes>
     </div>

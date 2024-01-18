@@ -16,5 +16,6 @@ export const path = {
   LIST_CUSTOMERS: "ds-khach-hang",
   LIST_PARTNER: "ds-partner",
   LIST_PROJECTS: "ds-du-an",
+  PROJECTS_DETAIL: "chi-tiet-du-an",
   LIST_ALLCUSTOMERS: "ds-tat-ca-khach-hang",
 };
