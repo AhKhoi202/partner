@@ -15,6 +15,7 @@ const CreateProject = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const customerId = searchParams.get("customerId");
+  console.log(customerId)
   
   useEffect(() => {
   const fetchCustomer = async () => {

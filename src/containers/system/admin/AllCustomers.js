@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomers } from "../../store/actions/user";
+import { getAllCustomers } from "../../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
 import Swal from "sweetalert2";
-import { apiDeleteCustomers, apiEditCustomers } from "../../services";
+import { apiDeleteCustomers, apiEditCustomers } from "../../../services";
 
-const ListCustomers = () => {
-  const { customers } = useSelector((state) => state.customer);
+const AllCustomers = () => {
+  const { customers } = useSelector((state) => state.allCustomer);
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
+  const { currentData } = useSelector((state) => state.user);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
   console.log(customers)
+
   useEffect(() => {
-    dispatch(getCustomers());
+    dispatch(getAllCustomers());
   }, [dispatch]);
+
   const handleDelete = async (customers) => {
     const response = await apiDeleteCustomers(customers.id);
     if (response?.data.err === 0) {
       edit(false);
       Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {
-        dispatch(getCustomers());
+        dispatch(getAllCustomers());
       });
     } else {
       alert(response.err);
@@ -29,6 +32,11 @@ const ListCustomers = () => {
   };
 
   const edit = (record) => {
+    if (record.dataIndex === "user") {
+      // Hiển thị cảnh báo
+      alert("Không thể chỉnh sửa cột 'Tên partner'");
+      return;
+    }
     form.setFieldsValue({
       id: record.id,
       ...record,
@@ -44,7 +52,7 @@ const ListCustomers = () => {
       edit(false);
       Swal.fire("Done", "Chỉnh sửa thông tin thành công", "success").then(
         () => {
-           dispatch(getCustomers());
+          dispatch(getAllCustomers());
         }
       );
     } else {
@@ -86,20 +94,15 @@ const ListCustomers = () => {
       </td>
     );
   };
-
   const column = [
     {
-      key: "name",
-      title: "Tên khách hàng",
+      title: "Tên",
       dataIndex: "name",
       align: "center",
       edittable: true,
       sorter: (a, b) => a.name.localeCompare(b.name),
-
-      // sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order
     },
     {
-      key: "companyName",
       title: "Tên công ty",
       dataIndex: "companyName",
       align: "center",
@@ -107,15 +110,13 @@ const ListCustomers = () => {
       sorter: (a, b) => a.companyName.localeCompare(b.companyName),
     },
     {
-      key: "phone",
-      title: "Sđt",
+      title: "SĐT",
       dataIndex: "phone",
       align: "center",
       edittable: true,
       sorter: (a, b) => a.phone.localeCompare(b.phone),
     },
     {
-      key: "email",
       title: "Email",
       dataIndex: "email",
       align: "center",
@@ -123,20 +124,27 @@ const ListCustomers = () => {
       sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
-      key: "note",
-      title: "Mô tả yêu cầu",
+      title: "Mô tả công việc",
       dataIndex: "note",
       align: "center",
       edittable: true,
       sorter: (a, b) => a.note.localeCompare(b.note),
     },
     {
-      key: "estimatedCosts",
       title: "Chi phí dự tính",
       dataIndex: "estimatedCosts",
       align: "center",
       edittable: true,
       sorter: (a, b) => a.estimatedCosts - b.estimatedCosts,
+    },
+    {
+      title: "Tên partner",
+      dataIndex: "user",
+      key: "user",
+      align: "center",
+      edittable: false,
+      render: (user) => user.name,
+      sorter: (a, b) => a.user.name.localeCompare(b.user.name),
     },
     {
       title: "Hành động",
@@ -202,19 +210,24 @@ const ListCustomers = () => {
       }),
     };
   });
-const filteredCustomers = searchText
-  ? customers.filter((customer) =>
-      Object.values(customer).some((value) =>
-        value.toString().toLowerCase().includes(searchText.toLowerCase())
+  
+  if (currentData.roleId !== "r1") {
+    return <div>Không có quyền truy cập</div>;
+  }
+
+  const filteredCustomers = searchText
+    ? customers.filter((customer) =>
+        Object.values(customer).some((value) =>
+          value.toString().toLowerCase().includes(searchText.toLowerCase())
+        )
       )
-    )
-  : customers;
+    : customers;
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
-      <h1 className="text-xl pl-4 w-full text-start font-medium">
-        Danh sách khách hàng đã giới thiệu
+      <h1 className="text-3xl pl-4 w-full text-start font-medium">
+        Danh sách tất cả các khách hàng
       </h1>
-      <Space className="justify-end pb-4">
+      <Space className=" justify-end pb-4">
         <Input
           placeholder="Tìm kiếm khách hàng"
           value={searchText}
@@ -228,15 +241,22 @@ const filteredCustomers = searchText
               cell: EditTableCell,
             },
           }}
-          className="py-4 xl:px-4 px-0 rounded-xl h-full"
+          rowClassName={(record, index) =>
+            index % 2 === 0
+              ? { backgroundColor: "#ff0000" }
+              : { backgroundColor: "#e0e0e0" }
+          }
+          className="rounded-xl max-w-full h-full"
           columns={mergedColumns}
           dataSource={filteredCustomers}
           bordered
           scroll={{ x: true }}
+          tableStyle={{ backgroundColor: "#0000FF" }}
+          headerStyle={{ backgroundColor: "#FF0000", color: "#FFFFFF" }}
         />
       </Form>
     </div>
   );
 };
 
-export default ListCustomers;
+export default AllCustomers;

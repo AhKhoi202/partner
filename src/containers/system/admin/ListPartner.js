@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../store/actions/user";
+import { getAllUsers } from "../../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
 import Swal from "sweetalert2";
-import { apiDeleteUsers, apiEditUsers } from "../../services";
+import { apiDeleteUsers, apiEditUsers } from "../../../services";
 
 const ListPartner = () => {
   const { users } = useSelector((state) => state.allUsers);

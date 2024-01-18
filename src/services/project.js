@@ -24,3 +24,27 @@ export const apiGetCustomerById = async (customerId) => {
     throw error;
   }
 };
+
+export const apiGetProjectsById = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/project/get-projects",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const apiGetAllProjects = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: "/api/v1/project/get-all-projects",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

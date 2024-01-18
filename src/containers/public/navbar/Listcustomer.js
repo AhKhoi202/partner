@@ -34,7 +34,7 @@ const Listcustomer = () => {
   };
 
   return (
-    <div className="text-black bg-white w-full mt-40 pb-6 flex flex-col">
+    <div className="text-black bg-white w-full  pb-6 flex flex-col">
       <h1 className="text-3xl p-4 w-full text-start font-medium">
         Dach sách các khách hàng mà bạn đã giới thiệu
       </h1>

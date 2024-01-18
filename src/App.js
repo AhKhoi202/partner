@@ -1,24 +1,30 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
-  
-  PotentialCustomers,
   ResetPassword,
   ForgotPassword,
 } from "./containers/public";
+import {
+  System,
+  EditAccount,
+  ListCustomers,
+} from "./containers/system";
+import {
+  AllCustomers,
+  ListPartner,
+  ListProjects,
+} from "./containers/system/admin";
+import {
+  ListCustomer,
+  ViewProjects,
+  PotentialCustomers,
+} from "./containers/public/navbar";
+import { CreateProject } from "./containers/public/projects";
 import { Login, Register, Homepage } from "./containers/public/pages";
 import { path } from "./ultils/constant";
 import * as actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  System,
-  EditAccount,
-  ListCustomers,
-  AllCustomers,
-  ListPartner,
-} from "./containers/system";
-import { ListCustomer, CreateProject  } from './containers/public/navbar'
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +45,7 @@ function App() {
           <Route path={path.RESETPASSWORD} element={<ResetPassword />} />
           <Route path={path.DS_KHACH_HANG} element={<ListCustomer />} />
           <Route path={path.TAO_DU_AN} element={<CreateProject />} />
+          <Route path={path.DU_AN} element={<ViewProjects />} />
           <Route
             path={path.KHACH_HANG_TIEM_NANG}
             element={<PotentialCustomers />}
@@ -50,6 +57,7 @@ function App() {
           <Route path={path.LIST_CUSTOMERS} element={<ListCustomers />} />
           <Route path={path.LIST_ALLCUSTOMERS} element={<AllCustomers />} />
           <Route path={path.LIST_PARTNER} element={<ListPartner />} />
+          <Route path={path.LIST_PROJECTS} element={<ListProjects />} />
         </Route>
       </Routes>
     </div>

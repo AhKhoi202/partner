@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCustomers } from "../../store/actions/user";
+import { getAllCustomers } from "../../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
 import Swal from "sweetalert2";
-import { apiDeleteCustomers, apiEditCustomers } from "../../services";
+import { apiDeleteCustomers, apiEditCustomers } from "../../../services";
 
-const AllCustomers = () => {
+const ListProjects = () => {
   const { customers } = useSelector((state) => state.allCustomer);
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
   const { currentData } = useSelector((state) => state.user);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
-
+  console.log(customers);
 
   useEffect(() => {
     dispatch(getAllCustomers());
@@ -210,7 +210,7 @@ const AllCustomers = () => {
       }),
     };
   });
-  
+
   if (currentData.roleId !== "r1") {
     return <div>Không có quyền truy cập</div>;
   }
@@ -259,4 +259,4 @@ const AllCustomers = () => {
   );
 };
 
-export default AllCustomers;
+export default ListProjects;

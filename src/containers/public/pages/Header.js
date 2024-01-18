@@ -25,7 +25,7 @@ const Header = () => {
   }, [navigate]);
 
   return (
-    <header className="fixed z-50 fled top-0 w-screen bg-[#f5f5f5] shadow-md">
+    <header className="relative fixed z-50 w-screen bg-[#f5f5f5] shadow-md">
       <nav className="flex flex-wrap md:w-5/6 w-full m-auto items-center border-b-2 border-gray-200 justify-between p-4">
         <div className="flex items-center">
           <a href="/" className="text-xl font-semibold">

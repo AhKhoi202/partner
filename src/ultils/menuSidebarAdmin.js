@@ -14,6 +14,12 @@ const menuSidebarAdmin = [
     path: "/he-thong/ds-tat-ca-khach-hang",
     icon: <FiUsers />,
   },
+  {
+    id: 3,
+    text: "DS dự án",
+    path: "/he-thong/ds-du-an",
+    icon: <FiUsers />,
+  },
 ];
 
 export default menuSidebarAdmin

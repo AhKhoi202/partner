@@ -17,7 +17,7 @@ const Table = ({
 
   return (
     <>
-      <div className="relative mx-auto overflow-x-auto shadow-md sm:rounded-lg max-h-[600px] overflow-y-auto ">
+      <div className="relative mx-auto overflow-x-auto shadow-md sm:rounded-lg max-h-[600px] max-w-full overflow-y-auto ">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>

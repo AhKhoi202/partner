@@ -79,7 +79,7 @@ const Homepage = () => {
   return (
     <div className="w-full">
       <section
-        className="relative pt-56 text-center w-full bg-black bg-cover bg-center pb-40"
+        className="relative pt-28 text-center w-full bg-black bg-cover bg-center pb-40"
         style={{ backgroundImage: `url(${background1})` }}
       >
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
