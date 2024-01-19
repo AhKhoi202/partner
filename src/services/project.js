@@ -48,3 +48,27 @@ export const apiGetAllProjects = async () => {
     throw error;
   }
 };
+export const apiPostProjectProgress = async (payload) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: "/api/v1/project/post-project-progress",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiGetProjectProgress = async (projectId) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `/api/v1/project/get-project-progress/${projectId}`,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

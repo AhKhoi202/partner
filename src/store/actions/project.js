@@ -3,9 +3,7 @@ import actionTypes from "./actionTypes";
 
 export const getProjects = () => async (dispatch) => {
   try {
-    console.log("Action creator: getProjects is called");
     const response = await apis.apiGetProjectsById();
-    console.log("API Response:", response.data);
     if (response?.data.err === 0) {
       dispatch({
         type: actionTypes.GET_PROJECTS_USER,

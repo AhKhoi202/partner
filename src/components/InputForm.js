@@ -16,7 +16,7 @@ const InputForm = ({
     }
   };
   return (
-    <div>
+    <div className="pr-4">
       <label htmlFor={keyPayload} className=" text-base ">
         {label}
       </label>
