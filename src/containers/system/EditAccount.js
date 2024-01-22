@@ -16,7 +16,7 @@ const EditAccount = () => {
     email: currentData?.email || "",
     address: currentData?.address || "",
     career: currentData?.career || "",
-    // gender: currentData?.gender || "",
+    selfReferralCode: currentData?.selfReferralCode || "",
   });
   const handleSubmit = async () => {
     const validcounter = validate(payload, setInvalidFields);
@@ -33,6 +33,8 @@ const EditAccount = () => {
       }
     }
   };
+  console.log(currentData);
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-3xl pl-4 w-full text-start font-medium py-4 border-b border-gray-200">
@@ -48,6 +50,11 @@ const EditAccount = () => {
             editPhone
             value={currentData?.phone}
             label="Số điện thoại"
+          />
+          <InputReadOnly
+            editPhone
+            value={currentData["code.code"]}
+            label="Mã giới thiệu"
           />
           <InputForm1
             name="name"

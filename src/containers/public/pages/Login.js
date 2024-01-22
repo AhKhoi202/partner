@@ -80,7 +80,7 @@ const Login = () => {
   };
 
   return (
-    <div className="mt-40 bg-gradient-to-bl text-white from-[#1266dd] to-black w-full md:w-[750px] flex flex-wrap border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
+    <div className="m-12 bg-gradient-to-bl text-white from-[#1266dd] to-black w-full md:w-[750px] flex flex-wrap border-2 border-[#1266dd] shadow-xl shadow-[#1266dd]">
       <div className="w-full md:w-2/4 p-8 md:p-[50px] pb-[100px] items-center justify-center ">
         <h3 className="font-semibold text-2xl mb-3 text-center">Đăng nhập</h3>
         <div className="w-full flex flex-col gap-5">

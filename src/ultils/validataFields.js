@@ -11,7 +11,7 @@ const validate = (payload, setInvalidFields) => {
         ...prev,
         {
           name: item[0],
-          message: "Bạn không được bỏ trống trường này.",
+          message: "Vui lòng nhập thông tin.",
         },
       ]);
       invalids++;

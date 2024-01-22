@@ -9,6 +9,7 @@ const InputForm = ({
   setInvalidFields,
   type,
   onEnterPress,
+  className,
 }) => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && onEnterPress) {
@@ -16,13 +17,13 @@ const InputForm = ({
     }
   };
   return (
-    <div className="pr-4">
+    <div className={`pr-4 ${className}`}>
       <label htmlFor={keyPayload} className=" text-base ">
         {label}
       </label>
       <input
         type={type || "text"}
-        className="outline-none bg-transparent p-2  w-full border-b-4 border-[#1266dd]"
+        className="outline-none bg-transparent p-2 border rounded w-full border-b-1 border-[#1266dd]"
         value={value}
         onChange={(e) =>
           setValue((prev) => ({ ...prev, [keyPayload]: e.target.value }))
