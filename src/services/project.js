@@ -35,7 +35,7 @@ export const apiGetProjectsById = async () => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const apiGetAllProjects = async () => {
   try {
@@ -66,6 +66,43 @@ export const apiGetProjectProgress = async (projectId) => {
     const response = await axios({
       method: "get",
       url: `/api/v1/project/get-project-progress/${projectId}`,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiEditProject = async (payload) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: "/api/v1/project/put-project",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiPostDiscount = async (payload) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: "/api/v1/project/post-discount",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const apiGetDiscount = async (projectId) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `/api/v1/project/get-discount/${projectId}`,
     });
     return response;
   } catch (error) {

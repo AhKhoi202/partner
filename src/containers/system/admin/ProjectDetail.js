@@ -4,9 +4,12 @@ import { getAllProjects } from "../../../store/actions/project";
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import {
+  apiEditProject,
   apiGetProjectProgress,
+  apiPostDiscount,
   apiPostProjectProgress,
 } from "../../../services";
+import ReferralBonuses from "./ReferralBonuses";
 
 const ProjectDetail = () => {
   const { currentData } = useSelector((state) => state.user);
@@ -18,36 +21,43 @@ const ProjectDetail = () => {
   const [payload, setPlayload] = useState({
     currentStage: "",
     updateDate: "",
+    actualRevenue: "",
     projectId: projectId,
   });
   const [progress, setProgress] = useState([]);
-  useEffect(() => {
-    const fetchProgress = async () => {
-      try {
-        const progressResponse = await apiGetProjectProgress(projectId);
-        setProgress(progressResponse.data.response || []);
-      } catch (error) {
-        console.error("Lỗi khi gọi API:", error);
-      }
-    };
-    fetchProgress();
-  }, [projectId]);
-
-  useEffect(() => {
-    dispatch(getAllProjects());
-  }, [dispatch]);
 
   const project = projects.find((project) => project.id === projectId);
+  const [actualRevenue, setActualRevenue] = useState(project.actualRevenue);
   const handleInputChange = (e) => {
     setPlayload({
       ...payload,
       [e.target.name]: e.target.value,
     });
   };
+  const handleSuccess = async () => {
+    try {
+      await apiEditProject({
+        id: projectId,
+        status: "Thành Công",
+      });
+      const response = await apiPostDiscount({ projectId: projectId });
+      
+       dispatch(getAllProjects());
+    } catch (error) {
+      console.log("Lỗi khi gọi API:", error);
+    }
+  };
+  const handleSubmitActualRevenue = async () => {
+    await apiEditProject({
+      id: projectId,
+      actualRevenue: actualRevenue,
+    });
+    console.log(actualRevenue);
+  };
   const handleSubmit = async () => {
     try {
       const response = await apiPostProjectProgress(payload);
-      console.log(response)
+      console.log(response);
       if (response.data.err === 0) {
         const newProgress = {
           ...response.data.progress,
@@ -72,21 +82,36 @@ const ProjectDetail = () => {
     }
   };
   console.log(progress);
-useEffect(() => {
-  if (!currentData || !currentData.id) {
-    console.log(currentData.id);
-    window.location.href = "/login";
-  }
-}, [currentData]);
+  useEffect(() => {
+    if (!currentData || !currentData.id) {
+      console.log(currentData.id);
+      window.location.href = "/login";
+    }
+  }, [currentData]);
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const progressResponse = await apiGetProjectProgress(projectId);
+        setProgress(progressResponse.data.response || []);
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+      }
+    };
+    fetchProgress();
+  }, [projectId]);
+
+  useEffect(() => {
+    dispatch(getAllProjects());
+  }, [dispatch]);
+
   return (
-    <div class="bg-gray-100 p-4">
+    <div class="bg-gray-100 flex flex-col gap-4 p-4">
       <div class="border-1 shadow-lg shadow-gray-700 rounded-lg">
-        <div class="flex rounded-t-lg bg-top-color sm:px-2 w-full">
+        <div class="flex rounded-t-lg bg-top-color sm:px-2 w-full ">
           <div class="w-full font-bold text-3xl sm:text-center py-5 mt-10 text-center">
             {project.name}
           </div>
         </div>
-
         <div class="p-5">
           <div class="flex flex-col sm:flex-row sm:mt-10">
             <div class="flex flex-col sm:w-1/3">
@@ -138,20 +163,33 @@ useEffect(() => {
                 <div class="border-2 w-20 border-top-color my-2"></div>
                 <p>{project.description}</p>
               </div>
-
               <div class="py-3">
                 <h2 class="text-lg font-poppins font-bold text-top-color">
                   Chi phí
                 </h2>
                 <div class="border-2 w-20 border-top-color my-2"></div>
                 <div class="flex flex-col">
-                  <div class="flex flex-row">
-                    <p class="pr-5">Dự kiến:</p>
+                  <div class="flex flex-row gap-4">
+                    <p class="w-20">Dự kiến:</p>
                     <p class="">{project.expectedRevenue}</p>
                   </div>
-                  <div class="flex flex-row">
-                    <p class="pr-5">Thực lãnh:</p>
-                    <p class="">{project.actualRevenue}</p>
+                  <div class="flex flex-row gap-4">
+                    <label className="w-20 my-auto">Thực lãnh:</label>
+                    <input
+                      type="text"
+                      name="currentStage"
+                      value={actualRevenue}
+                      onChange={(e) => {
+                        setActualRevenue(e.target.value);
+                      }}
+                      className="mt-1 p-2 border border-gray-300 rounded-md"
+                    />
+                    <button
+                      onClick={handleSubmitActualRevenue}
+                      className="bg-blue-500 my-auto text-white p-2 rounded-md"
+                    >
+                      Cập nhật
+                    </button>
                   </div>
                 </div>
               </div>
@@ -195,7 +233,7 @@ useEffect(() => {
                 </h2>
                 <div class="border-2 w-20 border-top-color my-2"></div>
                 <div class="flex flex-col">
-                  <div class="flex flex-col md:flex-row">
+                  <div class="flex flex-col lg:flex-row">
                     <div class="flex flex-col pr-5">
                       <label className="block text-sm font-medium text-gray-700">
                         Ngày thực hiện
@@ -220,12 +258,21 @@ useEffect(() => {
                         className="mt-1 p-2 border border-gray-300 rounded-md"
                       />
                     </div>
-                    <button
-                      onClick={handleSubmit}
-                      className="bg-blue-500 mt-6 text-white p-2 rounded-md"
-                    >
-                      Cập nhật
-                    </button>
+                    <div className="flex flex-row gap-2">
+                      <button
+                        onClick={handleSubmit}
+                        className="bg-blue-500 mt-6 text-white p-2 rounded-md"
+                      >
+                        Cập nhật
+                      </button>
+                      <button
+                        onClick={handleSuccess}
+                        className="bg-blue-500 mt-6 text-white p-2 rounded-md"
+                        disabled={project.status === "Thành Công"}
+                      >
+                        Hoàn thành
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -233,6 +280,11 @@ useEffect(() => {
           </div>
         </div>
       </div>
+      {project.status === "Thành Công" && (
+        <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
+          <ReferralBonuses projectId={projectId} name={project.name} />
+        </div>
+      )}
     </div>
   );
 };

@@ -125,6 +125,13 @@ const ListPartner = () => {
       sorter: (a, b) => a.address.localeCompare(b.address),
     },
     {
+      title: "Mã người giới thiệu",
+      dataIndex: "referralCode",
+      align: "center",
+      edittable: true,
+      sorter: (a, b) => a.referralCode.localeCompare(b.referralCode),
+    },
+    {
       title: "Chức năng",
       dataIndex: "role.name",
       align: "center",

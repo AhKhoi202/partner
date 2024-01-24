@@ -81,6 +81,15 @@ const ListProjects = () => {
       render: (text, record) => <span>{record.user.name}</span>,
     },
     {
+      key: "status",
+      title: "Trạng thái",
+      dataIndex: "status",
+      align: "center",
+      edittable: true,
+      sorter: (a, b) => a.status.localeCompare(b.status),
+      render: (text, record) => <span>{record.status}</span>,
+    },
+    {
       title: "Hành động",
       dataIndex: "action",
       align: "center",

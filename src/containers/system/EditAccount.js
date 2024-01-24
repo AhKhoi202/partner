@@ -52,7 +52,6 @@ const EditAccount = () => {
             label="Số điện thoại"
           />
           <InputReadOnly
-            editPhone
             value={currentData["code.code"]}
             label="Mã giới thiệu"
           />
