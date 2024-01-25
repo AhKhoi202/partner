@@ -109,3 +109,16 @@ export const apiGetDiscount = async (projectId) => {
     throw error;
   }
 };
+
+export const apiEditDiscount = async (payload) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: "/api/v1/project//put-referral-bonuses",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

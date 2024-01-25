@@ -40,7 +40,7 @@ const ProjectDetail = () => {
         id: projectId,
         status: "Thành Công",
       });
-      const response = await apiPostDiscount({ projectId: projectId });
+      await apiPostDiscount({ projectId: projectId });
       
        dispatch(getAllProjects());
     } catch (error) {
@@ -258,6 +258,7 @@ const ProjectDetail = () => {
                         className="mt-1 p-2 border border-gray-300 rounded-md"
                       />
                     </div>
+                    {project.status !== "Thành Công" && (
                     <div className="flex flex-row gap-2">
                       <button
                         onClick={handleSubmit}
@@ -273,6 +274,7 @@ const ProjectDetail = () => {
                         Hoàn thành
                       </button>
                     </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -282,7 +284,7 @@ const ProjectDetail = () => {
       </div>
       {project.status === "Thành Công" && (
         <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
-          <ReferralBonuses projectId={projectId} name={project.name} />
+          <ReferralBonuses project={project} />
         </div>
       )}
     </div>
