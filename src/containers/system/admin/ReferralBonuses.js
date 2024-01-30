@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { apiEditDiscount, apiGetDiscount } from "../../../services/project";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import { Table, Button, Space, Popconfirm, Input, Form } from "antd";
+
 
  const EditTableCell = ({
    editing,
@@ -42,6 +44,7 @@ const ReferralBonuses = (project) => {
   const [form] = Form.useForm();
   const [discountData, setDiscountData] = useState(null);
   const [editingKey, setEditingKey] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,6 +92,11 @@ const ReferralBonuses = (project) => {
       Swal.fire("Oops!", "Chỉnh sửa chiết khấu không thành công", "error");
     }
   };
+
+  const payment = async (id) => {
+    console.log(id);
+    navigate(`/he-thong/payment-partner`);
+  }
   
   const column = [
     {
@@ -174,6 +182,13 @@ const ReferralBonuses = (project) => {
                   <Button onClick={() => edit(record)}>
                     Thay đổi chiết khấu
                   </Button>
+                  <Button
+                    type="primary"
+                    className="bg-blue-500"
+                    onClick={() => payment(record.id)}
+                  >
+                    Thanh toán
+                  </Button>
                 </Space>
               </span>
             )}
@@ -196,6 +211,11 @@ const ReferralBonuses = (project) => {
      }),
    };
  });
+
+ const confirm = async (discountData) => {
+  console.log(discountData)
+  // window.location.href = "/he-thong/ds-du-an";
+ }
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl p-4 w-full text-start font-medium">
@@ -213,6 +233,12 @@ const ReferralBonuses = (project) => {
           dataSource={discountData}
           scroll={{ x: true }}
         />
+        <Button
+          className="w-20 mr-10 ml-auto bg-blue-600 hover:text-white text-white "
+          onClick={() => confirm(discountData)}
+        >
+          Xác nhận
+        </Button>
       </Form>
     </div>
   );
