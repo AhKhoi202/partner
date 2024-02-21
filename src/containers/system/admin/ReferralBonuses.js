@@ -3,48 +3,53 @@ import { apiEditDiscount, apiGetDiscount } from "../../../services/project";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Table, Button, Space, Popconfirm, Input, Form } from "antd";
+import { apiCreatePaymentStages } from "../../../services";
 
-
- const EditTableCell = ({
-   editing,
-   dataIndex,
-   title,
-   record,
-   children,
-   ...restProps
- }) => {
-   const input = <Input />;
-   return (
-     <td {...restProps}>
-       <Form.Item
-         name="id"
-         hidden // Ẩn trường id nếu không muốn hiển thị
-       />
-       {editing ? (
-         <Form.Item
-           id={record.id}
-           name={dataIndex}
-           rules={[
-             {
-               required: true,
-               message: `Vui lòng nhập ${title}`,
-             },
-           ]}
-         >
-           {input}
-         </Form.Item>
-       ) : (
-         children
-       )}
-     </td>
-   );
- };
+const EditTableCell = ({
+  editing,
+  dataIndex,
+  title,
+  record,
+  children,
+  ...restProps
+}) => {
+  const input = <Input />;
+  return (
+    <td {...restProps}>
+      <Form.Item
+        name="id"
+        hidden // Ẩn trường id nếu không muốn hiển thị
+      />
+      {editing ? (
+        <Form.Item
+          id={record.id}
+          name={dataIndex}
+          rules={[
+            {
+              required: true,
+              message: `Vui lòng nhập ${title}`,
+            },
+          ]}
+        >
+          {input}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
 
 const ReferralBonuses = (project) => {
   const [form] = Form.useForm();
   const [discountData, setDiscountData] = useState(null);
   const [editingKey, setEditingKey] = useState("");
   const navigate = useNavigate();
+  const [payload, setPlayload] = useState({
+    referralBonusesId: "",
+    expectedRevenue: "",
+    description: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,20 +69,20 @@ const ReferralBonuses = (project) => {
     return record.id === editingKey;
   };
 
-   const edit = (record) => {
-     form.setFieldsValue({
-       id: record.id,
-       ...record,
-     });
-     setEditingKey(record.id);
-   };
+  const edit = (record) => {
+    form.setFieldsValue({
+      id: record.id,
+      ...record,
+    });
+    setEditingKey(record.id);
+  };
 
   const save = async (id) => {
     console.log(id);
     const row = await form.validateFields();
     console.log(row);
-    const response =  await apiEditDiscount(row)
-    console.log(response)
+    const response = await apiEditDiscount(row);
+    console.log(response);
     if (response?.data.err === 0) {
       const updatedDiscountData = discountData.map((item) =>
         item.id === id ? { ...item, ...row } : item
@@ -85,8 +90,7 @@ const ReferralBonuses = (project) => {
       setDiscountData(updatedDiscountData);
       edit(false);
       Swal.fire("Done", "Chỉnh sửa chiết khấu thành công", "success").then(
-        () => {
-        }
+        () => {}
       );
     } else {
       Swal.fire("Oops!", "Chỉnh sửa chiết khấu không thành công", "error");
@@ -95,9 +99,9 @@ const ReferralBonuses = (project) => {
 
   const payment = async (id) => {
     console.log(id);
-    navigate(`/he-thong/payment-partner`);
-  }
-  
+    navigate(`/he-thong/payment-partner?${id}`);
+  };
+
   const column = [
     {
       key: "name",
@@ -135,7 +139,9 @@ const ReferralBonuses = (project) => {
       align: "center",
 
       sorter: (a, b) => a.amount - b.amount,
-      render: (text, record) => <span>{actualRevenue * record.amount / 100}</span>,
+      render: (text, record) => (
+        <span>{(actualRevenue * record.amount) / 100}</span>
+      ),
     },
     {
       key: "amount",
@@ -197,25 +203,25 @@ const ReferralBonuses = (project) => {
       },
     },
   ];
- const mergedColumns = column.map((col) => {
-   if (!col.edittable) {
-     return col;
-   }
-   return {
-     ...col,
-     onCell: (record) => ({
-       record,
-       dataIndex: col.dataIndex,
-       title: col.title,
-       editing: isEditing(record),
-     }),
-   };
- });
+  const mergedColumns = column.map((col) => {
+    if (!col.edittable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
- const confirm = async (discountData) => {
-  console.log(discountData)
-  // window.location.href = "/he-thong/ds-du-an";
- }
+  const confirm = async (discountData) => {
+    console.log(discountData);
+    // window.location.href = "/he-thong/ds-du-an";
+  };
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl p-4 w-full text-start font-medium">

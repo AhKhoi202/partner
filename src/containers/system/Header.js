@@ -8,12 +8,12 @@ import { useDispatch } from "react-redux";
 import { Button } from "../../components";
 import menuSidebar from "../../ultils/memuSidebar";
 import menuSidebarAdmin from "../../ultils/menuSidebarAdmin";
-import icons from "../../ultils/icons";
+// import icons from "../../ultils/icons";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(true);
-  const { FaAngleLeft } = icons;
+  // const { FaAngleLeft } = icons;
   const activeStyle =
     "hover:bg-cyan-400 flex rounded-md items-center py-2 font-bold bg-cyan-400 ";
   const notActiceStyle =
@@ -24,14 +24,14 @@ const Header = () => {
   const { currentData } = useSelector((state) => state.user);
 
   return (
-    <header className="w-full  ">
-      <nav class="bg-[#b3e3fe] border-gray-200 px-4 lg:px-6 rounded-br-2xl ">
+    <header className="w-full">
+      <nav className="bg-[#b3e3fe] border-gray-200 px-4 lg:px-6 rounded-br-2xl">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4">
           <NavLink
             className={"flex items-center space-x-3 rtl:space-x-reverse"}
             to={path.HOME}
           >
-            <img src={logo192} class="h-20" alt="Flowbite Logo" />
+            <img src={logo192} className="h-20" alt="Flowbite Logo" />
           </NavLink>
           <button
             onClick={toggleMenu}
@@ -57,15 +57,14 @@ const Header = () => {
               />
             </svg>
           </button>
-          <div class={`  sm:w-auto w-full ${isMenuOpen ? "block" : "hidden"}`}>
-            <ul class="font-medium flex flex-col p-4 sm:p-0 sm:flex-row sm:space-x-8 rtl:space-x-reverse sm:mt-0 ">
+          <div className={`sm:w-auto w-full ${isMenuOpen ? "block" : "hidden"}`}>
+            <ul className="font-medium flex flex-col p-4 sm:p-0 sm:flex-row sm:space-x-8 rtl:space-x-reverse sm:mt-0 ">
               {menuSidebar.map((item) => (
-                <li>
+                <li key={item.id}>
                   <NavLink
                     className={({ isActive }) =>
                       isActive ? activeStyle : notActiceStyle
                     }
-                    key={item.id}
                     to={item?.path}
                   >
                     <span className={`"text-xl" `}>{item?.icon}</span>
@@ -75,16 +74,17 @@ const Header = () => {
               ))}
               {currentData.roleId === "r1" &&
                 menuSidebarAdmin.map((item) => (
+                  <li key={item.id}>
                   <NavLink
                     className={({ isActive }) =>
                       isActive ? activeStyle : notActiceStyle
                     }
-                    key={item.id}
                     to={item?.path}
                   >
                     <span className={`text-xl`}>{item?.icon}</span>
                     <span className={` `}>{item.text}</span>
                   </NavLink>
+                  </li>
                 ))}
 
               <li>

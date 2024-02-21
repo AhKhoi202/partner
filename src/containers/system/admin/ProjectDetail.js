@@ -105,75 +105,75 @@ const ProjectDetail = () => {
   }, [dispatch]);
 
   return (
-    <div class="bg-gray-100 flex flex-col gap-4 p-4">
-      <div class="border-1 shadow-lg shadow-gray-700 rounded-lg">
-        <div class="flex rounded-t-lg bg-top-color sm:px-2 w-full ">
-          <div class="w-full font-bold text-3xl sm:text-center py-5 mt-10 text-center">
+    <div className="bg-gray-100 flex flex-col gap-4 p-4">
+      <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
+        <div className="flex rounded-t-lg bg-top-color sm:px-2 w-full ">
+          <div className="w-full font-bold text-3xl sm:text-center py-5 mt-10 text-center">
             {project.name}
           </div>
         </div>
-        <div class="p-5">
-          <div class="flex flex-col sm:flex-row sm:mt-10">
-            <div class="flex flex-col sm:w-1/3">
-              <div class="py-3 sm:order-none order-1">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+        <div className="p-5">
+          <div className="flex flex-col sm:flex-row sm:mt-10">
+            <div className="flex flex-col sm:w-1/3">
+              <div className="py-3 sm:order-none order-1">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Khách hàng
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
+                <div className="border-2 w-20 border-top-color my-2"></div>
 
                 <div>
-                  <div class="flex items-center my-1">
-                    <div class="">{project.customer.name}</div>
+                  <div className="flex items-center my-1">
+                    <div className="">{project.customer.name}</div>
                   </div>
-                  <div class="flex items-center my-1">
+                  <div className="flex items-center my-1">
                     <div>{project.customer.email}</div>
                   </div>
-                  <div class="flex items-center my-1">
+                  <div className="flex items-center my-1">
                     <div>{project.customer.phone}</div>
                   </div>
-                  <div class="flex items-center my-1">
+                  <div className="flex items-center my-1">
                     <div></div>
                   </div>
                 </div>
               </div>
-              <div class="py-3 sm:order-none order-2">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+              <div className="py-3 sm:order-none order-2">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Partner
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
+                <div className="border-2 w-20 border-top-color my-2"></div>
                 <div>
-                  <div class="flex items-center my-1">
+                  <div className="flex items-center my-1">
                     <div>{project.user.name}</div>
                   </div>
-                  <div class="flex items-center my-1">
+                  <div className="flex items-center my-1">
                     <div>{project.user.email}</div>
                   </div>
-                  <div class="flex items-center my-1">
+                  <div className="flex items-center my-1">
                     <div>{project.user.phone}</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="flex flex-col sm:w-2/3 order-last sm:order-none sm:-mt-10">
-              <div class="py-3">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+            <div className="flex flex-col sm:w-2/3 order-last sm:order-none sm:-mt-10">
+              <div className="py-3">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Mô tả
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
+                <div className="border-2 w-20 border-top-color my-2"></div>
                 <p>{project.description}</p>
               </div>
-              <div class="py-3">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+              <div className="py-3">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Chi phí
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
-                <div class="flex flex-col">
-                  <div class="flex flex-row gap-4">
-                    <p class="w-20">Dự kiến:</p>
-                    <p class="">{project.expectedRevenue}</p>
+                <div className="border-2 w-20 border-top-color my-2"></div>
+                <div className="flex flex-col">
+                  <div className="flex flex-row gap-4">
+                    <p className="w-20">Dự kiến:</p>
+                    <p className="">{project.expectedRevenue}</p>
                   </div>
-                  <div class="flex flex-row gap-4">
+                  <div className="flex flex-row gap-4">
                     <label className="w-20 my-auto">Thực lãnh:</label>
                     <input
                       type="text"
@@ -193,19 +193,19 @@ const ProjectDetail = () => {
                   </div>
                 </div>
               </div>
-              <div class="py-3">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+              <div className="py-3">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Ngày nhận thông tin dự án
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
+                <div className="border-2 w-20 border-top-color my-2"></div>
                 <p>{format(new Date(project.createdAt), "dd/MM/yyyy")}</p>
               </div>
-              <div class="py-3">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+              <div className="py-3">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Tiến độ dự án
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
-                <div class="flex flex-col">
+                <div className="border-2 w-20 border-top-color my-2"></div>
+                <div className="flex flex-col">
                   {progress ? (
                     <>
                       {progress
@@ -214,11 +214,11 @@ const ProjectDetail = () => {
                             new Date(a.updateDate) - new Date(b.updateDate)
                         )
                         .map((item) => (
-                          <div class="flex flex-row" key={item.id}>
-                            <p class="pr-5">
+                          <div className="flex flex-row" key={item.id}>
+                            <p className="pr-5">
                               {format(new Date(item.updateDate), "dd/MM/yyyy")}
                             </p>
-                            <p class="">{item.currentStage}</p>
+                            <p className="">{item.currentStage}</p>
                           </div>
                         ))}
                     </>
@@ -227,14 +227,14 @@ const ProjectDetail = () => {
                   )}
                 </div>
               </div>
-              <div class="py-3">
-                <h2 class="text-lg font-poppins font-bold text-top-color">
+              <div className="py-3">
+                <h2 className="text-lg font-poppins font-bold text-top-color">
                   Cập nhật tiến độ dự án
                 </h2>
-                <div class="border-2 w-20 border-top-color my-2"></div>
-                <div class="flex flex-col">
-                  <div class="flex flex-col lg:flex-row">
-                    <div class="flex flex-col pr-5">
+                <div className="border-2 w-20 border-top-color my-2"></div>
+                <div className="flex flex-col">
+                  <div className="flex flex-col lg:flex-row">
+                    <div className="flex flex-col pr-5">
                       <label className="block text-sm font-medium text-gray-700">
                         Ngày thực hiện
                       </label>
@@ -246,7 +246,7 @@ const ProjectDetail = () => {
                         className="w-52 mt-1 p-2 border border-gray-300 rounded-md"
                       />
                     </div>
-                    <div class="flex flex-col pr-5">
+                    <div className="flex flex-col pr-5">
                       <label className="block text-sm font-medium text-gray-700">
                         Nội dung thực hiện
                       </label>
