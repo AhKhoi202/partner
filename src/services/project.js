@@ -98,11 +98,22 @@ export const apiPostDiscount = async (payload) => {
     throw error;
   }
 };
-export const apiGetDiscount = async (projectId) => {
+export const apiGetDiscountByProjectId = async (projectId) => {
   try {
     const response = await axios({
       method: "get",
-      url: `/api/v1/project/get-discount/${projectId}`,
+      url: `/api/v1/project/get-discount-by-project/${projectId}`,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const apiGetDiscountById = async (id) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `/api/v1/project/get-discount-by-id/${id}`,
     });
     return response;
   } catch (error) {

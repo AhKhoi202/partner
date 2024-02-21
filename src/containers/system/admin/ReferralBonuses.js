@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { apiEditDiscount, apiGetDiscount } from "../../../services/project";
+import {
+  apiEditDiscount,
+  apiGetDiscountByProjectId,
+} from "../../../services/project";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Table, Button, Space, Popconfirm, Input, Form } from "antd";
-import { apiCreatePaymentStages } from "../../../services";
 
 const EditTableCell = ({
   editing,
@@ -45,16 +47,11 @@ const ReferralBonuses = (project) => {
   const [discountData, setDiscountData] = useState(null);
   const [editingKey, setEditingKey] = useState("");
   const navigate = useNavigate();
-  const [payload, setPlayload] = useState({
-    referralBonusesId: "",
-    expectedRevenue: "",
-    description: "",
-  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiGetDiscount(project.project.id);
+        const response = await apiGetDiscountByProjectId(project.project.id);
         console.log(response);
         setDiscountData(response.data.response);
       } catch (error) {
@@ -78,8 +75,8 @@ const ReferralBonuses = (project) => {
   };
 
   const save = async (id) => {
-    console.log(id);
     const row = await form.validateFields();
+    row.totalAmount = (actualRevenue * row.amount) / 100; ///////////////////////////////////////
     console.log(row);
     const response = await apiEditDiscount(row);
     console.log(response);
@@ -133,11 +130,10 @@ const ReferralBonuses = (project) => {
       ),
     },
     {
-      key: "amount",
+      key: "totalAmount",
       title: "Hoa hồng",
-      dataIndex: "amount",
+      dataIndex: "totalAmount",
       align: "center",
-
       sorter: (a, b) => a.amount - b.amount,
       render: (text, record) => (
         <span>{(actualRevenue * record.amount) / 100}</span>

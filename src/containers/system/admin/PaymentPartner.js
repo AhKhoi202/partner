@@ -3,8 +3,8 @@ import {
   apiGetPaymentStages,
   apiCreatePaymentStages,
 } from "../../../services/payment";
+import { apiGetDiscountById } from "../../../services/project";
 import { Button } from "../../../components";
-import { useSearchParams } from "react";
 
 const PaymentPartner = () => {
   const [paymentStages, setPaymentStages] = useState(null);
@@ -13,36 +13,53 @@ const PaymentPartner = () => {
   const [totalAmount, setTotalAmount] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [referralBonusesId, setReferralBonusesId] = useState("");
+  const [existingStageNames, setExistingStageNames] = useState([]);
+  const [discountData, setDiscountData] = useState(null);
 
+  //lấy id từ link
   useEffect(() => {
     const url = window.location.href;
     const id = url.split("?")[1];
-    // console.log(id);
     setReferralBonusesId(id);
   }, []);
-  console.log(referralBonusesId);
+  //lấy thông tin các giai đoạn
+  useEffect(() => {
+    fetchPaymentStages();
+  }, []);
+
+  //lấy thông tin chiết khấu của partner
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const paymentStagesData = await apiGetPaymentStages();
-        setPaymentStages(paymentStagesData.response);
-        console.log(paymentStagesData.response); // In thông tin các giai đoạn thanh toán ra console
+        const response = await apiGetDiscountById(referralBonusesId);
+        console.log(response);
+        setDiscountData(response.data.response);
       } catch (error) {
-        console.error("Error fetching payment stages:", error);
+        console.error("Error fetching discount:", error);
       }
     };
-
     fetchData();
-  }, []);
+  }, [referralBonusesId]);
 
+  console.log(discountData[0].totalAmount);
+  const fetchPaymentStages = async () => {
+    try {
+      const paymentStagesData = await apiGetPaymentStages();
+      setPaymentStages(paymentStagesData.response);
+      const existingNames = paymentStagesData.response.map(
+        (stage) => stage.description
+      );
+      setExistingStageNames(existingNames);
+    } catch (error) {
+      console.error("Error fetching payment stages:", error);
+    }
+  };
   const handleCreateStage = () => {
     setIsPopupOpen(true);
   };
-
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
-
   const handleStageNameChange = (e) => {
     setStageName(e.target.value);
   };
@@ -53,20 +70,20 @@ const PaymentPartner = () => {
   const handleDueDateChange = (e) => {
     setDueDate(e.target.value);
   };
-
   const handleSubmit = async () => {
     try {
       const response = await apiCreatePaymentStages({
         referralBonusesId,
         totalAmount,
         paid: totalAmount, // Giả sử tổng tiền đã thanh toán bằng tổng tiền
-        // endDate: dueDate,
+        description: stageName,
+        endDate: dueDate,
       });
+      fetchPaymentStages();
+      setIsPopupOpen(false);
       console.log(response);
-      // Xử lý khi tạo giai đoạn thành công
     } catch (error) {
       console.error("Error creating payment stage:", error);
-      // Xử lý khi tạo giai đoạn không thành công
     }
   };
   const formatCurrency = (amount) => {
@@ -74,7 +91,7 @@ const PaymentPartner = () => {
   };
 
   return (
-    <div>
+    <div className="p-5">
       <Button
         text="Tạo giai đoạn"
         bgColor="bg-blue-600"
@@ -90,32 +107,43 @@ const PaymentPartner = () => {
             >
               X
             </button>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col ">
+              <label>Tên giai đoạn</label>
               <select
                 value={stageName}
                 onChange={handleStageNameChange}
-                className="form-select"
+                className="form-select mb-4"
               >
                 <option value="">Chọn giai đoạn...</option>
-                {[...Array(20).keys()].map((number) => (
-                  <option key={number + 1} value={`Giai đoạn ${number + 1}`}>
-                    Giai đoạn {number + 1}
-                  </option>
-                ))}
+                {[...Array(20).keys()].map((number) => {
+                  const stage = `Giai đoạn ${number + 1}`;
+                  if (!existingStageNames.includes(stage)) {
+                    return (
+                      <option key={number + 1} value={stage}>
+                        {stage}
+                      </option>
+                    );
+                  }
+                  return null;
+                })}
               </select>
 
+              <label>Số tiền</label>
               <input
                 type="text"
-                placeholder="Tổng tiền"
+                placeholder="Số tiền thanh toán"
                 onChange={handleTotalAmountChange}
                 value={formatCurrency(totalAmount)}
                 pattern="[0-9]*"
+                className="mb-4"
               />
+              <label>Hạn thanh toán</label>
               <input
                 type="date"
                 placeholder="Hạn thanh toán"
                 value={dueDate}
                 onChange={handleDueDateChange}
+                className="mb-4"
               />
               <Button onClick={handleSubmit} text="Tạo" />
             </div>
@@ -125,7 +153,16 @@ const PaymentPartner = () => {
       {paymentStages && (
         <div>
           {paymentStages.map((stage) => (
-            <div key={stage.id}>{/* Hiển thị thông tin giai đoạn */}</div>
+            <div key={stage.id}>
+              <p>Referral Bonuses ID: {stage.referralBonusesId}</p>
+              <p>Thanh toán: {stage.paid}</p>
+              <p>Tên: {stage.description || "N/A"}</p>
+              <p>End Date: {stage.endDate || "N/A"}</p>
+              <p>Status: {stage.status}</p>
+              <p>
+                ==================================================================
+              </p>
+            </div>
           ))}
         </div>
       )}
