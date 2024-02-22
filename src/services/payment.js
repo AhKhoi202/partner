@@ -13,10 +13,30 @@ export const apiCreatePaymentStages = async (payload) => {
   }
 };
 
-export const apiGetPaymentStages = async () => {
+export const apiGetPaymentStages = async (referralBonusesId) => {
   try {
-    const response = await axios.get(`/api/v1/payment/get-payment`);
-    return response.data; // Trả về dữ liệu từ response
+      console.log(referralBonusesId);
+    const response = await axios({
+      method: "get",
+      url: `/api/v1/payment/get-payment/${referralBonusesId}`,
+    });
+    console.log(response);
+    return response; // Trả về dữ liệu từ response
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiDeletePaymentStages = async (id) => {
+  try {
+    const response = await axios({
+      method: "delete",
+      url: "/api/v1/payment/delete-payment-stages",
+      data: {
+        id: id,
+      },
+    });
+    return response;
   } catch (error) {
     throw error;
   }

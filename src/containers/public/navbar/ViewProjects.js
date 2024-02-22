@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjects } from "../../../store/actions/project";
-import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
-import Swal from "sweetalert2";
+import { Table, Space, Input, Form } from "antd";
+// import Swal from "sweetalert2";
 
 const ViewProjects = () => {
   const { projects } = useSelector((state) => state.projects);
   const dispatch = useDispatch();
-  const [editingKey, setEditingKey] = useState("");
+  // const [editingKey, setEditingKey] = useState("");
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
 
-  const handleDelete = async (customers) => {};
+  // const handleDelete = async (customers) => {};
 
-  const edit = (record) => {};
+  // const edit = (record) => {};
 
-  const save = async (id) => {};
+  // const save = async (id) => {};
 
 
   const column = [

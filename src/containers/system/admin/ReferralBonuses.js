@@ -44,7 +44,7 @@ const EditTableCell = ({
 
 const ReferralBonuses = (project) => {
   const [form] = Form.useForm();
-  const [discountData, setDiscountData] = useState(null);
+  const [discountData, setDiscountData] = useState([]);
   const [editingKey, setEditingKey] = useState("");
   const navigate = useNavigate();
 
@@ -76,7 +76,7 @@ const ReferralBonuses = (project) => {
 
   const save = async (id) => {
     const row = await form.validateFields();
-    row.totalAmount = (actualRevenue * row.amount) / 100; ///////////////////////////////////////
+    // row.totalAmount = (actualRevenue * row.amount) / 100; //lưu hoa hồng
     console.log(row);
     const response = await apiEditDiscount(row);
     console.log(response);
@@ -181,16 +181,20 @@ const ReferralBonuses = (project) => {
             ) : (
               <span>
                 <Space>
-                  <Button onClick={() => edit(record)}>
-                    Thay đổi chiết khấu
-                  </Button>
-                  <Button
+                  {record.status !== "Đã xác nhận" && (
+                    <Button onClick={() => edit(record)}>
+                      Thay đổi chiết khấu
+                    </Button>
+                  )}
+                  {record.status !== "Chưa xác nhận" && (
+                    <Button
                     type="primary"
                     className="bg-blue-500"
                     onClick={() => payment(record.id)}
-                  >
+                    >
                     Thanh toán
                   </Button>
+                    )}
                 </Space>
               </span>
             )}
@@ -214,10 +218,51 @@ const ReferralBonuses = (project) => {
     };
   });
 
-  const confirm = async (discountData) => {
-    console.log(discountData);
-    // window.location.href = "/he-thong/ds-du-an";
+  const confirm = async () => {
+    try {
+      console.log(discountData);
+      // Tạo một mảng để giữ các promise từ việc gọi apiEditDiscount cho mỗi bản ghi
+      const updatePromises = discountData.map(async (record) => {
+        const updatedRecord = {
+          ...record,
+          totalAmount: (actualRevenue * record.amount) / 100,
+          status: "Đã xác nhận",
+        };
+
+        // Gọi apiEditDiscount cho từng bản ghi và trả về promise
+        return apiEditDiscount(updatedRecord);
+      });
+
+      // Sử dụng Promise.all để chờ tất cả các yêu cầu hoàn thành
+      const responses = await Promise.all(updatePromises);
+
+      // Kiểm tra từng phản hồi để đảm bảo không có lỗi
+      const failedUpdates = responses.filter(
+        (response) => response?.data.err !== 0
+      );
+
+      if (failedUpdates.length > 0) {
+        // Xử lý trường hợp một hoặc nhiều cập nhật không thành công
+        Swal.fire("Oops!", "Một hoặc nhiều cập nhật không thành công", "error");
+      } else {
+        // Cập nhật UI sau khi tất cả cập nhật thành công
+        setDiscountData(
+          discountData.map((record) => ({
+            ...record,
+            totalAmount: (actualRevenue * record.amount) / 100,
+          }))
+        );
+        Swal.fire("Done", "Xác nhận thành công", "success");
+      }
+    } catch (error) {
+      console.error("Error confirming discount:", error);
+      Swal.fire("Error", "Đã xảy ra lỗi khi xác nhận chiết khấu", "error");
+    }
   };
+  // Kiểm tra xem tất cả bản ghi có phải đều đã được xác nhận hay không
+  const allConfirmed = discountData.every(
+    (record) => record.status === "Đã xác nhận"
+  );
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl p-4 w-full text-start font-medium">
@@ -235,12 +280,14 @@ const ReferralBonuses = (project) => {
           dataSource={discountData}
           scroll={{ x: true }}
         />
-        <Button
-          className="w-20 mr-10 ml-auto bg-blue-600 hover:text-white text-white "
-          onClick={() => confirm(discountData)}
-        >
-          Xác nhận
-        </Button>
+        {!allConfirmed && (
+          <Button
+            className="w-20 mr-10 ml-auto bg-blue-600 hover:text-white text-white "
+            onClick={() => confirm(discountData)}
+          >
+            Xác nhận
+          </Button>
+        )}
       </Form>
     </div>
   );

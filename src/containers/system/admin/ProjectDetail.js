@@ -27,7 +27,9 @@ const ProjectDetail = () => {
   const [progress, setProgress] = useState([]);
 
   const project = projects.find((project) => project.id === projectId);
-  const [actualRevenue, setActualRevenue] = useState(project.actualRevenue);
+  const [actualRevenue, setActualRevenue] = useState(
+    project ? project.actualRevenue : ""
+  );
   const handleInputChange = (e) => {
     setPlayload({
       ...payload,
@@ -41,8 +43,8 @@ const ProjectDetail = () => {
         status: "Thành Công",
       });
       await apiPostDiscount({ projectId: projectId });
-      
-       dispatch(getAllProjects());
+
+      dispatch(getAllProjects());
     } catch (error) {
       console.log("Lỗi khi gọi API:", error);
     }
@@ -109,7 +111,7 @@ const ProjectDetail = () => {
       <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
         <div className="flex rounded-t-lg bg-top-color sm:px-2 w-full ">
           <div className="w-full font-bold text-3xl sm:text-center py-5 mt-10 text-center">
-            {project.name}
+            <div className="">{project?.name}</div>
           </div>
         </div>
         <div className="p-5">
@@ -123,13 +125,13 @@ const ProjectDetail = () => {
 
                 <div>
                   <div className="flex items-center my-1">
-                    <div className="">{project.customer.name}</div>
+                    <div className="">{project?.customer?.name}</div>
                   </div>
                   <div className="flex items-center my-1">
-                    <div>{project.customer.email}</div>
+                    <div>{project?.customer?.email}</div>
                   </div>
                   <div className="flex items-center my-1">
-                    <div>{project.customer.phone}</div>
+                    <div>{project?.customer?.phone}</div>
                   </div>
                   <div className="flex items-center my-1">
                     <div></div>
@@ -143,13 +145,13 @@ const ProjectDetail = () => {
                 <div className="border-2 w-20 border-top-color my-2"></div>
                 <div>
                   <div className="flex items-center my-1">
-                    <div>{project.user.name}</div>
+                    <div>{project?.user?.name}</div>
                   </div>
                   <div className="flex items-center my-1">
-                    <div>{project.user.email}</div>
+                    <div>{project?.user?.email}</div>
                   </div>
                   <div className="flex items-center my-1">
-                    <div>{project.user.phone}</div>
+                    <div>{project?.user?.phone}</div>
                   </div>
                 </div>
               </div>
@@ -161,7 +163,7 @@ const ProjectDetail = () => {
                   Mô tả
                 </h2>
                 <div className="border-2 w-20 border-top-color my-2"></div>
-                <p>{project.description}</p>
+                <p>{project?.description}</p>
               </div>
               <div className="py-3">
                 <h2 className="text-lg font-poppins font-bold text-top-color">
@@ -171,7 +173,7 @@ const ProjectDetail = () => {
                 <div className="flex flex-col">
                   <div className="flex flex-row gap-4">
                     <p className="w-20">Dự kiến:</p>
-                    <p className="">{project.expectedRevenue}</p>
+                    <p className="">{project?.expectedRevenue}</p>
                   </div>
                   <div className="flex flex-row gap-4">
                     <label className="w-20 my-auto">Thực lãnh:</label>
@@ -198,7 +200,10 @@ const ProjectDetail = () => {
                   Ngày nhận thông tin dự án
                 </h2>
                 <div className="border-2 w-20 border-top-color my-2"></div>
-                <p>{format(new Date(project.createdAt), "dd/MM/yyyy")}</p>
+                <p>
+                  {project?.createdAt &&
+                    format(new Date(project.createdAt), "dd/MM/yyyy")}
+                </p>
               </div>
               <div className="py-3">
                 <h2 className="text-lg font-poppins font-bold text-top-color">
@@ -258,22 +263,22 @@ const ProjectDetail = () => {
                         className="mt-1 p-2 border border-gray-300 rounded-md"
                       />
                     </div>
-                    {project.status !== "Thành Công" && (
-                    <div className="flex flex-row gap-2">
-                      <button
-                        onClick={handleSubmit}
-                        className="bg-blue-500 mt-6 text-white p-2 rounded-md"
-                      >
-                        Cập nhật
-                      </button>
-                      <button
-                        onClick={handleSuccess}
-                        className="bg-blue-500 mt-6 text-white p-2 rounded-md"
-                        disabled={project.status === "Thành Công"}
-                      >
-                        Hoàn thành
-                      </button>
-                    </div>
+                    {project?.status !== "Thành Công" && (
+                      <div className="flex flex-row gap-2">
+                        <button
+                          onClick={handleSubmit}
+                          className="bg-blue-500 mt-6 text-white p-2 rounded-md"
+                        >
+                          Cập nhật
+                        </button>
+                        <button
+                          onClick={handleSuccess}
+                          className="bg-blue-500 mt-6 text-white p-2 rounded-md"
+                          disabled={project?.status === "Thành Công"}
+                        >
+                          Hoàn thành
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -282,7 +287,7 @@ const ProjectDetail = () => {
           </div>
         </div>
       </div>
-      {project.status === "Thành Công" && (
+      {project?.status === "Thành Công" && (
         <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
           <ReferralBonuses project={project} />
         </div>

@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   apiGetPaymentStages,
   apiCreatePaymentStages,
+  apiDeletePaymentStages,
 } from "../../../services/payment";
 import { apiGetDiscountById } from "../../../services/project";
 import { Button as Button1 } from "../../../components";
-import { Table, Button, Popconfirm } from "antd";
+import { Table, Button, Popconfirm, Modal, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const PaymentPartner = () => {
   const [paymentStages, setPaymentStages] = useState(null);
@@ -18,6 +21,9 @@ const PaymentPartner = () => {
   const [existingStageNames, setExistingStageNames] = useState([]);
   const [discountData, setDiscountData] = useState(null);
   const [isInputEditable, setIsInputEditable] = useState(true);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [selectedStageId, setSelectedStageId] = useState(null);
+  const [imageData, setImageData] = useState(null);
 
   //lấy id từ link
   useEffect(() => {
@@ -25,17 +31,12 @@ const PaymentPartner = () => {
     const id = url.split("?")[1];
     setReferralBonusesId(id);
   }, []);
-  //hiện thông tin các giai đoạn
-  useEffect(() => {
-    fetchPaymentStages();
-  }, []);
 
   //lấy thông tin chiết khấu của partner
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await apiGetDiscountById(referralBonusesId);
-        console.log(response);
         setDiscountData(response.data.response);
       } catch (error) {
         console.error("Error fetching discount:", error);
@@ -60,9 +61,12 @@ const PaymentPartner = () => {
   //lấy thông tin các giai đoạn
   const fetchPaymentStages = async () => {
     try {
-      const paymentStagesData = await apiGetPaymentStages();
-      setPaymentStages(paymentStagesData.response);
-      const existingNames = paymentStagesData.response.map(
+      console.log(referralBonusesId);
+      const paymentStagesData = await apiGetPaymentStages(referralBonusesId);
+      setPaymentStages(paymentStagesData.data.response);
+      console.log(paymentStages);
+
+      const existingNames = paymentStagesData.data.response.map(
         (stage) => stage.description
       );
       setExistingStageNames(existingNames);
@@ -70,6 +74,12 @@ const PaymentPartner = () => {
       console.error("Error fetching payment stages:", error);
     }
   };
+  //hiện thông tin các giai đoạn
+  useEffect(() => {
+    if (referralBonusesId) {
+      fetchPaymentStages();
+    }
+  }, [referralBonusesId]);
   const handleCreateStage = () => {
     setIsPopupOpen(true);
   };
@@ -93,9 +103,6 @@ const PaymentPartner = () => {
       if (paymentStages) {
         totalPaid = paymentStages.reduce((acc, stage) => acc + stage.paid, 0);
       }
-      console.log(totalPaid);
-      console.log(totalAmount);
-      console.log(discountData[0].totalAmount);
       if (
         isInputEditable &&
         (totalAmount < 500000 ||
@@ -128,12 +135,27 @@ const PaymentPartner = () => {
   };
 
   // bảng từ đây
+  // hành động khi nhấn thanh toán
   const handlePayment = (record) => {
-    // Xử lý khi người dùng nhấn vào nút "Thanh toán"
+    console.log(record.id);
+    setSelectedStageId(record.id);
+    setIsPaymentModalOpen(true);
   };
-
-  const handleDelete = (record) => {
-    // Xử lý khi người dùng nhấn vào nút "Xóa"
+  // xác nhận thanh toán cập nhật ảnh xác minh
+  const handleConfirm = () => {
+    console.log(imageData);
+    console.log(selectedStageId);
+  };
+  //xóa giai đoạn
+  const handleDelete = async (record) => {
+    const response = await apiDeletePaymentStages(record.id);
+    if (response?.data.err === 0) {
+      Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {});
+      fetchPaymentStages();
+    } else {
+      alert(response.err);
+      Swal.fire("Oops!", "Xóa thông tin không thành công", "error");
+    }
   };
 
   const columns = [
@@ -149,6 +171,7 @@ const PaymentPartner = () => {
       dataIndex: "paid",
       key: "paid",
       sorter: (a, b) => a.paid - b.paid,
+      render: (paid) => formatCurrency(paid),
     },
     {
       title: "Hạn thanh toán",
@@ -156,6 +179,18 @@ const PaymentPartner = () => {
       key: "endDate",
       sorter: (a, b) => new Date(a.endDate) - new Date(b.endDate),
       render: (endDate) => moment(endDate).format("DD/MM/YYYY"),
+    },
+    {
+      title: "Minh chứng thanh toán",
+      dataIndex: "paymentProof",
+      key: "paymentProof",
+      render: (paymentProof, record) => {
+        if (record.status === "Chưa thanh toán") {
+          return "Chưa thanh toán";
+        } else {
+          return <img src={paymentProof} alt="Minh chứng thanh toán" />;
+        }
+      },
     },
     {
       title: "Trạng thái",
@@ -254,7 +289,33 @@ const PaymentPartner = () => {
           </div>
         )}
       </div>
-      <Table dataSource={paymentStages} columns={columns} />
+      <div>
+        <Table dataSource={paymentStages} columns={columns} />
+        <Modal
+          title="Chọn Minh Chứng Thanh Toán"
+          visible={isPaymentModalOpen}
+          onCancel={() => setIsPaymentModalOpen(false)}
+          footer={[
+            <Button key="confirm" type="default" onClick={handleConfirm}>
+              Xác nhận
+            </Button>,
+          ]}
+        >
+          <Upload
+            beforeUpload={(file) => {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                setImageData(event.target.result);
+              };
+              reader.readAsDataURL(file);
+              return false; // Ngăn chặn việc tự động upload khi chọn file
+            }}
+          >
+            <Button icon={<UploadOutlined />}>Chọn Hình Ảnh</Button>
+          </Upload>
+          ;
+        </Modal>
+      </div>
     </div>
   );
 };
