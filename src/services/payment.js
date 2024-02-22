@@ -15,7 +15,7 @@ export const apiCreatePaymentStages = async (payload) => {
 
 export const apiGetPaymentStages = async (referralBonusesId) => {
   try {
-      console.log(referralBonusesId);
+    console.log(referralBonusesId);
     const response = await axios({
       method: "get",
       url: `/api/v1/payment/get-payment/${referralBonusesId}`,
@@ -34,6 +34,22 @@ export const apiDeletePaymentStages = async (id) => {
       url: "/api/v1/payment/delete-payment-stages",
       data: {
         id: id,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiUpdatePaymentStages = async (payload) => {
+  console.log(payload);
+  try {
+    const response = await axios({
+      method: "put",
+      url: "/api/v1/payment/put-payment-stages",
+      data: {
+        payload,
       },
     });
     return response;

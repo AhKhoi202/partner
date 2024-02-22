@@ -3,6 +3,7 @@ import {
   apiGetPaymentStages,
   apiCreatePaymentStages,
   apiDeletePaymentStages,
+  apiUpdatePaymentStages,
 } from "../../../services/payment";
 import { apiGetDiscountById } from "../../../services/project";
 import { Button as Button1 } from "../../../components";
@@ -141,11 +142,50 @@ const PaymentPartner = () => {
     setSelectedStageId(record.id);
     setIsPaymentModalOpen(true);
   };
+
   // xác nhận thanh toán cập nhật ảnh xác minh
-  const handleConfirm = () => {
-    console.log(imageData);
-    console.log(selectedStageId);
+  const handleConfirm = async () => {
+    // Kiểm tra trước khi gửi
+    if (!selectedStageId || !imageData) {
+      Swal.fire("Thông báo","Vui lòng chọn hình ảnh trước khi xác nhận.","warning"
+      );
+      return;
+    }
+
+    // Chuẩn bị payload
+    const payload = {
+      id: selectedStageId,
+      paymentProof: imageData, // imageData đã được đọc và lưu dưới dạng base64 bởi FileReader
+    };
+    console.log(payload);
+    try {
+      // Gọi API để cập nhật
+      const response = await apiUpdatePaymentStages(payload);
+      console.log(response)
+      // Kiểm tra kết quả trả về từ API
+      if (response && response.data && response.data.err === 0) {
+        Swal.fire(
+          "Thành công","Minh chứng thanh toán đã được cập nhật.","success"
+        );
+        // Cập nhật lại danh sách các giai đoạn thanh toán
+        fetchPaymentStages();
+        // Đóng modal sau khi cập nhật thành công
+        setIsPaymentModalOpen(false);
+      } else {
+        // Xử lý khi có lỗi từ phía server hoặc do validation
+        Swal.fire(
+          "Lỗi","Có lỗi xảy ra khi cập nhật minh chứng thanh toán.","error"
+        );
+      }
+    } catch (error) {
+      // Xử lý lỗi từ API
+      console.error("Error updating payment stage:", error);
+      Swal.fire(
+        "Lỗi","Có lỗi xảy ra khi cập nhật minh chứng thanh toán.","error"
+      );
+    }
   };
+
   //xóa giai đoạn
   const handleDelete = async (record) => {
     const response = await apiDeletePaymentStages(record.id);
@@ -319,5 +359,6 @@ const PaymentPartner = () => {
     </div>
   );
 };
+
 
 export default PaymentPartner;
