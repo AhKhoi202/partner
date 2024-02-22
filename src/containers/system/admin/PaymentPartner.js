@@ -26,6 +26,9 @@ const PaymentPartner = () => {
   const [selectedStageId, setSelectedStageId] = useState(null);
   const [imageData, setImageData] = useState(null);
 
+  const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
+  const [imageViewerSrc, setImageViewerSrc] = useState("");
+
   //lấy id từ link
   useEffect(() => {
     const url = window.location.href;
@@ -147,25 +150,30 @@ const PaymentPartner = () => {
   const handleConfirm = async () => {
     // Kiểm tra trước khi gửi
     if (!selectedStageId || !imageData) {
-      Swal.fire("Thông báo","Vui lòng chọn hình ảnh trước khi xác nhận.","warning"
+      Swal.fire(
+        "Thông báo",
+        "Vui lòng chọn hình ảnh trước khi xác nhận.",
+        "warning"
       );
       return;
     }
-
     // Chuẩn bị payload
     const payload = {
       id: selectedStageId,
       paymentProof: imageData, // imageData đã được đọc và lưu dưới dạng base64 bởi FileReader
+      status: "Đã thanh toán",
     };
     console.log(payload);
     try {
       // Gọi API để cập nhật
       const response = await apiUpdatePaymentStages(payload);
-      console.log(response)
+      console.log(response);
       // Kiểm tra kết quả trả về từ API
       if (response && response.data && response.data.err === 0) {
         Swal.fire(
-          "Thành công","Minh chứng thanh toán đã được cập nhật.","success"
+          "Thành công",
+          "Minh chứng thanh toán đã được cập nhật.",
+          "success"
         );
         // Cập nhật lại danh sách các giai đoạn thanh toán
         fetchPaymentStages();
@@ -174,16 +182,26 @@ const PaymentPartner = () => {
       } else {
         // Xử lý khi có lỗi từ phía server hoặc do validation
         Swal.fire(
-          "Lỗi","Có lỗi xảy ra khi cập nhật minh chứng thanh toán.","error"
+          "Lỗi",
+          "Có lỗi xảy ra khi cập nhật minh chứng thanh toán.",
+          "error"
         );
       }
     } catch (error) {
       // Xử lý lỗi từ API
       console.error("Error updating payment stage:", error);
       Swal.fire(
-        "Lỗi","Có lỗi xảy ra khi cập nhật minh chứng thanh toán.","error"
+        "Lỗi",
+        "Có lỗi xảy ra khi cập nhật minh chứng thanh toán.",
+        "error"
       );
     }
+  };
+
+  // xử lý khi nhấn xem hình ảnh
+  const handleViewImage = (imageUrl) => {
+    setImageViewerSrc(imageUrl);
+    setIsImageViewerOpen(true);
   };
 
   //xóa giai đoạn
@@ -228,7 +246,16 @@ const PaymentPartner = () => {
         if (record.status === "Chưa thanh toán") {
           return "Chưa thanh toán";
         } else {
-          return <img src={paymentProof} alt="Minh chứng thanh toán" />;
+          return (
+            <Button
+              type="primary"
+              className="bg-blue-500"
+              onClick={() => handleViewImage(paymentProof)}
+            >
+              Xem hình ảnh
+            </Button>
+            // return <img src={paymentProof} alt="Minh chứng thanh toán" />;
+          );
         }
       },
     },
@@ -330,7 +357,11 @@ const PaymentPartner = () => {
         )}
       </div>
       <div>
-        <Table dataSource={paymentStages} columns={columns} />
+        <Table
+          dataSource={paymentStages}
+          columns={columns}
+          scroll={{ x: true }}
+        />
         <Modal
           title="Chọn Minh Chứng Thanh Toán"
           visible={isPaymentModalOpen}
@@ -355,10 +386,21 @@ const PaymentPartner = () => {
           </Upload>
           ;
         </Modal>
+        <Modal
+          title="Minh chứng thanh toán"
+          visible={isImageViewerOpen}
+          onCancel={() => setIsImageViewerOpen(false)}
+          footer={null} // Không hiển thị footer
+        >
+          <img
+            src={imageViewerSrc}
+            alt="Minh chứng thanh toán"
+            style={{ width: "100%" }}
+          />
+        </Modal>
       </div>
     </div>
   );
 };
-
 
 export default PaymentPartner;
