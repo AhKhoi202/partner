@@ -188,13 +188,13 @@ const ReferralBonuses = (project) => {
                   )}
                   {record.status !== "Chưa xác nhận" && (
                     <Button
-                    type="primary"
-                    className="bg-blue-500"
-                    onClick={() => payment(record.id)}
+                      type="primary"
+                      className="bg-blue-500"
+                      onClick={() => payment(record.id)}
                     >
-                    Thanh toán
-                  </Button>
-                    )}
+                      Thanh toán
+                    </Button>
+                  )}
                 </Space>
               </span>
             )}
@@ -219,6 +219,8 @@ const ReferralBonuses = (project) => {
   });
 
   const confirm = async () => {
+    navigate(`/he-thong/ds-du-an`);
+
     try {
       console.log(discountData);
       // Tạo một mảng để giữ các promise từ việc gọi apiEditDiscount cho mỗi bản ghi
@@ -228,19 +230,15 @@ const ReferralBonuses = (project) => {
           totalAmount: (actualRevenue * record.amount) / 100,
           status: "Đã xác nhận",
         };
-
         // Gọi apiEditDiscount cho từng bản ghi và trả về promise
         return apiEditDiscount(updatedRecord);
       });
-
       // Sử dụng Promise.all để chờ tất cả các yêu cầu hoàn thành
       const responses = await Promise.all(updatePromises);
-
       // Kiểm tra từng phản hồi để đảm bảo không có lỗi
       const failedUpdates = responses.filter(
         (response) => response?.data.err !== 0
       );
-
       if (failedUpdates.length > 0) {
         // Xử lý trường hợp một hoặc nhiều cập nhật không thành công
         Swal.fire("Oops!", "Một hoặc nhiều cập nhật không thành công", "error");

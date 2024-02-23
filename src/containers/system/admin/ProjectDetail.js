@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProjects } from "../../../store/actions/project";
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import {
   apiEditProject,
   apiGetProjectProgress,
@@ -10,6 +12,8 @@ import {
   apiPostProjectProgress,
 } from "../../../services";
 import ReferralBonuses from "./ReferralBonuses";
+import { formatCurrency } from "../../../ultils/formatCurrency";
+import { Modal, Button, Input, DatePicker } from "antd";
 
 const ProjectDetail = () => {
   const { currentData } = useSelector((state) => state.user);
@@ -25,25 +29,28 @@ const ProjectDetail = () => {
     projectId: projectId,
   });
   const [progress, setProgress] = useState([]);
-
   const project = projects.find((project) => project.id === projectId);
+  const navigate = useNavigate();
+
   const [actualRevenue, setActualRevenue] = useState(
     project ? project.actualRevenue : ""
   );
-  const handleInputChange = (e) => {
-    setPlayload({
-      ...payload,
-      [e.target.name]: e.target.value,
-    });
+  // hiện thị modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const handleUpdateProgress = () => {
+    setIsModalVisible(true);
   };
   const handleSuccess = async () => {
+    // Đóng Modal sau khi cập nhật thành công
+    setIsModalVisible(false);
+    navigate(`/he-thong/ds-du-an`);
     try {
       await apiEditProject({
         id: projectId,
+        // status: "Chưa giải quyết",
         status: "Thành Công",
       });
       await apiPostDiscount({ projectId: projectId });
-
       dispatch(getAllProjects());
     } catch (error) {
       console.log("Lỗi khi gọi API:", error);
@@ -54,28 +61,35 @@ const ProjectDetail = () => {
       id: projectId,
       actualRevenue: actualRevenue,
     });
-    console.log(actualRevenue);
+    // console.log(actualRevenue);
   };
   const handleSubmit = async () => {
+    if (!payload.updateDate || !payload.currentStage.trim()) {
+      alert("Vui lòng chọn ngày và nhập nội dung thực hiện");
+      return;
+    }
     try {
+       await apiEditProject({
+         id: projectId,
+         // status: "Chưa giải quyết",
+         status: "Đang triển khai",
+       });
       const response = await apiPostProjectProgress(payload);
-      console.log(response);
       if (response.data.err === 0) {
         const newProgress = {
           ...response.data.progress,
           updateDate: payload.updateDate,
           currentStage: payload.currentStage,
         };
-        // Cập nhật state progress với thông tin mới
         setProgress([...progress, newProgress]);
-        console.log(progress);
-        // Reset giá trị trong payload để sẵn sàng cho cập nhật tiếp theo
+        // Đóng Modal sau khi cập nhật thành công
+        setIsModalVisible(false);
+        // Reset payload nếu cần
         setPlayload({
           currentStage: "",
           updateDate: "",
           projectId: projectId,
         });
-        console.log(payload);
       } else {
         console.log("Cập nhật không thành công:", response.data.message);
       }
@@ -83,7 +97,6 @@ const ProjectDetail = () => {
       console.log("Lỗi khi gọi API:", error);
     }
   };
-  console.log(progress);
   useEffect(() => {
     if (!currentData || !currentData.id) {
       console.log(currentData.id);
@@ -101,13 +114,12 @@ const ProjectDetail = () => {
     };
     fetchProgress();
   }, [projectId]);
-
   useEffect(() => {
     dispatch(getAllProjects());
   }, [dispatch]);
-
+  console.log(progress);
   return (
-    <div className="bg-gray-100 flex flex-col gap-4 p-4">
+    <div className="bg-white flex flex-col gap-4 p-4">
       <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
         <div className="flex rounded-t-lg bg-top-color sm:px-2 w-full ">
           <div className="w-full font-bold text-3xl sm:text-center py-5 mt-10 text-center">
@@ -122,7 +134,6 @@ const ProjectDetail = () => {
                   Khách hàng
                 </h2>
                 <div className="border-2 w-20 border-top-color my-2"></div>
-
                 <div>
                   <div className="flex items-center my-1">
                     <div className="">{project?.customer?.name}</div>
@@ -173,14 +184,16 @@ const ProjectDetail = () => {
                 <div className="flex flex-col">
                   <div className="flex flex-row gap-4">
                     <p className="w-20">Dự kiến:</p>
-                    <p className="">{project?.expectedRevenue}</p>
+                    <p className="">
+                      {formatCurrency(project?.expectedRevenue)} vnđ
+                    </p>
                   </div>
                   <div className="flex flex-row gap-4">
                     <label className="w-20 my-auto">Thực lãnh:</label>
                     <input
                       type="text"
                       name="currentStage"
-                      value={actualRevenue}
+                      value={formatCurrency(actualRevenue)}
                       onChange={(e) => {
                         setActualRevenue(e.target.value);
                       }}
@@ -211,7 +224,7 @@ const ProjectDetail = () => {
                 </h2>
                 <div className="border-2 w-20 border-top-color my-2"></div>
                 <div className="flex flex-col">
-                  {progress ? (
+                  {progress && progress.length > 0 ? (
                     <>
                       {progress
                         .sort(
@@ -230,63 +243,66 @@ const ProjectDetail = () => {
                   ) : (
                     <p>Không có thông tin tiến độ dự án.</p>
                   )}
-                </div>
-              </div>
-              <div className="py-3">
-                <h2 className="text-lg font-poppins font-bold text-top-color">
-                  Cập nhật tiến độ dự án
-                </h2>
-                <div className="border-2 w-20 border-top-color my-2"></div>
-                <div className="flex flex-col">
-                  <div className="flex flex-col lg:flex-row">
-                    <div className="flex flex-col pr-5">
-                      <label className="block text-sm font-medium text-gray-700">
-                        Ngày thực hiện
-                      </label>
-                      <input
-                        type="date"
-                        name="updateDate"
-                        value={payload.updateDate}
-                        onChange={handleInputChange}
-                        className="w-52 mt-1 p-2 border border-gray-300 rounded-md"
-                      />
-                    </div>
-                    <div className="flex flex-col pr-5">
-                      <label className="block text-sm font-medium text-gray-700">
-                        Nội dung thực hiện
-                      </label>
-                      <input
-                        type="text"
-                        name="currentStage"
-                        value={payload.currentStage}
-                        onChange={handleInputChange}
-                        className="mt-1 p-2 border border-gray-300 rounded-md"
-                      />
-                    </div>
-                    {project?.status !== "Thành Công" && (
-                      <div className="flex flex-row gap-2">
-                        <button
-                          onClick={handleSubmit}
-                          className="bg-blue-500 mt-6 text-white p-2 rounded-md"
-                        >
-                          Cập nhật
-                        </button>
-                        <button
-                          onClick={handleSuccess}
-                          className="bg-blue-500 mt-6 text-white p-2 rounded-md"
-                          disabled={project?.status === "Thành Công"}
-                        >
-                          Hoàn thành
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  <button
+                    onClick={handleUpdateProgress}
+                    className="bg-blue-500 my-auto w-48 text-white p-2 rounded-md"
+                    disabled={project?.status === "Thành Công"}
+                  >
+                    Cập nhật tiến độ dự án
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Modal
+        title="Cập nhật tiến độ dự án"
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        footer={[
+          <Button
+            className="bg-blue-500"
+            key="submit"
+            type="primary"
+            onClick={handleSubmit}
+          >
+            Cập nhật
+          </Button>,
+          <Button
+            className="bg-blue-500"
+            key="complete"
+            type="primary"
+            onClick={handleSuccess}
+          >
+            Hoàn thành
+          </Button>,
+        ]}
+      >
+        <div>
+          <label>Ngày thực hiện:</label>
+          <DatePicker
+            format="YYYY-MM-DD"
+            value={
+              payload.updateDate
+                ? moment(payload.updateDate, "YYYY-MM-DD")
+                : null
+            }
+            onChange={(date, dateString) =>
+              setPlayload({ ...payload, updateDate: dateString })
+            }
+          />
+        </div>
+        <div>
+          <label>Nội dung thực hiện:</label>
+          <Input
+            value={payload.currentStage}
+            onChange={(e) =>
+              setPlayload({ ...payload, currentStage: e.target.value })
+            }
+          />
+        </div>
+      </Modal>
       {project?.status === "Thành Công" && (
         <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
           <ReferralBonuses project={project} />
