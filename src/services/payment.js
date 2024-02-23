@@ -15,12 +15,10 @@ export const apiCreatePaymentStages = async (payload) => {
 
 export const apiGetPaymentStages = async (referralBonusesId) => {
   try {
-    console.log(referralBonusesId);
     const response = await axios({
       method: "get",
       url: `/api/v1/payment/get-payment/${referralBonusesId}`,
     });
-    console.log(response);
     return response; // Trả về dữ liệu từ response
   } catch (error) {
     throw error;
@@ -43,7 +41,6 @@ export const apiDeletePaymentStages = async (id) => {
 };
 
 export const apiUpdatePaymentStages = async (payload) => {
-  console.log(payload);
   try {
     const response = await axios({
       method: "put",

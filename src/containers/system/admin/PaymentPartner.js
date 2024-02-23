@@ -11,6 +11,7 @@ import { Table, Button, Popconfirm, Modal, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
 import Swal from "sweetalert2";
+import { formatCurrency } from "../../../ultils/formatCurrency";
 
 const PaymentPartner = () => {
   const [paymentStages, setPaymentStages] = useState(null);
@@ -42,6 +43,8 @@ const PaymentPartner = () => {
       try {
         const response = await apiGetDiscountById(referralBonusesId);
         setDiscountData(response.data.response);
+        console.log(discountData);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching discount:", error);
       }
@@ -65,11 +68,8 @@ const PaymentPartner = () => {
   //lấy thông tin các giai đoạn
   const fetchPaymentStages = async () => {
     try {
-      console.log(referralBonusesId);
       const paymentStagesData = await apiGetPaymentStages(referralBonusesId);
       setPaymentStages(paymentStagesData.data.response);
-      console.log(paymentStages);
-
       const existingNames = paymentStagesData.data.response.map(
         (stage) => stage.description
       );
@@ -134,9 +134,7 @@ const PaymentPartner = () => {
       console.error("Error creating payment stage:", error);
     }
   };
-  const formatCurrency = (amount) => {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
+  
 
   // bảng từ đây
   // hành động khi nhấn thanh toán
@@ -270,31 +268,44 @@ const PaymentPartner = () => {
       key: "action",
       render: (text, record) => (
         <span>
-          <Button
-            type="primary"
-            className="bg-blue-500"
-            onClick={() => handlePayment(record)}
-          >
-            Thanh toán
-          </Button>
-          <Popconfirm
-            className="ml-2"
-            title="Bạn có chắc chắn muốn xóa?"
-            onConfirm={() => handleDelete(record)}
-            okButtonProps={{ type: "default" }}
-            cancelText="Không"
-          >
-            <Button type="primary" danger>
-              Xóa
+          {record.status === "Chưa thanh toán" && (
+            <Button
+              type="primary"
+              className="bg-blue-500"
+              onClick={() => handlePayment(record)}
+            >
+              Thanh toán
             </Button>
-          </Popconfirm>
+          )}
+          {record.status === "Chưa thanh toán" && (
+            <Popconfirm
+              className="ml-2"
+              title="Bạn có chắc chắn muốn xóa?"
+              onConfirm={() => handleDelete(record)}
+              okButtonProps={{ type: "default" }}
+              cancelText="Không"
+            >
+              <Button type="primary" danger>
+                Xóa
+              </Button>
+            </Popconfirm>
+          )}
         </span>
       ),
     },
   ];
+  console.log(discountData?.[0].user?.name);
   return (
     <div className="p-5">
       <div>
+        <div className="text-lg pb-4">
+          <p>Tên partner: {discountData?.[0].user.name}</p>
+          <p>
+            Tổng tiền thanh toán:{" "}
+            {formatCurrency(discountData?.[0].totalAmount)} vnđ
+          </p>
+        </div>
+
         <Button1
           text="Tạo giai đoạn"
           bgColor="bg-blue-600"
@@ -361,6 +372,8 @@ const PaymentPartner = () => {
           dataSource={paymentStages}
           columns={columns}
           scroll={{ x: true }}
+          locale={{ emptyText: "Chưa có quá trình thanh toán" }}
+          rowClassName={getRowClassName}
         />
         <Modal
           title="Chọn Minh Chứng Thanh Toán"
@@ -381,6 +394,7 @@ const PaymentPartner = () => {
               reader.readAsDataURL(file);
               return false; // Ngăn chặn việc tự động upload khi chọn file
             }}
+            maxCount={1} // Chỉ cho phép chọn một hình ảnh
           >
             <Button icon={<UploadOutlined />}>Chọn Hình Ảnh</Button>
           </Upload>
@@ -402,5 +416,10 @@ const PaymentPartner = () => {
     </div>
   );
 };
-
+const getRowClassName = (record) => {
+  if (record.status === "Đã thanh toán") {
+    return { backgroundColor: "#d0f0c0" };
+  }
+  return "";
+};
 export default PaymentPartner;
