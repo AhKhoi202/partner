@@ -26,6 +26,7 @@ export const apiUpdateUser = async (payload) => {
 };
 
 export const apiCreateCustomers = async (payload) => {
+  console.log(payload)
   try {
     const response = await axios({
       method: "post",

@@ -292,7 +292,9 @@ const PaymentPartner = () => {
     },
   ];
 
-  console.log(paymentProject);
+  // Tính tổng thanh toán của các giai đoạn
+  const totalPaid =
+    paymentProject?.reduce((acc, stage) => acc + Number(stage.pay), 0) || 0;
   return (
     <div className="p-5">
       <div>
@@ -304,12 +306,15 @@ const PaymentPartner = () => {
           </p>
         </div>
 
-        <Button1
-          text="Tạo giai đoạn"
-          bgColor="bg-blue-600"
-          textColor="text-white"
-          onClick={handleCreatePayment}
-        />
+        {/* Hiển thị nút "Tạo giai đoạn" nếu tổng thanh toán nhỏ hơn tổng tiền thanh toán dự kiến */}
+        {totalPaid < projectData?.actualRevenue && (
+          <Button1
+            text="Tạo giai đoạn"
+            bgColor="bg-blue-600"
+            textColor="text-white"
+            onClick={handleCreatePayment}
+          />
+        )}
         {isPopupOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div className="relative bg-white p-8 rounded-lg shadow-lg">

@@ -57,11 +57,12 @@ const ProjectDetail = () => {
     }
   };
   const handleSubmitActualRevenue = async () => {
-    await apiEditProject({
+    const res = await apiEditProject({
       id: projectId,
       actualRevenue: actualRevenue,
     });
-    // console.log(actualRevenue);
+    console.log(actualRevenue);
+    console.log(res);
   };
   const handleSubmit = async () => {
     if (!payload.updateDate || !payload.currentStage.trim()) {
@@ -193,7 +194,7 @@ const ProjectDetail = () => {
                     <input
                       type="text"
                       name="currentStage"
-                      value={formatCurrency(actualRevenue)}
+                      value={(actualRevenue)}
                       onChange={(e) => {
                         setActualRevenue(e.target.value);
                       }}

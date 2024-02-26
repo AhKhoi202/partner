@@ -293,7 +293,8 @@ const PaymentPartner = () => {
       ),
     },
   ];
-  console.log(discountData?.[0].user?.name);
+  const totalPaid =
+    paymentStages?.reduce((acc, stage) => acc + Number(stage.paid), 0) || 0;
   return (
     <div className="p-5">
       <div>
@@ -304,13 +305,14 @@ const PaymentPartner = () => {
             {formatCurrency(discountData?.[0].totalAmount)} vnđ
           </p>
         </div>
-
-        <Button1
-          text="Tạo giai đoạn"
-          bgColor="bg-blue-600"
-          textColor="text-white"
-          onClick={handleCreateStage}
-        />
+        {totalPaid < discountData?.[0].totalAmount && (
+          <Button1
+            text="Tạo giai đoạn"
+            bgColor="bg-blue-600"
+            textColor="text-white"
+            onClick={handleCreateStage}
+          />
+        )}
         {isPopupOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div className="relative bg-white p-8 rounded-lg shadow-lg">
