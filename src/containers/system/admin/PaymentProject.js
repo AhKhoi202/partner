@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  apiGetPaymentStages,
-  apiCreatePaymentStages,
-  apiDeletePaymentStages,
-  apiUpdatePaymentStages,
+  apiGetPaymentProject,
+  apiCreatePaymentProject,
+  apiDeletePaymentProject,
+  apiUpdatePaymentProject,
 } from "../../../services/payment";
-import { apiGetDiscountById } from "../../../services/project";
+import { apiGetProjectsById } from "../../../services/project";
 import { Button as Button1 } from "../../../components";
 import { Table, Button, Popconfirm, Modal, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
@@ -14,14 +14,14 @@ import Swal from "sweetalert2";
 import { formatCurrency } from "../../../ultils/formatCurrency";
 
 const PaymentPartner = () => {
-  const [paymentStages, setPaymentStages] = useState(null);
+  const [paymentProject, setPaymentProject] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [stageName, setStageName] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [referralBonusesId, setReferralBonusesId] = useState("");
+  const [projectId, setProjectId] = useState("");
   const [existingStageNames, setExistingStageNames] = useState([]);
-  const [discountData, setDiscountData] = useState(null);
+  const [projectData, setProjectData] = useState(null);
   const [isInputEditable, setIsInputEditable] = useState(true);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedStageId, setSelectedStageId] = useState(null);
@@ -34,57 +34,56 @@ const PaymentPartner = () => {
   useEffect(() => {
     const url = window.location.href;
     const id = url.split("?")[1];
-    setReferralBonusesId(id);
+    setProjectId(id);
   }, []);
-
-  //lấy thông tin chiết khấu của partner
+  //lấy thông dự án
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiGetDiscountById(referralBonusesId);
-        setDiscountData(response.data.response);
-        console.log(discountData);
-        console.log(response);
+        const response = await apiGetProjectsById(projectId);
+        setProjectData(response.data.project);
       } catch (error) {
         console.error("Error fetching discount:", error);
       }
     };
     fetchData();
-  }, [referralBonusesId, discountData]);
+  }, [projectId]);
+
+  //kiểm tra và cập nhật totalAmount và isInputEditable nhập số tiền khi tạo giai đoạn
   useEffect(() => {
-    //kiểm tra và cập nhật totalAmount và isInputEditable
     let totalPaid = 0;
-    if (paymentStages) {
-      totalPaid = paymentStages.reduce((acc, stage) => acc + stage.paid, 0);
+    if (paymentProject) {
+      totalPaid = paymentProject.reduce((acc, stage) => acc + stage.pay, 0);
     }
-    const remainingAmount = discountData?.[0]?.totalAmount - totalPaid;
+    const remainingAmount = projectData?.actualRevenue - totalPaid;
     if (remainingAmount <= 1000000) {
       setTotalAmount(remainingAmount);
       setIsInputEditable(false); // Không cho phép chỉnh sửa nếu điều kiện đúng
     } else {
       setIsInputEditable(true); // Cho phép chỉnh sửa nếu điều kiện không đúng
     }
-  }, [paymentStages, discountData]);
+  }, [paymentProject, projectData]);
   //lấy thông tin các giai đoạn
-  const fetchPaymentStages = useCallback(async () => {
+  const fetchPaymentStages = async () => {
     try {
-      const paymentStagesData = await apiGetPaymentStages(referralBonusesId);
-      setPaymentStages(paymentStagesData.data.response);
+      const paymentStagesData = await apiGetPaymentProject(projectId);
+      console.log(paymentStagesData);
+      setPaymentProject(paymentStagesData.data.response);
       const existingNames = paymentStagesData.data.response.map(
-        (stage) => stage.description
+        (stage) => stage.name
       );
       setExistingStageNames(existingNames);
     } catch (error) {
       console.error("Error fetching payment stages:", error);
     }
-  }, [referralBonusesId]);
+  };
   //hiện thông tin các giai đoạn
   useEffect(() => {
-    if (referralBonusesId) {
+    if (projectId) {
       fetchPaymentStages();
     }
-  }, [referralBonusesId, fetchPaymentStages]);
-  const handleCreateStage = () => {
+  }, [projectId]);
+  const handleCreatePayment = () => {
     setIsPopupOpen(true);
   };
   const handleClosePopup = () => {
@@ -95,7 +94,6 @@ const PaymentPartner = () => {
   };
   const handleTotalAmountChange = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // Loại bỏ tất cả các ký tự không phải số
-
     setTotalAmount(value);
   };
   const handleDueDateChange = (e) => {
@@ -104,28 +102,27 @@ const PaymentPartner = () => {
   const handleSubmit = async () => {
     try {
       let totalPaid = 0;
-      if (paymentStages) {
-        totalPaid = paymentStages.reduce((acc, stage) => acc + stage.paid, 0);
+      if (paymentProject) {
+        totalPaid = paymentProject.reduce((acc, stage) => acc + stage.pay, 0);
       }
       if (
-        isInputEditable &&
-        (totalAmount < 500000 ||
-          totalAmount > discountData[0].totalAmount - totalPaid)
+        // isInputEditable &&
+        totalAmount < 500000 ||
+        totalAmount > projectData?.actualRevenue - totalPaid
       ) {
         // Hiển thị thông báo lỗi hoặc xử lý khi giá trị không hợp lệ
         alert(
           `Số tiền phải lớn hơn 500k và nhỏ hơn ${
-            discountData[0].totalAmount - totalPaid
+            projectData.actualRevenue - totalPaid
           }.`
         );
         return;
       }
-      const response = await apiCreatePaymentStages({
-        referralBonusesId,
-        totalAmount,
-        paid: totalAmount, // Giả sử tổng tiền đã thanh toán bằng tổng tiền
-        description: stageName,
-        endDate: dueDate,
+      const response = await apiCreatePaymentProject({
+        projectId,
+        pay: totalAmount, // Giả sử tổng tiền đã thanh toán bằng tổng tiền
+        name: stageName,
+        paymentDeadline: dueDate,
       });
       fetchPaymentStages();
       setIsPopupOpen(false);
@@ -138,7 +135,6 @@ const PaymentPartner = () => {
   // bảng từ đây
   // hành động khi nhấn thanh toán
   const handlePayment = (record) => {
-    console.log(record.id);
     setSelectedStageId(record.id);
     setIsPaymentModalOpen(true);
   };
@@ -157,13 +153,13 @@ const PaymentPartner = () => {
     // Chuẩn bị payload
     const payload = {
       id: selectedStageId,
-      paymentProof: imageData, // imageData đã được đọc và lưu dưới dạng base64 bởi FileReader
+      proofImage: imageData, // imageData đã được đọc và lưu dưới dạng base64 bởi FileReader
       status: "Đã thanh toán",
     };
     console.log(payload);
     try {
       // Gọi API để cập nhật
-      const response = await apiUpdatePaymentStages(payload);
+      const response = await apiUpdatePaymentProject(payload);
       console.log(response);
       // Kiểm tra kết quả trả về từ API
       if (response && response.data && response.data.err === 0) {
@@ -176,6 +172,7 @@ const PaymentPartner = () => {
         fetchPaymentStages();
         // Đóng modal sau khi cập nhật thành công
         setIsPaymentModalOpen(false);
+        setImageData(null);
       } else {
         // Xử lý khi có lỗi từ phía server hoặc do validation
         Swal.fire(
@@ -203,7 +200,7 @@ const PaymentPartner = () => {
 
   //xóa giai đoạn
   const handleDelete = async (record) => {
-    const response = await apiDeletePaymentStages(record.id);
+    const response = await apiDeletePaymentProject(record.id);
     if (response?.data.err === 0) {
       Swal.fire("Done", "Xóa thông tin thành công", "success").then(() => {});
       fetchPaymentStages();
@@ -216,30 +213,31 @@ const PaymentPartner = () => {
   const columns = [
     {
       title: "Tên",
-      dataIndex: "description",
-      key: "description",
-      sorter: (a, b) => a.description.localeCompare(b.description),
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {
       title: "Thanh toán",
-      dataIndex: "paid",
-      key: "paid",
-      sorter: (a, b) => a.paid - b.paid,
-      render: (paid) => formatCurrency(paid),
+      dataIndex: "pay",
+      key: "pay",
+      sorter: (a, b) => a.pay - b.pay,
+      render: (pay) => formatCurrency(pay),
     },
     {
       title: "Hạn thanh toán",
-      dataIndex: "endDate",
-      key: "endDate",
-      sorter: (a, b) => new Date(a.endDate) - new Date(b.endDate),
-      render: (endDate) => moment(endDate).format("DD/MM/YYYY"),
+      dataIndex: "paymentDeadline",
+      key: "paymentDeadline",
+      sorter: (a, b) =>
+        new Date(a.paymentDeadline) - new Date(b.paymentDeadline),
+      render: (paymentDeadline) => moment(paymentDeadline).format("DD/MM/YYYY"),
     },
     {
       title: "Minh chứng thanh toán",
-      dataIndex: "paymentProof",
-      key: "paymentProof",
-      render: (paymentProof, record) => {
+      dataIndex: "proofImage",
+      key: "proofImage",
+      render: (proofImage, record) => {
         if (record.status === "Chưa thanh toán") {
           return "Chưa thanh toán";
         } else {
@@ -247,7 +245,7 @@ const PaymentPartner = () => {
             <Button
               type="primary"
               className="bg-blue-500"
-              onClick={() => handleViewImage(paymentProof)}
+              onClick={() => handleViewImage(proofImage)}
             >
               Xem hình ảnh
             </Button>
@@ -293,15 +291,16 @@ const PaymentPartner = () => {
       ),
     },
   ];
-  console.log(discountData?.[0].user?.name);
+
+  console.log(paymentProject);
   return (
     <div className="p-5">
       <div>
         <div className="text-lg pb-4">
-          <p>Tên partner: {discountData?.[0].user?.name}</p>
+          <p>Tên dự án: {projectData?.name}</p>
           <p>
-            Tổng tiền thanh toán:{" "}
-            {formatCurrency(discountData?.[0].totalAmount)} vnđ
+            Tổng tiền thanh toán: {formatCurrency(projectData?.actualRevenue)}
+            vnđ
           </p>
         </div>
 
@@ -309,7 +308,7 @@ const PaymentPartner = () => {
           text="Tạo giai đoạn"
           bgColor="bg-blue-600"
           textColor="text-white"
-          onClick={handleCreateStage}
+          onClick={handleCreatePayment}
         />
         {isPopupOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
@@ -340,7 +339,6 @@ const PaymentPartner = () => {
                     return null;
                   })}
                 </select>
-
                 <label>Số tiền</label>
                 <input
                   type="text"
@@ -368,7 +366,7 @@ const PaymentPartner = () => {
       </div>
       <div>
         <Table
-          dataSource={paymentStages}
+          dataSource={paymentProject}
           columns={columns}
           scroll={{ x: true }}
           locale={{ emptyText: "Chưa có quá trình thanh toán" }}

@@ -22,7 +22,10 @@ const ListProjects = () => {
     console.log(id);
     navigate(`/he-thong/chi-tiet-du-an?projectId=${id}`);
   };
-
+const payment = async (id) => {
+  console.log(id);
+  navigate(`/he-thong/payment-project?${id}`);
+};
   const column = [
     {
       key: "name",
@@ -103,7 +106,13 @@ const ListProjects = () => {
             >
               Chi tiết
             </Button>
-            
+            <Button
+              type="primary"
+              className="bg-blue-500"
+              onClick={() => payment(record.id)}
+            >
+              Thanh toán
+            </Button>
           </Space>
         ) : null;
       },

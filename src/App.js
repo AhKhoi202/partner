@@ -1,19 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import {
-  Home,
-  ResetPassword,
-  ForgotPassword,
-} from "./containers/public";
-import {
-  System,
-  EditAccount,
-  ListCustomers,
-} from "./containers/system";
+import { Home, ResetPassword, ForgotPassword } from "./containers/public";
+import { System, EditAccount, ListCustomers } from "./containers/system";
 import {
   AllCustomers,
   ListPartner,
   ListProjects,
   PaymentPartner,
+  PaymentProject,
   ProjectDetail,
 } from "./containers/system/admin";
 import {
@@ -62,6 +55,7 @@ function App() {
           <Route path={path.LIST_PROJECTS} element={<ListProjects />} />
           <Route path={path.PROJECTS_DETAIL} element={<ProjectDetail />} />
           <Route path={path.PAYMENT_PARTNER} element={<PaymentPartner />} />
+          <Route path={path.PAYMENT_PROJECT} element={<PaymentProject />} />
         </Route>
       </Routes>
     </div>

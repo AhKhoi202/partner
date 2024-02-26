@@ -25,7 +25,18 @@ export const apiGetCustomerById = async (customerId) => {
   }
 };
 
-export const apiGetProjectsById = async () => {
+export const apiGetProjectsById = async (projectId) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `/api/v1/project/get-project/${projectId}`,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const apiGetProjectsByUser = async () => {
   try {
     const response = await axios({
       method: "get",

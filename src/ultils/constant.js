@@ -19,4 +19,5 @@ export const path = {
   PROJECTS_DETAIL: "chi-tiet-du-an",
   LIST_ALLCUSTOMERS: "ds-tat-ca-khach-hang",
   PAYMENT_PARTNER: "payment-partner",
+  PAYMENT_PROJECT: "payment-project",
 };
