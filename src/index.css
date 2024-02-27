@@ -9,10 +9,19 @@
 .row-odd {
   background-color: #f0f0f0;
 }
-.red {
-  background-color: #ff0000;
-}
 
 .custom-table .ant-table-thead > tr > th {
-  background-color: #3071b9; /* Màu nền của bạn */
+  background-color: rgba(59, 130, 246, 2); /* Màu nền của bạn */
+  height: 20px; /* Thay đổi kích thước hàng tại đây */
+  line-height: 20px; /* Đảm bảo lineHeight tương ứng với height */
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  padding: 0 5px;
+  margin: auto;
+  height: 60px; /* Thay đổi kích thước hàng tại đây */
+  line-height: 40px; /* Đảm bảo lineHeight tương ứng với height */
+}
+.custom-table .ant-table-tbody > tr > td > div {
+  margin: auto;
 }

@@ -296,7 +296,7 @@ const PaymentPartner = () => {
   const totalPaid =
     paymentProject?.reduce((acc, stage) => acc + Number(stage.pay), 0) || 0;
   return (
-    <div className="p-5">
+    <div className="w-full h-full flex flex-col xl:p-4 p-5">
       <div>
         <div className="text-lg pb-4">
           <p>Tên dự án: {projectData?.name}</p>
@@ -378,7 +378,7 @@ const PaymentPartner = () => {
           rowClassName={(record, index) =>
             index % 2 === 0 ? "row-even" : "row-odd"
           }
-          className="custom-table bg-white"
+          className="py-2 xl:px-2 rounded-xl custom-table bg-white mt-6"
         />
         <Modal
           title="Chọn Minh Chứng Thanh Toán"

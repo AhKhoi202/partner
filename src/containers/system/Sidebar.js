@@ -80,7 +80,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between border-t-2">
+      <div className="flex justify-between border-t-2 pt-4">
         <div className="flex">
           <img
             src={anonAvatar}

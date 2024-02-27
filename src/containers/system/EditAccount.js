@@ -36,11 +36,11 @@ const EditAccount = () => {
   console.log(currentData);
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-3xl pl-4 w-full text-start font-medium py-4 border-b border-gray-200">
+    <div className="flex flex-col items-center ">
+      <h1 className="text-3xl pl-4 w-full text-start font-medium py-4 border-b border-gray-200 ">
         Sửa thông tin cá nhân
       </h1>
-      <div className="w-3/5 flex items-center justify-center flex-auto">
+      <div className="w-3/5 flex items-center justify-center flex-auto bg-white p-6">
         <div className="py-6 flex flex-col gap-4 w-full">
           <InputReadOnly
             value={currentData?.id?.match(/\d/g).join("")?.slice(0, 6) || ""}
@@ -102,7 +102,7 @@ const EditAccount = () => {
           <Button
             text="Cập nhật"
             bgColor="bg-blue-600"
-            textColor="text-white"
+            textColor="text-white mx-auto "
             onClick={handleSubmit}
           />
         </div>

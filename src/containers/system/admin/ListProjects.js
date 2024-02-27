@@ -147,7 +147,7 @@ const ListProjects = () => {
           rowClassName={(record, index) =>
             index % 2 === 0 ? "row-even" : "row-odd"
           }
-          className="rounded-xl max-w-full h-full custom-table bg-white"
+          className="py-2 xl:px-2 rounded-xl max-w-full h-full custom-table bg-white"
           columns={column}
           dataSource={filteredProjects}
           bordered

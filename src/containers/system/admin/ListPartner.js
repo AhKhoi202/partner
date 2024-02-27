@@ -239,7 +239,11 @@ const ListPartner = () => {
           rowClassName={(record, index) =>
             index % 2 === 0 ? "row-even" : "row-odd"
           }
-          className="py-4 xl:px-4 px-0 rounded-xl h-full custom-table bg-white"
+          rowStyle={(record, index) => ({
+            height: "20px", // Thay đổi kích thước hàng tại đây
+            lineHeight: "20px", // Đảm bảo lineHeight tương ứng với height
+          })}
+          className="py-2 xl:px-2 px-0 rounded-xl h-full custom-table custom-row bg-white"
           columns={mergedColumns}
           dataSource={filteredUsers}
           bordered

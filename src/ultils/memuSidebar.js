@@ -5,7 +5,7 @@ const { LuUserCog } = icons;
 const memuSidebar = [
   {
     id: 1,
-    text: "Sửa thông tin cá nhân",
+    text: "Thông tin cá nhân",
     path: "/he-thong/sua-thong-tin-ca-nhan",
     icon: <LuUserCog />,
   },

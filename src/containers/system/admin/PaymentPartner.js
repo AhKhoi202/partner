@@ -377,7 +377,7 @@ const PaymentPartner = () => {
           rowClassName={(record, index) =>
             index % 2 === 0 ? "row-even" : "row-odd"
           }
-          className="custom-table bg-white"
+          className="py-2 xl:px-2 rounded-xl custom-table bg-white"
         />
         <Modal
           title="Chọn Minh Chứng Thanh Toán"
