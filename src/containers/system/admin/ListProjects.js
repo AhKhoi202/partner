@@ -4,7 +4,6 @@ import { getAllProjects } from "../../../store/actions/project";
 import { Table, Button, Space, Input, Form } from "antd";
 import { useNavigate } from "react-router-dom";
 
-
 const ListProjects = () => {
   const { projects } = useSelector((state) => state.allProjects);
   const dispatch = useDispatch();
@@ -22,10 +21,10 @@ const ListProjects = () => {
     console.log(id);
     navigate(`/he-thong/chi-tiet-du-an?projectId=${id}`);
   };
-const payment = async (id) => {
-  console.log(id);
-  navigate(`/he-thong/payment-project?${id}`);
-};
+  const payment = async (id) => {
+    console.log(id);
+    navigate(`/he-thong/payment-project?${id}`);
+  };
   const column = [
     {
       key: "name",
@@ -125,7 +124,9 @@ const payment = async (id) => {
   const filteredProjects = searchText
     ? projects.filter((project) =>
         Object.values(project).some((value) =>
-          value.toString().toLowerCase().includes(searchText.toLowerCase())
+          (value?.toString() ?? "")
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
         )
       )
     : projects;

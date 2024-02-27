@@ -44,11 +44,15 @@ const ProjectDetail = () => {
     // Đóng Modal sau khi cập nhật thành công
     setIsModalVisible(false);
     navigate(`/he-thong/ds-du-an`);
+    // Lấy ngày tháng hiện tại
+    const currentDate = moment().format("YYYY-MM-DD");
+    console.log(currentDate)
     try {
       await apiEditProject({
         id: projectId,
         // status: "Chưa giải quyết",
         status: "Thành Công",
+        endDate:currentDate
       });
       await apiPostDiscount({ projectId: projectId });
       dispatch(getAllProjects());

@@ -4,19 +4,19 @@ const { FiUsers, AiOutlineUsergroupAdd } = icons;
 const menuSidebarAdmin = [
   {
     id: 1,
-    text: "Danh sách partner",
+    text: "Partner",
     path: "/he-thong/ds-partner",
     icon: <AiOutlineUsergroupAdd />,
   },
   {
     id: 2,
-    text: "DS toàn bộ khách hàng ",
+    text: "Khách hàng ",
     path: "/he-thong/ds-tat-ca-khach-hang",
     icon: <FiUsers />,
   },
   {
     id: 3,
-    text: "DS dự án",
+    text: "Dự án",
     path: "/he-thong/ds-du-an",
     icon: <FiUsers />,
   },

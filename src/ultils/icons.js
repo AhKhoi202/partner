@@ -4,7 +4,7 @@ import {
   AiOutlineUsergroupAdd,
 } from "react-icons/ai";
 import { BiUserPin } from 'react-icons/bi'
-import { MdOutlineLibraryBooks } from 'react-icons/md'
+import { MdOutlineLibraryBooks, MdLogout } from "react-icons/md";
 import { FiUser, FiUsers } from "react-icons/fi";
 import { LuUserCog } from "react-icons/lu";
 import { FaAngleLeft } from "react-icons/fa";
@@ -20,6 +20,7 @@ const icons = {
   AiOutlineUsergroupAdd,
   LuUserCog,
   FaAngleLeft,
+  MdLogout,
 };
 
 export default icons
