@@ -236,7 +236,10 @@ const ListPartner = () => {
               cell: EditTableCell,
             },
           }}
-          className="py-4 xl:px-4 px-0 rounded-xl h-full"
+          rowClassName={(record, index) =>
+            index % 2 === 0 ? "row-even" : "row-odd"
+          }
+          className="py-4 xl:px-4 px-0 rounded-xl h-full custom-table bg-white"
           columns={mergedColumns}
           dataSource={filteredUsers}
           bordered

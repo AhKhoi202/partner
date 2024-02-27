@@ -12,7 +12,7 @@ const AllCustomers = () => {
   const { currentData } = useSelector((state) => state.user);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
-  console.log(customers)
+  console.log(customers);
 
   useEffect(() => {
     dispatch(getAllCustomers());
@@ -210,7 +210,7 @@ const AllCustomers = () => {
       }),
     };
   });
-  
+
   if (currentData.roleId !== "r1") {
     return <div>Không có quyền truy cập</div>;
   }
@@ -224,7 +224,7 @@ const AllCustomers = () => {
     : customers;
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
-      <h1 className="text-3xl pl-4 w-full text-start font-medium">
+      <h1 className="text-3xl pb-4 w-full text-start font-medium">
         Danh sách tất cả các khách hàng
       </h1>
       <Space className=" justify-end pb-4">
@@ -234,7 +234,7 @@ const AllCustomers = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </Space>
-      <Form form={form} component={false}>
+      <Form className="" form={form} component={false}>
         <Table
           components={{
             body: {
@@ -242,17 +242,14 @@ const AllCustomers = () => {
             },
           }}
           rowClassName={(record, index) =>
-            index % 2 === 0
-              ? { backgroundColor: "#ff0000" }
-              : { backgroundColor: "#e0e0e0" }
+            index % 2 === 0 ? "row-even" : "row-odd"
           }
-          className="rounded-xl max-w-full h-full"
+          className="rounded-xl max-w-full h-full custom-table bg-white"
           columns={mergedColumns}
           dataSource={filteredCustomers}
           bordered
           scroll={{ x: true }}
-          tableStyle={{ backgroundColor: "#0000FF" }}
-          headerStyle={{ backgroundColor: "#FF0000", color: "#FFFFFF" }}
+          headerStyle={"red"}
         />
       </Form>
     </div>

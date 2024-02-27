@@ -16,9 +16,9 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const { FaAngleLeft, MdLogout } = icons;
   const activeStyle =
-    "hover:bg-cyan-400 flex rounded-md items-center gap-2 py-2 font-bold bg-cyan-400";
+    "hover:bg-[#f4f4f4] flex rounded-md items-center gap-2 py-2 font-bold bg-[#f4f4f4]";
   const notActiceStyle =
-    "hover:bg-cyan-400 flex rounded-md items-center gap-2 py-2 cursor-pointer";
+    "hover:bg-[#f4f4f4] flex rounded-md items-center gap-2 py-2 cursor-pointer";
   const { currentData } = useSelector((state) => state.user);
 
   return (

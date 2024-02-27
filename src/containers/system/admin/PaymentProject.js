@@ -375,7 +375,10 @@ const PaymentPartner = () => {
           columns={columns}
           scroll={{ x: true }}
           locale={{ emptyText: "Chưa có quá trình thanh toán" }}
-          rowClassName={getRowClassName}
+          rowClassName={(record, index) =>
+            index % 2 === 0 ? "row-even" : "row-odd"
+          }
+          className="custom-table bg-white"
         />
         <Modal
           title="Chọn Minh Chứng Thanh Toán"
@@ -418,10 +421,5 @@ const PaymentPartner = () => {
     </div>
   );
 };
-const getRowClassName = (record) => {
-  if (record.status === "Đã thanh toán") {
-    return { backgroundColor: "#d0f0c0" };
-  }
-  return "";
-};
+
 export default PaymentPartner;

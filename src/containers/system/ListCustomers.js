@@ -4,14 +4,14 @@ import { getCustomers } from "../../store/actions/user";
 import { Table, Popconfirm, Button, Space, Input, Form } from "antd";
 import Swal from "sweetalert2";
 import { apiDeleteCustomers, apiEditCustomers } from "../../services";
-
+import "../../index.css";
 const ListCustomers = () => {
   const { customers } = useSelector((state) => state.customer);
   const dispatch = useDispatch();
   const [editingKey, setEditingKey] = useState("");
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
-  console.log(customers)
+  console.log(customers);
   useEffect(() => {
     dispatch(getCustomers());
   }, [dispatch]);
@@ -44,7 +44,7 @@ const ListCustomers = () => {
       edit(false);
       Swal.fire("Done", "Chỉnh sửa thông tin thành công", "success").then(
         () => {
-           dispatch(getCustomers());
+          dispatch(getCustomers());
         }
       );
     } else {
@@ -202,13 +202,13 @@ const ListCustomers = () => {
       }),
     };
   });
-const filteredCustomers = searchText
-  ? customers.filter((customer) =>
-      Object.values(customer).some((value) =>
-        value.toString().toLowerCase().includes(searchText.toLowerCase())
+  const filteredCustomers = searchText
+    ? customers.filter((customer) =>
+        Object.values(customer).some((value) =>
+          value.toString().toLowerCase().includes(searchText.toLowerCase())
+        )
       )
-    )
-  : customers;
+    : customers;
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-xl pl-4 w-full text-start font-medium">
@@ -228,7 +228,10 @@ const filteredCustomers = searchText
               cell: EditTableCell,
             },
           }}
-          className="py-4 xl:px-4 px-0 rounded-xl h-full"
+          rowClassName={(record, index) =>
+            index % 2 === 0 ? "row-even" : "row-odd"
+          }
+          className="py-4 xl:px-4 px-0 rounded-xl h-full custom-table bg-white"
           columns={mergedColumns}
           dataSource={filteredCustomers}
           bordered
