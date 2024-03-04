@@ -5,3 +5,4 @@ export { default as ProjectDetail } from "./ProjectDetail";
 export { default as ReferralBonuses } from "./ReferralBonuses";
 export { default as PaymentPartner } from "./PaymentPartner";
 export { default as PaymentProject } from "./PaymentProject";
+export { default as RevenueStatistics } from "./RevenueStatistics";

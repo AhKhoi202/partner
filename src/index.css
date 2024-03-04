@@ -25,3 +25,12 @@
 .custom-table .ant-table-tbody > tr > td > div {
   margin: auto;
 }
+
+.sidebar-fixed {
+  position: fixed;
+  top: 0; /* Đặt cố định ở đầu trang */
+  left: 0; /* Đặt cố định ở bên trái */
+  width: 250px; /* Giả sử chiều rộng của Sidebar là 250px */
+  height: 100%; /* Đặt chiều cao bằng với chiều cao của viewport */
+  overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+}

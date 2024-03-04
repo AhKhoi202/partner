@@ -22,48 +22,32 @@ const Sidebar = () => {
   const { currentData } = useSelector((state) => state.user);
 
   return (
-    <div
-      className={`${
-        open ? "w-1/6" : "sm:w-20 w-14"
-      } h-full min-w-14 pt-8 sm:p-2 p-1 relative duration-300 bg-white flex flex-col justify-between`}
-    >
-      <FaAngleLeft
-        className={`text-3xl absolute cursor-pointer -right-3 top-9 w-7 ${
-          !open && "rotate-180"
-        } hidden sm:inline`}
-        onClick={() => setOpen(!open)}
-      />
-      <div className="flex-1">
-        <div>
-          <NavLink
-            className={"flex items-center space-x-3 rtl:space-x-reverse"}
-            to={path.HOME}
-          >
-            <img
-              src={open ? logo192 : logo193}
-              className={`mx-auto ${open ? "h-20" : "h-14 p-2"}`}
-              alt="Flowbite Logo"
-            />
-          </NavLink>
-        </div>
-        <div className="flex flex-col justify-between flex-1">
+    <div className={`${open ? "w-1/6" : "sm:w-20 w-14"}`}>
+      <div
+        className={` h-screen  min-w-14 pt-8 sm:p-2 p-1 relative bg-white flex flex-col justify-between`}
+      >
+        <FaAngleLeft
+          className={`text-3xl absolute cursor-pointer -right-3 top-9 w-7 ${
+            !open && "rotate-180"
+          } hidden sm:inline`}
+          onClick={() => setOpen(!open)}
+        />
+        <div className="flex-1">
           <div>
-            {menuSidebar.map((item) => (
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : notActiceStyle
-                }
-                key={item.id}
-                to={item.path}
-              >
-                <span className={`${open ? "text-2xl" : "text-2xl m-auto"}`}>
-                  {item.icon}
-                </span>
-                <span className={`${!open && "hidden"}`}>{item.text}</span>
-              </NavLink>
-            ))}
-            {currentData.roleId === "r1" &&
-              menuSidebarAdmin.map((item) => (
+            <NavLink
+              className={"flex items-center space-x-3 rtl:space-x-reverse"}
+              to={path.HOME}
+            >
+              <img
+                src={open ? logo192 : logo193}
+                className={`mx-auto ${open ? "h-20" : "h-14 p-2"}`}
+                alt="Flowbite Logo"
+              />
+            </NavLink>
+          </div>
+          <div className="flex flex-col justify-between flex-1">
+            <div>
+              {menuSidebar.map((item) => (
                 <NavLink
                   className={({ isActive }) =>
                     isActive ? activeStyle : notActiceStyle
@@ -71,35 +55,53 @@ const Sidebar = () => {
                   key={item.id}
                   to={item.path}
                 >
-                  <span className={`${open ? "text-2xl" : "text-2xl  m-auto"}`}>
+                  <span className={`${open ? "text-2xl" : "text-2xl m-auto"}`}>
                     {item.icon}
                   </span>
                   <span className={`${!open && "hidden"}`}>{item.text}</span>
                 </NavLink>
               ))}
+              {currentData.roleId === "r1" &&
+                menuSidebarAdmin.map((item) => (
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : notActiceStyle
+                    }
+                    key={item.id}
+                    to={item.path}
+                  >
+                    <span
+                      className={`${open ? "text-2xl" : "text-2xl  m-auto"}`}
+                    >
+                      {item.icon}
+                    </span>
+                    <span className={`${!open && "hidden"}`}>{item.text}</span>
+                  </NavLink>
+                ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-between border-t-2 pt-4">
-        <div className="flex">
-          <img
-            src={anonAvatar}
-            alt="avatar"
-            className="w-12 h-12 object-cover rounded-full border-2 border-white"
+        <div className="flex justify-between border-t-2 pt-4">
+          <div className="flex">
+            <img
+              src={anonAvatar}
+              alt="avatar"
+              className="w-12 h-12 object-cover rounded-full border-2 border-white"
+            />
+            <div className={`pl-2 flex flex-col ${!open ? "hidden" : ""}`}>
+              <span className="font-semibold">{currentData?.name}</span>
+              <span>
+                <small>{currentData?.phone}</small>
+              </span>
+            </div>
+          </div>
+          <MdLogout
+            onClick={() => {
+              dispatch(actions.logout());
+            }}
+            className={` ${!open ? "hidden" : ""} text-xl my-auto`}
           />
-          <div className={`pl-2 flex flex-col ${!open ? "hidden" : ""}`}>
-            <span className="font-semibold">{currentData?.name}</span>
-            <span>
-              <small>{currentData?.phone}</small>
-            </span>
-          </div>
         </div>
-        <MdLogout
-          onClick={() => {
-            dispatch(actions.logout());
-          }}
-          className={` ${!open ? "hidden" : ""} text-xl my-auto`}
-        />
       </div>
     </div>
   );

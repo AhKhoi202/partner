@@ -8,6 +8,7 @@ import {
   PaymentPartner,
   PaymentProject,
   ProjectDetail,
+  RevenueStatistics,
 } from "./containers/system/admin";
 import {
   ListCustomer,
@@ -56,6 +57,7 @@ function App() {
           <Route path={path.PROJECTS_DETAIL} element={<ProjectDetail />} />
           <Route path={path.PAYMENT_PARTNER} element={<PaymentPartner />} />
           <Route path={path.PAYMENT_PROJECT} element={<PaymentProject />} />
+          <Route path={path.STATISTICS} element={<RevenueStatistics />} />
         </Route>
       </Routes>
     </div>

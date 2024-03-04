@@ -46,13 +46,13 @@ const ProjectDetail = () => {
     navigate(`/he-thong/ds-du-an`);
     // Lấy ngày tháng hiện tại
     const currentDate = moment().format("YYYY-MM-DD");
-    console.log(currentDate)
+    console.log(currentDate);
     try {
       await apiEditProject({
         id: projectId,
         // status: "Chưa giải quyết",
         status: "Thành Công",
-        endDate:currentDate
+        endDate: currentDate,
       });
       await apiPostDiscount({ projectId: projectId });
       dispatch(getAllProjects());
@@ -74,11 +74,11 @@ const ProjectDetail = () => {
       return;
     }
     try {
-       await apiEditProject({
-         id: projectId,
-         // status: "Chưa giải quyết",
-         status: "Đang triển khai",
-       });
+      await apiEditProject({
+        id: projectId,
+        // status: "Chưa giải quyết",
+        status: "Đang triển khai",
+      });
       const response = await apiPostProjectProgress(payload);
       if (response.data.err === 0) {
         const newProgress = {
@@ -124,7 +124,7 @@ const ProjectDetail = () => {
   }, [dispatch]);
   console.log(progress);
   return (
-    <div className="bg-white flex flex-col gap-4 p-4">
+    <div className=" flex flex-col gap-4 p-4">
       <div className="border-1 shadow-lg shadow-gray-700 rounded-lg">
         <div className="flex rounded-t-lg bg-top-color sm:px-2 w-full ">
           <div className="w-full font-bold text-3xl sm:text-center py-5 mt-10 text-center">
@@ -198,7 +198,7 @@ const ProjectDetail = () => {
                     <input
                       type="text"
                       name="currentStage"
-                      value={(actualRevenue)}
+                      value={actualRevenue}
                       onChange={(e) => {
                         setActualRevenue(e.target.value);
                       }}
