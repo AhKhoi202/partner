@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import anonAvatar from "../../assets/anon-avatar.png";
 import { useSelector } from "react-redux";
-import menuSidebarAdmin from "../../ultils/menuSidebarAdmin";
+import menuSidebar from "../../ultils/memuSidebar";
 import { NavLink } from "react-router-dom";
 import icons from "../../ultils/icons";
 import logo192 from "../../assets/logo192.png";
@@ -46,23 +46,20 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col justify-between flex-1">
             <div>
-              {currentData.roleId === "r1" &&
-                menuSidebarAdmin.map((item) => (
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive ? activeStyle : notActiceStyle
-                    }
-                    key={item.id}
-                    to={item.path}
-                  >
-                    <span
-                      className={`${open ? "text-2xl" : "text-2xl  m-auto"}`}
-                    >
-                      {item.icon}
-                    </span>
-                    <span className={`${!open && "hidden"}`}>{item.text}</span>
-                  </NavLink>
-                ))}
+              {menuSidebar.map((item) => (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : notActiceStyle
+                  }
+                  key={item.id}
+                  to={item.path}
+                >
+                  <span className={`${open ? "text-2xl" : "text-2xl m-auto"}`}>
+                    {item.icon}
+                  </span>
+                  <span className={`${!open && "hidden"}`}>{item.text}</span>
+                </NavLink>
+              ))}
             </div>
           </div>
         </div>

@@ -43,7 +43,7 @@ const RevenueStatistics = () => {
           }
         });
         setMonthlyRevenue(preparedData);
-        setYearlyRevenue(progressResponse.data.yearlyRevenue.data);
+        setYearlyRevenue(progressResponse?.data?.yearlyRevenue?.data);
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
       }

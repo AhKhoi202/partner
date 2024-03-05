@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Home, ResetPassword, ForgotPassword } from "./containers/public";
-import { System, EditAccount, ListCustomers } from "./containers/system";
+import { System, ListCustomers } from "./containers/system";
+import { Profile, EditAccount } from "./containers/profile";
 import {
   AllCustomers,
   ListPartner,
@@ -49,7 +50,6 @@ function App() {
         </Route>
 
         <Route path={path.SYSTEM} element={<System />}>
-          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
           <Route path={path.LIST_CUSTOMERS} element={<ListCustomers />} />
           <Route path={path.LIST_ALLCUSTOMERS} element={<AllCustomers />} />
           <Route path={path.LIST_PARTNER} element={<ListPartner />} />
@@ -58,6 +58,10 @@ function App() {
           <Route path={path.PAYMENT_PARTNER} element={<PaymentPartner />} />
           <Route path={path.PAYMENT_PROJECT} element={<PaymentProject />} />
           <Route path={path.STATISTICS} element={<RevenueStatistics />} />
+        </Route>
+
+        <Route path={path.PROFILE} element={<Profile />}>
+          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
         </Route>
       </Routes>
     </div>

@@ -159,6 +159,7 @@ const PaymentPartner = () => {
       id: selectedStageId,
       paymentProof: imageData, // imageData đã được đọc và lưu dưới dạng base64 bởi FileReader
       status: "Đã thanh toán",
+      paymentDate: new Date().toISOString(), // Thêm trường paymentDate là thời gian hiện tại
     };
     console.log(payload);
     try {

@@ -21,4 +21,6 @@ export const path = {
   PAYMENT_PARTNER: "payment-partner",
   PAYMENT_PROJECT: "payment-project",
   STATISTICS: "statistics",
+
+  PROFILE: "profile"
 };

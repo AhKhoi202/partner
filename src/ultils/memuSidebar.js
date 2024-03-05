@@ -6,7 +6,7 @@ const memuSidebar = [
   {
     id: 1,
     text: "Thông tin cá nhân",
-    path: "/he-thong/sua-thong-tin-ca-nhan",
+    path: "/profile/sua-thong-tin-ca-nhan",
     icon: <LuUserCog />,
   },
   // {
@@ -17,4 +17,4 @@ const memuSidebar = [
   // },
 ];
 
-export default memuSidebar
+export default memuSidebar;

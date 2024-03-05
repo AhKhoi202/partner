@@ -1,6 +1,6 @@
-import icons from './icons'
+import icons from "./icons";
 
-const { FiUsers, AiOutlineUsergroupAdd } = icons;
+const { FiUsers, AiOutlineUsergroupAdd, FcStatistics } = icons;
 const menuSidebarAdmin = [
   {
     id: 1,
@@ -20,6 +20,12 @@ const menuSidebarAdmin = [
     path: "/he-thong/ds-du-an",
     icon: <FiUsers />,
   },
+  {
+    id: 4,
+    text: "Thống kê",
+    path: "/he-thong/statistics",
+    icon: <FcStatistics />,
+  },
 ];
 
-export default menuSidebarAdmin
+export default menuSidebarAdmin;
