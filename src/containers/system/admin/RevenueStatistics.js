@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   Cell,
+  ResponsiveContainer,
 } from "recharts";
 import { formatCurrency } from "../../../ultils/formatCurrency";
 import { Select } from "antd";
@@ -49,7 +50,7 @@ const RevenueStatistics = () => {
       }
     };
     fetchProgress();
-  }, [isLoggedIn]);
+  }, [selectedYear]);
   const COLORS = [
     "#0088FE",
     "#00C49F",
@@ -95,7 +96,7 @@ const RevenueStatistics = () => {
   }, [selectedMonth, selectedYear]);
   console.log(paymentInfo);
   return (
-    <div className="h-full m-8 ">
+    <div className="h-full  md:mx-4 my-8">
       <div className="flex text-xl p-2">
         <h1 className="pr-2">Thống kê</h1>
         <Select
@@ -111,8 +112,8 @@ const RevenueStatistics = () => {
           ))}
         </Select>
       </div>
-      <div className="flex">
-        <div className="w-1/2  px-2 ">
+      <div className="flex flex-col md:flex-row">
+        <div className="w-full md:w-1/2  p-2 ">
           <div className="flex mb-2 p-2 bg-white">
             <h1 className="pr-2"> Danh sách hóa đơn nhận tiền theo tháng</h1>{" "}
             <Select
@@ -129,35 +130,45 @@ const RevenueStatistics = () => {
             </Select>
           </div>
 
-          {paymentInfo.map((payment, index) => (
-            <div className="mb-2 p-2 bg-white" key={index}>
-              <h1>Tên dự án: {payment.project.name}</h1>
-              <p>Ngày nhận: {moment(payment.updatedAt).format("DD/MM/YYYY")}</p>
-              <p>Số tiền: {formatCurrency(payment.pay)}</p>
-              <p>Trạng thái dự án: {payment.project.status}</p>
+          {paymentInfo.length === 0 ? (
+            <div className="mb-2 p-2 bg-white">
+              <p>Không có hóa đơn</p>
             </div>
-          ))}
+          ) : (
+            paymentInfo.map((payment, index) => (
+              <div className="mb-2 p-2 bg-white" key={index}>
+                <h1>Tên dự án: {payment.project.name}</h1>
+                <p>
+                  Ngày nhận: {moment(payment.updatedAt).format("DD/MM/YYYY")}
+                </p>
+                <p>Số tiền: {formatCurrency(payment.pay)}</p>
+                <p>Trạng thái dự án: {payment.project.status}</p>
+              </div>
+            ))
+          )}
         </div>
-        <div className="w-1/2 ml-2 p-2 bg-white">
+        <div className="w-full md:w-1/2 m-2 p-2 bg-white">
           <h1>
             {" "}
             Biểu đồ doanh thu từng tháng trong năm {selectedYear} với tổng thu
             nhập {formatCurrency(yearlyRevenue[0]?.totalPay)} vnđ
           </h1>
-          <BarChart width={600} height={300} data={monthlyRevenue}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <Tooltip formatter={(value) => formatCurrency(value)} />
-            <Legend />
-            <Bar dataKey="totalPay" name="Theo tháng">
-              {monthlyRevenue.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Bar>
-          </BarChart>
+          <ResponsiveContainer width="100%" height={500}>
+            <BarChart data={monthlyRevenue}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <Tooltip formatter={(value) => formatCurrency(value)} />
+              <Legend />
+              <Bar dataKey="totalPay" name="Tháng">
+                {monthlyRevenue.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
