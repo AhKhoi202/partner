@@ -22,8 +22,14 @@ const menuSidebarAdmin = [
   },
   {
     id: 4,
-    text: "Thống kê",
-    path: "/he-thong/statistics",
+    text: "Thống kê dự án",
+    path: "/he-thong/revenue-statistics",
+    icon: <FcStatistics />,
+  },
+  {
+    id: 5,
+    text: "Thống kê partner",
+    path: "/he-thong/paid-statistics",
     icon: <FcStatistics />,
   },
 ];

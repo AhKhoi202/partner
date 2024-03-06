@@ -10,6 +10,7 @@ import {
   PaymentProject,
   ProjectDetail,
   RevenueStatistics,
+  PaidStatistics,
 } from "./containers/system/admin";
 import {
   ListCustomer,
@@ -57,7 +58,11 @@ function App() {
           <Route path={path.PROJECTS_DETAIL} element={<ProjectDetail />} />
           <Route path={path.PAYMENT_PARTNER} element={<PaymentPartner />} />
           <Route path={path.PAYMENT_PROJECT} element={<PaymentProject />} />
-          <Route path={path.STATISTICS} element={<RevenueStatistics />} />
+          <Route
+            path={path.REVENUE_STATISTICS}
+            element={<RevenueStatistics />}
+          />
+          <Route path={path.PAID_STATISTICS} element={<PaidStatistics />} />
         </Route>
 
         <Route path={path.PROFILE} element={<Profile />}>
