@@ -13,14 +13,6 @@ const ViewProjects = () => {
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
-
-  // const handleDelete = async (customers) => {};
-
-  // const edit = (record) => {};
-
-  // const save = async (id) => {};
-
-
   const column = [
     {
       key: "name",
@@ -29,9 +21,7 @@ const ViewProjects = () => {
       align: "center",
       edittable: true,
       sorter: (a, b) => a.customer.name.localeCompare(b.customer.name),
-      render: (text, record) => (
-        <span>{record.customer.name}</span>
-      ),
+      render: (text, record) => <span>{record.customer.name}</span>,
     },
     {
       key: "companyName",
@@ -41,9 +31,7 @@ const ViewProjects = () => {
       edittable: true,
       sorter: (a, b) =>
         a.customer.companyName.localeCompare(b.customer.companyName),
-      render: (text, record) => (
-        <span>{record.customer.companyName }</span>
-      ),
+      render: (text, record) => <span>{record.customer.companyName}</span>,
     },
     {
       key: "phone",
@@ -52,9 +40,7 @@ const ViewProjects = () => {
       align: "center",
       edittable: true,
       sorter: (a, b) => a.customer.phone.localeCompare(b.customer.phone),
-      render: (text, record) => (
-        <span>{ record.customer.phone}</span>
-      ),
+      render: (text, record) => <span>{record.customer.phone}</span>,
     },
     {
       key: "email",
@@ -137,8 +123,6 @@ const ViewProjects = () => {
     // },
   ];
 
-
-
   const filteredCustomers = searchText
     ? projects.filter(
         (project) =>
@@ -148,7 +132,8 @@ const ViewProjects = () => {
           (project.customer &&
             Object.values(project.customer).some((customerValue) =>
               String(customerValue)
-                .toLowerCase().includes(searchText.toLowerCase())
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
             ))
       )
     : projects;
@@ -156,18 +141,17 @@ const ViewProjects = () => {
   return (
     <div className="w-full h-full flex flex-col xl:p-4 p-2">
       <h1 className="text-3xl pl-4 w-full text-start font-medium">
-        Danh sách tất cả các khách hàng
+        Danh sách các dự án
       </h1>
       <Space className=" justify-end pb-4">
         <Input
-          placeholder="Tìm kiếm khách hàng"
+          placeholder="Tìm kiếm dự án"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
       </Space>
       <Form form={form} component={false}>
         <Table
-          
           className="py-4 xl:px-4 px-0 rounded-xl h-full"
           columns={column}
           dataSource={filteredCustomers}

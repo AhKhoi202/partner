@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home, ResetPassword, ForgotPassword } from "./containers/public";
 import { System, ListCustomers } from "./containers/system";
 import { Profile, EditAccount } from "./containers/profile";
+import KinhBet from "./containers/kinhBet/KinhBet";
 import {
   AllCustomers,
   ListPartner,
@@ -33,8 +34,9 @@ function App() {
     }, 1000);
   }, [dispatch, isLoggedIn]);
   return (
-    <div className="bg-white">
+    <div className="bg-gray-300">
       <Routes>
+        <Route path={path.KINGBET} element={<KinhBet />} />
         <Route path={path.HOME} element={<Home />}>
           <Route path="*" element={<Homepage />} />
           <Route path={path.LOGIN} element={<Login />} />

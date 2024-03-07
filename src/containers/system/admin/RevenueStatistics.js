@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { apiGetStatistics, getPaymentProjectByMonth } from "../../../services";
 import {
   BarChart,
@@ -20,7 +19,6 @@ const RevenueStatistics = () => {
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
   const [yearlyRevenue, setYearlyRevenue] = useState([]);
   const [paymentInfo, setPaymentInfo] = useState([]);
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear()); // Năm mặc định là năm hiện tại
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1); // Tháng mặc định là tháng hiện tại
 

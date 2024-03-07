@@ -63,6 +63,7 @@ const PaymentPartner = () => {
       setIsInputEditable(true); // Cho phép chỉnh sửa nếu điều kiện không đúng
     }
   }, [paymentProject, projectData]);
+  
   //lấy thông tin các giai đoạn
   const fetchPaymentStages = async () => {
     try {

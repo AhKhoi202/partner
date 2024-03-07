@@ -1,4 +1,6 @@
 export const path = {
+  KINGBET:"kingbet",
+
   HOME: "/*",
   FORGOTPASSWORD: "forgot-password",
   RESETPASSWORD: "reset-password/*",
