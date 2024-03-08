@@ -27,7 +27,30 @@ const KinhBet = () => {
         money: "",
       },
     },
-    // Thêm dữ liệu cho các sự kiện khác ở đây nếu muốn
+{
+      id: 2,
+      time: "Tomorrow • 9:10 AM",
+      team1: {
+        name: "Raptors",
+        score: "39",
+        logo: "https://media.itsfogo.com/media/upload/prod/participants/7/57f4209a.svg",
+        spread: "+10.5",
+        spread1: "1.87",
+        total: "232.5",
+        total1: "2.5",
+        money: "4.60",
+      },
+      team2: {
+        name: "Suns",
+        score: "36",
+        logo: "https://media.itsfogo.com/media/upload/prod/participants/7/3a84aa69.svg",
+        spread: "+10.5",
+        spread1: "1.87",
+        total: "232.5",
+        total1: "2.5",
+        money: "",
+      },
+    },    // Thêm dữ liệu cho các sự kiện khác ở đây nếu muốn
   ];
   return (
     <div className="w-4/5 mx-auto pt-8 bg-white h-screen">
